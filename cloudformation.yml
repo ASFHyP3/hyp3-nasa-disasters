@@ -48,8 +48,8 @@ Resources:
           - Effect: Allow
             Principal: "*"
             Action:
-            - s3:ListBucket
-            - s3:GetBucketLocation
+              - s3:ListBucket
+              - s3:GetBucketLocation
             Resource: !GetAtt ContentBucket.Arn
           - Effect: Allow
             Principal: "*"
@@ -67,8 +67,8 @@ Resources:
               - Effect: Allow
                 Action: s3:PutObject
                 Resource:
-                - !Sub "${ContentBucket.Arn}/esri/*"
-                - !Sub "${LogBucket.Arn}/esri/*"
+                  - !Sub "${ContentBucket.Arn}/esri/*"
+                  - !Sub "${LogBucket.Arn}/esri/*"
 
   AccessKey:
     Type: AWS::IAM::AccessKey
