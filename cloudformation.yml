@@ -1,0 +1,131 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+
+  EsriRootUserArn:
+    Type: String
+
+Resources:
+
+  LogBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${AWS::StackName}-logs"
+      AccessControl: LogDeliveryWrite
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        IgnorePublicAcls: True
+        BlockPublicPolicy: True
+        RestrictPublicBuckets: True
+
+  ContentBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref AWS::StackName
+      LoggingConfiguration:
+        DestinationBucketName: !Ref LogBucket
+        LogFilePrefix: s3-access-logs/content-bucket/
+      LifecycleConfiguration:
+        Rules:
+          - Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1
+      MetricsConfigurations:
+        - Id: EntireBucket
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        IgnorePublicAcls: True
+        BlockPublicPolicy: False
+        RestrictPublicBuckets: False
+
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ContentBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action:
+            - s3:ListBucket
+            - s3:GetBucketLocation
+            Resource: !GetAtt ContentBucket.Arn
+          - Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "${ContentBucket.Arn}/*"
+
+  User:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        - PolicyName: policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: s3:PutObject
+                Resource:
+                - !Sub "${ContentBucket.Arn}/esri/*"
+                - !Sub "${LogBucket.Arn}/esri/*"
+
+  AccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref User
+
+  KmsKey:
+    Type: AWS::KMS::Key
+    Properties:
+      KeyPolicy:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action: kms:*
+            Resource: "*"
+          - Effect: Allow
+            Principal:
+              AWS: !Ref EsriRootUserArn
+            Action:
+              - kms:ReEncrypt*
+              - kms:GenerateDataKey*
+              - kms:Encrypt
+              - kms:DescribeKey
+              - kms:Decrypt
+            Resource: "*"
+
+  KmsAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      TargetKeyId: !Ref KmsKey
+      AliasName: !Sub "alias/${AWS::StackName}"
+
+  Secret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      KmsKeyId: !Ref KmsKey
+      SecretString: !Sub |-
+        {
+          "aws_access_key_id": "${AccessKey}",
+          "aws_secret_access_key": "${AccessKey.SecretAccessKey}"
+        }
+
+  ResourcePolicy:
+    Type: AWS::SecretsManager::ResourcePolicy
+    Properties:
+      SecretId: !Ref Secret
+      ResourcePolicy:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Ref EsriRootUserArn
+            Action:
+              - secretsmanager:ListSecrets
+              - secretsmanager:ListSecretVersionIds
+              - secretsmanager:GetSecretValue
+              - secretsmanager:DescribeSecret
+            Resource: "*"
