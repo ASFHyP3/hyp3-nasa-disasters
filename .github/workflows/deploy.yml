@@ -1,0 +1,40 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  STACK_NAME: hyp3-nasa-disasters
+  AWS_REGION: us-west-2
+  TEMPLATE_FILE: cloudformation.yml
+
+  AWS_ACCESS_KEY_ID: ${{ secrets.V2_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.V2_AWS_SECRET_ACCESS_KEY }}
+  CLOUDFORMATION_ROLE_ARN: ${{ secrets.CLOUDFORMATION_ROLE_ARN }}
+  ESRI_ROOT_USER_ARN: ${{ secrets.ESRI_ROOT_USER_ARN }}
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TOOLS_BOT_PAK }}
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy
+        run: aws cloudformation deploy \
+               --stack-name ${STACK_NAME} \
+               --template-file ${TEMPLATE_FILE} \
+               --role-arn ${CLOUDFORMATION_ROLE_ARN} \
+               --capabilities CAPABILITY_IAM \
+               --parameter-overrides EsriRootUserArn="${ESRI_ROOT_USER_ARN}"
