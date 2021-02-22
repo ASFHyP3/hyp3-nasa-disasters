@@ -32,9 +32,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy
-        run: aws cloudformation deploy \
-               --stack-name ${STACK_NAME} \
-               --template-file ${TEMPLATE_FILE} \
-               --role-arn ${CLOUDFORMATION_ROLE_ARN} \
-               --capabilities CAPABILITY_IAM \
-               --parameter-overrides EsriRootUserArn="${ESRI_ROOT_USER_ARN}"
+        run: |
+          aws cloudformation deploy \
+            --stack-name ${STACK_NAME} \
+            --template-file ${TEMPLATE_FILE} \
+            --role-arn ${CLOUDFORMATION_ROLE_ARN} \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides EsriRootUserArn="${ESRI_ROOT_USER_ARN}"
