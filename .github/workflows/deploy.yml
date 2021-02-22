@@ -23,7 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           token: ${{ secrets.TOOLS_BOT_PAK }}
 
       - uses: aws-actions/configure-aws-credentials@v1
