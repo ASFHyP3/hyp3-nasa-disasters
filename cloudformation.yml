@@ -66,9 +66,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:PutObject
-                Resource:
-                  - !Sub "${ContentBucket.Arn}/esri/*"
-                  - !Sub "${LogBucket.Arn}/esri/*"
+                Resource: !Sub "${LogBucket.Arn}/esri/*"
 
   AccessKey:
     Type: AWS::IAM::AccessKey
