@@ -109,7 +109,7 @@ class UserCode:
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
-                                               "Tag"])  # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+                                               "Tag", "MaxPS"])  # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Name Values..', 0)
             for row in ds_cursor:
@@ -121,6 +121,7 @@ class UserCode:
                     lstTagField = TagField.split(',')
                     newNameField = GroupField + "_" + lstTagField[0] + ';' + GroupField + "_" + lstTagField[1]
                     row[0] = newNameField
+                    row[3] = 310
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(newNameField), 0)
                 except Exception as exp:
