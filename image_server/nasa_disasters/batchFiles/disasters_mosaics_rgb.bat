@@ -1,5 +1,5 @@
 set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe" 
-set mdcspath=C:\Image_Mgmt_Workflows\NASA-SAR\v2
+set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters
 set gdbwks=C:\Users\ASF\Documents\COVID19\Disasters\Esri\MosaicDatasets\missouri_disasters_mosaics.gdb
 
 REM ---------- Using ACS File -------------------------
