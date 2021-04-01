@@ -117,10 +117,13 @@ class UserCode:
                     ## NameField = row[0]
                     GroupField = row[1]
                     TagField = row[2]
+                    if (TagField is not None):
+                        TagField = "VV,VH"
                     ## lstNameField = NameField.split(';')
                     lstTagField = TagField.split(',')
                     newNameField = GroupField + "_" + lstTagField[0] + ';' + GroupField + "_" + lstTagField[1]
                     row[0] = newNameField
+                    row[2] = TagField
                     row[3] = 310
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(newNameField), 0)

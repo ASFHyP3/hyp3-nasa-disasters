@@ -43,7 +43,7 @@
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
         <default_mosaic_method>ByAttribute</default_mosaic_method>
-        <Order_field>Date</Order_field>
+        <order_field>Date</order_field>
         <order_base>1/1/2050 12:00:00 AM</order_base>
         <sorting_order>Ascending</sorting_order>
         <mosaic_operator>FIRST</mosaic_operator>
@@ -104,8 +104,8 @@
       </CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
-          <do_compute_min>MIN_CELL_SIZES</do_compute_min>
-          <do_compute_max>MAX_CELL_SIZES</do_compute_max>
+          <do_compute_min>NO_MIN_CELL_SIZES</do_compute_min>
+          <do_compute_max>NO_MAX_CELL_SIZES</do_compute_max>
           <max_range_factor>10</max_range_factor>
           <cell_size_tolerance_factor>0.8</cell_size_tolerance_factor>
           <update_missing_only>UPDATE_ALL</update_missing_only>
