@@ -104,8 +104,8 @@
       </CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
-          <do_compute_min>MIN_CELL_SIZES</do_compute_min>
-          <do_compute_max>MAX_CELL_SIZES</do_compute_max>
+          <do_compute_min>NO_MIN_CELL_SIZES</do_compute_min>
+          <do_compute_max>NO_MAX_CELL_SIZES</do_compute_max>
           <max_range_factor>10</max_range_factor>
           <cell_size_tolerance_factor>0.8</cell_size_tolerance_factor>
           <update_missing_only>UPDATE_ALL</update_missing_only>
