@@ -62,7 +62,7 @@
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>None;Sentinel1_vh_dra.rft.xml;Sentinel1_vv_dra.rft.xml;Sentinel1_VH_dB.rft.xml;Sentinel1_VV_dB.rft.xml</processing_templates>
+		<processing_templates>None;Sentinel1_RTC_VV_Amplitude.rft.xml;Sentinel1_RTC_VH_Amplitude.rft.xml;Sentinel1_RTC_VV_dB.rft.xml;Sentinel1_RTC_VH_dB.rft.xml;Sentinel1_RTC_VV_Power.rft.xml;Sentinel1_RTC_VH_Power.rft.xml</processing_templates>
         <default_processing_template>None</default_processing_template>
       </DefaultProperties>
       <Table>
@@ -132,7 +132,7 @@
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
         <Environment>
-          <cellSize>3</cellSize>
+          <cellSize>300</cellSize>
         </Environment>
         <BuildOverviews>
           <where_clause>#</where_clause>
