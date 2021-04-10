@@ -131,3 +131,26 @@ class UserCode:
                     log.Message(str(exp), 2)
             del ds_cursor
         return True
+
+    def UpdateOverviewFields(self, data):
+        import datetime
+        log = data['log']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "Date"])
+        if (ds_cursor is not None):
+            log.Message('Updating Overview Field Values..', 0)
+            for row in ds_cursor:
+                try:
+                    TagField = row[0]
+                    if (TagField) == 'Dataset':
+                        row[1] = 300
+                        row[2] = 2
+                        row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
+                        ds_cursor.updateRow(row)
+                        log.Message("Overview fields updated.", 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
