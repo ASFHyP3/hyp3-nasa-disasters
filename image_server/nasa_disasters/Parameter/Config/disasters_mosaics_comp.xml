@@ -72,6 +72,7 @@
               <name>StartDate</name>
               <type>date</type>
               <length></length>
+            </Field>
             <Field>
               <name>EndDate</name>
               <type>date</type>
