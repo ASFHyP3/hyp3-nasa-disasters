@@ -138,16 +138,21 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "Date"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values..', 0)
             for row in ds_cursor:
                 try:
+                    stdate = min(row[3])
+                    endate = max(row[3])
                     TagField = row[0]
                     if (TagField) == 'Dataset':
                         row[1] = 300
                         row[2] = 2
-                        row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
+                        #row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
+                        #row[4] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
+                        row[3] = stdate
+                        row[4] = endate
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
