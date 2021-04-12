@@ -132,7 +132,8 @@
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
         <Environment>
-          <cellSize>3</cellSize>
+          <parallelProcessingFactor>11</parallelProcessingFactor>
+          <cellSize>300</cellSize>
         </Environment>
         <BuildOverviews>
           <where_clause>#</where_clause>

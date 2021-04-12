@@ -107,7 +107,7 @@
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
         <Environment>
-          <parallelProcessingFactor>12</parallelProcessingFactor>
+          <parallelProcessingFactor>11</parallelProcessingFactor>
           <cellSize>300</cellSize>
         </Environment>
         <BuildOverviews>
