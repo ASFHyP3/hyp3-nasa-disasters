@@ -141,7 +141,7 @@ class UserCode:
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
         stdatelist = []
         if (ds_cursor is not None):
-            log.Message('Updating Overview Field Values..', 0)
+            log.Message('Determining Start and End Dates...', 0)
             # Determine the range of dates in the mosaic dataset
             for row in ds_cursor:
                 if row[0] != 'Dataset':
@@ -151,7 +151,7 @@ class UserCode:
             del ds_cursor
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
         if (ds_cursor is not None):
-            log.Message('Updating Overview Field Values..', 0)
+            log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
@@ -159,8 +159,8 @@ class UserCode:
                         row[1] = 300
                         row[2] = 2
                         #row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
-                        row[3] = stdate
-                        row[4] = endate
+                        row[3] = stdate + datetime.timedelta(hours=-8)
+                        row[4] = endate + datetime.timedelta(hours=8)
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
