@@ -149,7 +149,7 @@ class UserCode:
             stdate = min(stdatelist)
             endate = max(stdatelist)
             del ds_cursor
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
@@ -161,6 +161,7 @@ class UserCode:
                         #row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
                         row[3] = stdate + datetime.timedelta(hours=-8)
                         row[4] = endate + datetime.timedelta(hours=8)
+                        row[5] = "Mosaic Overview"
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
