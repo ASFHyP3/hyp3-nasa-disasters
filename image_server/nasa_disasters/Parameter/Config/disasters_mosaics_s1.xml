@@ -43,7 +43,7 @@
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
         <default_mosaic_method>ByAttribute</default_mosaic_method>
-        <order_field>Date</order_field>
+        <order_field>StartDate</order_field>
         <order_base>2050/01/01</order_base>
         <sorting_order>Ascending</sorting_order>
         <mosaic_operator>FIRST</mosaic_operator>
@@ -54,10 +54,10 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;StartDate;EndDate;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
         <use_time>ENABLED</use_time>
-        <start_time_field>Date</start_time_field>
-        <end_time_field>#</end_time_field>
+        <start_time_field>StartDate</start_time_field>
+        <end_time_field>EndDate</end_time_field>
         <time_format>#</time_format>
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
@@ -69,7 +69,12 @@
           <AddFields>AddFields</AddFields>
           <Fields>
             <Field>
-              <name>Date</name>
+              <name>StartDate</name>
+              <type>date</type>
+              <length></length>
+            </Field>
+            <Field>
+              <name>EndDate</name>
               <type>date</type>
               <length></length>
             </Field>
@@ -80,7 +85,13 @@
           <CalculateValue>
 			  		  <expression_type>PYTHON</expression_type>
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>Date</fieldName>
+              <fieldName>StartDate</fieldName>
+              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
+          </CalculateValue>
+          <CalculateValue>
+			  		  <expression_type>PYTHON</expression_type>
+                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
+              <fieldName>EndDate</fieldName>
               <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
           </CalculateValue>
 		  <CalculateValue>

@@ -138,16 +138,29 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "Date"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
+        stdatelist = []
         if (ds_cursor is not None):
-            log.Message('Updating Overview Field Values..', 0)
+            log.Message('Determining Start and End Dates...', 0)
+            # Determine the range of dates in the mosaic dataset
+            for row in ds_cursor:
+                if row[0] != 'Dataset':
+                    stdatelist.append(row[3])
+            stdate = min(stdatelist)
+            endate = max(stdatelist)
+            del ds_cursor
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
+        if (ds_cursor is not None):
+            log.Message('Updating Overview Field Values...', 0)
+            # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
-                    TagField = row[0]
-                    if (TagField) == 'Dataset':
+                    if row[0] == 'Dataset':
                         row[1] = 300
                         row[2] = 2
-                        row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
+                        #row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
+                        row[3] = stdate + datetime.timedelta(hours=-8)
+                        row[4] = endate + datetime.timedelta(hours=8)
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
