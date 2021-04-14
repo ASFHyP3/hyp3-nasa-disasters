@@ -124,7 +124,7 @@ class UserCode:
                     newNameField = GroupField + "_" + lstTagField[0] + ';' + GroupField + "_" + lstTagField[1]
                     row[0] = newNameField
                     row[2] = TagField
-                    row[3] = 310
+                    row[3] = 1610
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(newNameField), 0)
                 except Exception as exp:
@@ -156,7 +156,7 @@ class UserCode:
             for row in ds_cursor:
                 try:
                     if row[0] == 'Dataset':
-                        row[1] = 300
+                        row[1] = 1600
                         row[2] = 2
                         #row[3] = datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S')
                         row[3] = stdate + datetime.timedelta(hours=-8)
