@@ -138,14 +138,14 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "StartDate"])
         stdatelist = []
         if (ds_cursor is not None):
             log.Message('Determining Start and End Dates...', 0)
             # Determine the range of dates in the mosaic dataset
             for row in ds_cursor:
                 if row[0] != 'Dataset':
-                    stdatelist.append(row[3])
+                    stdatelist.append(row[1])
             stdate = min(stdatelist)
             endate = max(stdatelist)
             del ds_cursor
