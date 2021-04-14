@@ -110,7 +110,7 @@
 			  		  <expression_type>PYTHON</expression_type>
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
               <fieldName>MaxPS</fieldName>
-              <expression>310</expression>
+              <expression>1610</expression>
           </CalculateValue>
       </CalculateValues>
         <CalculateCellSizeranges>
