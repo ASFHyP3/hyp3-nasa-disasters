@@ -2,7 +2,7 @@
 
 This directory contains scripts and tools for managing data to be served by ASF via ArcGIS Image Server or ArcGIS Imagery Dedicated.
 
-##HyP3 Transfer Script
+## HyP3 Transfer Script
 
 This script transfers RTC geotiffs for a particular project from the HyP3 S3 bucket to a bucket to be accessed to generate a mosaic dataset.
 
