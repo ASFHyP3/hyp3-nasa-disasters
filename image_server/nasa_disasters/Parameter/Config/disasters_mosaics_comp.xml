@@ -62,8 +62,8 @@
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>None;Sentinel1_RTC_VV_Amplitude.rft.xml;Sentinel1_RTC_VH_Amplitude.rft.xml;Sentinel1_RTC_VV_dB.rft.xml;Sentinel1_RTC_VH_dB.rft.xml;Sentinel1_RTC_VV_Power.rft.xml;Sentinel1_RTC_VH_Power.rft.xml</processing_templates>
-        <default_processing_template>None</default_processing_template>
+		<processing_templates>Sentinel1_RTC_VV_dB_MinMaxStretch.rft.xml;None;Sentinel1_RTC_VV_Amplitude.rft.xml;Sentinel1_RTC_VH_Amplitude.rft.xml;Sentinel1_RTC_VV_dB.rft.xml;Sentinel1_RTC_VH_dB.rft.xml;Sentinel1_RTC_VV_Power.rft.xml;Sentinel1_RTC_VH_Power.rft.xml</processing_templates>
+        <default_processing_template>Sentinel1_RTC_VV_dB_MinMaxStretch.rft.xml</default_processing_template>
       </DefaultProperties>
       <Table>
           <AddFields>AddFields</AddFields>
@@ -110,7 +110,7 @@
 			  		  <expression_type>PYTHON</expression_type>
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
               <fieldName>MaxPS</fieldName>
-              <expression>310</expression>
+              <expression>1610</expression>
           </CalculateValue>
       </CalculateValues>
         <CalculateCellSizeranges>

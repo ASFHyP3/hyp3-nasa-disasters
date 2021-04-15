@@ -13,7 +13,7 @@
       <pixel_type>#</pixel_type>
       <AddRasters>
         <AddRaster>
-          <dataset_id>s1</dataset_id>
+          <dataset_id>s1_rgb</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
           <Sources>
             <data_path>C:\work_c\data</data_path>
@@ -43,7 +43,7 @@
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
         <default_mosaic_method>ByAttribute</default_mosaic_method>
-        <order_field>Date</order_field>
+        <order_field>StartDate</order_field>
         <order_base>1/1/2050 12:00:00 AM</order_base>
         <sorting_order>Ascending</sorting_order>
         <mosaic_operator>FIRST</mosaic_operator>
@@ -56,20 +56,25 @@
         <metadata_level>BASIC</metadata_level>
         <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
         <use_time>ENABLED</use_time>
-        <start_time_field>Date</start_time_field>
-        <end_time_field>#</end_time_field>
+        <start_time_field>StartDate</start_time_field>
+        <end_time_field>EndDate</end_time_field>
         <time_format>#</time_format>
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>None;Sentinel1_vh_dra.rft.xml;Sentinel1_vv_dra.rft.xml;Sentinel1_VH_dB.rft.xml;Sentinel1_VV_dB.rft.xml</processing_templates>
+		<processing_templates>None</processing_templates>
         <default_processing_template>None</default_processing_template>
       </DefaultProperties>
       <Table>
           <AddFields>AddFields</AddFields>
           <Fields>
             <Field>
-              <name>Date</name>
+              <name>StartDate</name>
+              <type>date</type>
+              <length></length>
+            </Field>
+            <Field>
+              <name>EndDate</name>
               <type>date</type>
               <length></length>
             </Field>
@@ -80,14 +85,20 @@
           <CalculateValue>
 			  		  <expression_type>PYTHON</expression_type>
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>Date</fieldName>
+              <fieldName>StartDate</fieldName>
+              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
+          </CalculateValue>
+          <CalculateValue>
+			  		  <expression_type>PYTHON</expression_type>
+                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
+              <fieldName>EndDate</fieldName>
               <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
           </CalculateValue>
 		  <CalculateValue>
 			  		  <expression_type>PYTHON</expression_type>
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
               <fieldName>GroupName</fieldName>
-              <expression>(!Name!.split(";")[0][:-3])</expression>
+              <expression>(!Name!.split(";")[0][:-4])</expression>
           </CalculateValue>
 		  <CalculateValue>
 			  		  <expression_type>PYTHON</expression_type>
@@ -99,13 +110,13 @@
 			  		  <expression_type>PYTHON</expression_type>
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
               <fieldName>MaxPS</fieldName>
-              <expression>310</expression>
+              <expression>1610</expression>
           </CalculateValue>
       </CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
-          <do_compute_min>MIN_CELL_SIZES</do_compute_min>
-          <do_compute_max>MAX_CELL_SIZES</do_compute_max>
+          <do_compute_min>NO_MIN_CELL_SIZES</do_compute_min>
+          <do_compute_max>NO_MAX_CELL_SIZES</do_compute_max>
           <max_range_factor>10</max_range_factor>
           <cell_size_tolerance_factor>0.8</cell_size_tolerance_factor>
           <update_missing_only>UPDATE_ALL</update_missing_only>
@@ -132,7 +143,7 @@
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
         <Environment>
-          <cellSize>3</cellSize>
+          <cellSize>300</cellSize>
         </Environment>
         <BuildOverviews>
           <where_clause>#</where_clause>
