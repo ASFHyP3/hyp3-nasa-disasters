@@ -1,5 +1,3 @@
-from argparse import ArgumentParser
-
 import boto3
 import hyp3_sdk
 from boto3.s3.transfer import TransferConfig
@@ -30,12 +28,15 @@ def main():
     target_bucket = input('Destination bucket: ')
 
     jobs = hyp3.find_jobs(name=project_name)
-    print(f'\nProject {project_name}: {jobs}')
+    print('\n' + project_name)
+    print(jobs)
 
     print('\nLooking for new files to copy...')
 
     objects_to_copy = []
     for job in jobs:
+        if not job.succeeded():
+            continue
         source_bucket = job.files[0]['s3']['bucket']
         zip_key = job.files[0]['s3']['key']
         for ext in ('_VV.tif', '_VH.tif', '_rgb.tif', '_VV.tif.xml'):
