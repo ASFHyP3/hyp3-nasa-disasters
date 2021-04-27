@@ -1,0 +1,9 @@
+name: hyp3-image-services
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.8
+  - asf_search
+  - boto3
+  - hyp3_sdk
