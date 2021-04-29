@@ -1,24 +1,61 @@
-import hyp3_sdk as sdk
 import boto3
+import hyp3_sdk
+from boto3.s3.transfer import TransferConfig
+from botocore.exceptions import ClientError
+
+S3 = boto3.resource('s3')
 
 
-hyp3 = sdk.HyP3(prompt=True)
+def object_exists(bucket, key):
+    try:
+        S3.Object(bucket, key).load()
+    except ClientError:
+        return False
+    return True
 
-print('input project name to copy:')
-project_name = input()
-jobs = hyp3.find_jobs(name=project_name)
-print(f'found {len(jobs)} jobs to copy')
 
-print('input destination bucket:')
-DEST_BUCKET = input()
-S3 = boto3.client('s3')
+def copy_object(source_bucket, source_key, target_bucket, target_key, chunk_size=104857600):
+    print(f'copying {source_bucket + "/" + source_key} to {target_bucket + "/" + target_key}')
+    bucket = S3.Bucket(target_bucket)
+    copy_source = {'Bucket': source_bucket, 'Key': source_key}
+    transfer_config = TransferConfig(multipart_threshold=chunk_size, multipart_chunksize=chunk_size)
+    bucket.copy(CopySource=copy_source, Key=target_key, Config=transfer_config)
 
-for job in jobs:
-    job_bucket = job.files[0]['s3']['bucket']
-    job_key = job.files[0]['s3']['key']
-    for ext in ('_VV.tif', '_VH.tif', '_rgb.tif', '_VV.tif.xml'):
-        file_key = job_key.replace('.zip', ext)
-        dest_key = file_key.replace(job.job_id, job.name)
-        print(f'copying {job_bucket + "/" + job_key} to {DEST_BUCKET + "/" + dest_key}')
-        S3.copy_object(Bucket=DEST_BUCKET, Key= dest_key,
-                       CopySource={'Bucket': job_bucket, 'Key': file_key})
+
+def main():
+    hyp3 = hyp3_sdk.HyP3(prompt=True)
+    project_name = input('HyP3 project name: ')
+    target_bucket = input('Destination bucket: ')
+
+    jobs = hyp3.find_jobs(name=project_name)
+    print('\n' + project_name)
+    print(jobs)
+
+    print('\nLooking for new files to copy...')
+
+    objects_to_copy = []
+    for job in jobs:
+        if not job.succeeded():
+            continue
+        source_bucket = job.files[0]['s3']['bucket']
+        zip_key = job.files[0]['s3']['key']
+        for ext in ('_VV.tif', '_VH.tif', '_rgb.tif', '_VV.tif.xml'):
+            source_key = zip_key.replace('.zip', ext)
+            target_key = source_key.replace(job.job_id, job.name)
+            if not object_exists(target_bucket, target_key):
+                objects_to_copy.append({
+                    'source_bucket': source_bucket,
+                    'source_key': source_key,
+                    'target_bucket': target_bucket,
+                    'target_key': target_key,
+                })
+
+    print(f'\nFound {len(objects_to_copy)} new files to copy to s3://{target_bucket}/{project_name}/')
+    input('Press Enter to continue, Ctrl-c to cancel')
+
+    for object_to_copy in objects_to_copy:
+        copy_object(**object_to_copy)
+
+
+if __name__ == '__main__':
+    main()
