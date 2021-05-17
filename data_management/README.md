@@ -2,6 +2,16 @@
 
 This directory contains scripts and tools for managing data to be served by ASF via ArcGIS Image Server or ArcGIS Imagery Dedicated.
 
+## Subscription Script
+The process_new_granules.py script looks for new acquisitions to process and add to an existing project name.
+
+This requires a conda environment
+
+
+```
+>python process_new_granules.py alaska_rivers.json
+```
+
 ## HyP3 Transfer Script
 
 This script transfers RTC geotiffs for a particular project from the HyP3 S3 bucket to a bucket to be accessed to generate a mosaic dataset.
@@ -12,7 +22,9 @@ To pip install or upgrade hyp3_sdk module to a specific instance of python:
 
 ### Running the Script
 
-To run the script, navigate to the desired Python instance directory, and run the script (include full path to the transfer script):
+To run the script, open a terminal, navigate to the desired Python instance directory, and run the script (include full path to the transfer script):
+
+```cd C:\Python38```
 
 ```C:\Python38>python C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\data_management\hyp3_transfer_script.py```
 
