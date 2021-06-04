@@ -1,22 +1,27 @@
 {
-  "project_name": "Bangladesh",
+  "project_name": "jlr",
+  "host": "https://hyp3-watermap.asf.alaska.edu",
   "search_parameters": {
     "platform": ["S1"],
     "processingLevel": ["SLC"],
     "beamMode": ["IW"],
     "start": "2021-05-16",
     "intersectsWith": "POLYGON((87.3812 21.6603,88.0102 21.3411,89.0512 21.3724,90.3104 21.5911,91.3597 21.864,91.855 21.2473,92.3587 20.6829,92.6609 21.2238,92.7112 21.5599,92.6105 22.5092,92.4762 23.3519,92.4762 24.3117,92.5265 24.9755,92.493 25.6736,92.3671 26.9528,91.7962 27.862,91.3933 28.077,90.9735 27.9362,89.8906 28.2842,89.4121 28.0622,88.6885 28.0695,88.0018 27.8404,86.9884 27.5981,85.7557 27.8026,84.7741 27.9993,84.4006 27.9362,84.0144 27.6986,83.8885 27.05,83.8717 26.2773,84.2746 25.4161,85.6682 24.7928,87.2044 24.4417,87.389 23.3056,87.389 22.4394,87.3812 21.6603))"
+
   },
-  "job_parameters": {
-    "radiometry": "gamma0",
-    "scale": "amplitude",
-    "dem_name": "copernicus",
-    "resolution": 30,
-    "speckle_filter": true,
-    "dem_matching": false,
-    "include_rgb": true,
-    "include_dem": false,
-    "include_scattering_area": false,
-    "include_inc_map": false
+  "job_spec": {
+    "job_type": "WATER_MAP",
+    "job_parameters": {
+      "radiometry": "gamma0",
+      "scale": "amplitude",
+      "dem_name": "copernicus",
+      "resolution": 30,
+      "speckle_filter": true,
+      "dem_matching": false,
+      "include_rgb": true,
+      "include_dem": false,
+      "include_scattering_area": false,
+      "include_inc_map": false
+    }
   }
 }
