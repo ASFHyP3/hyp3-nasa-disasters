@@ -66,7 +66,7 @@ def main():
                         help='Provide a yes response to all prompts to always proceed')
     args = parser.parse_args()
 
-    process_new_granules(args.cofig_file, prompt=args.yes)
+    process_new_granules(args.config_file, prompt=args.yes)
 
 
 if __name__ == '__main__':
