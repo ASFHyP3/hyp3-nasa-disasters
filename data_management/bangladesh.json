@@ -1,5 +1,5 @@
 {
-  "project_name": "bangladesh",
+  "project_name": "BangladeshWaterMaps",
   "host": "https://hyp3-watermap.asf.alaska.edu",
   "search_parameters": {
     "platform": ["S1"],
@@ -18,7 +18,7 @@
       "max_vh_threshold": -24.0,
       "hand_threshold": 15.0,
       "hand_fraction": 0.8,
-      "membership_threshold": -0.45
+      "membership_threshold": 0.45
     }
   },
   "transfer_spec": {
