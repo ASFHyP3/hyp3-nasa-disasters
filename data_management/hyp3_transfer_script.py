@@ -76,5 +76,5 @@ if __name__ == '__main__':
                         help='Provide a yes response to all prompts to always proceed')
     args = parser.parse_args()
 
-    hyp3_transfer_script(args.cofig_file, prompt=args.yes)
+    hyp3_transfer_script(args.config_file, prompt=args.yes)
 
