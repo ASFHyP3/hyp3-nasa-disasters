@@ -38,7 +38,7 @@
         <clip_to_footprints>CLIP</clip_to_footprints>
         <clip_to_boundary>CLIP</clip_to_boundary>
         <color_correction>NOT_APPLY</color_correction>
-        <footprints_may_contain_nodata>FOOTPRINTS_DO_NOT_CONTAIN_NODATA</footprints_may_contain_nodata>
+        <footprints_may_contain_nodata>FOOTPRINTS_MAY_CONTAIN_NODATA</footprints_may_contain_nodata>
         <allowed_mensuration_capabilities>BASIC</allowed_mensuration_capabilities>
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
@@ -62,7 +62,7 @@
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>None;Sentinel1_RTC_VH_dB.rft.xml</processing_templates>
+		<processing_templates>None;Sentinel1_RTC_VV_dB.rft.xml</processing_templates>
         <default_processing_template>None</default_processing_template>
       </DefaultProperties>
       <Table>
@@ -122,7 +122,7 @@
           <update_missing_only>UPDATE_ALL</update_missing_only>
         </CalculateCellSizeranges>
         <BuildFootprint>
-          <reset_footprint>RADIOMETRY</reset_footprint>
+          <reset_footprint>NONE</reset_footprint>
           <max_data_value>4294967295</max_data_value>
           <min_data_value>0</min_data_value>
           <approx_num_vertices>12</approx_num_vertices>

@@ -38,7 +38,7 @@
         <clip_to_footprints>CLIP</clip_to_footprints>
         <clip_to_boundary>CLIP</clip_to_boundary>
         <color_correction>NOT_APPLY</color_correction>
-        <footprints_may_contain_nodata>FOOTPRINTS_DO_NOT_CONTAIN_NODATA</footprints_may_contain_nodata>
+        <footprints_may_contain_nodata>FOOTPRINTS_MAY_CONTAIN_NODATA</footprints_may_contain_nodata>
         <allowed_mensuration_capabilities>BASIC</allowed_mensuration_capabilities>
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
@@ -86,7 +86,7 @@
           <update_missing_only>UPDATE_ALL</update_missing_only>
         </CalculateCellSizeranges>
         <BuildFootprint>
-          <reset_footprint>RADIOMETRY</reset_footprint>
+          <reset_footprint>NONE</reset_footprint>
           <max_data_value>4294967295</max_data_value>
           <min_data_value>0</min_data_value>
           <approx_num_vertices>12</approx_num_vertices>
