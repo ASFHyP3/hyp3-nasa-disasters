@@ -5,6 +5,7 @@ from argparse import ArgumentParser
 from pprint import pprint
 
 import asf_search
+import hyp3_sdk
 from hyp3_sdk import HyP3
 from hyp3_sdk.exceptions import HyP3SDKError
 
@@ -14,7 +15,7 @@ def chunks(itr, n=200):
         yield itr[i:i + n]
 
 
-def process_new_granules(config_file: str, prompt: bool = False):
+def process_new_granules(config_file: str, prompt: bool = False, watch: bool = False):
     with open(config_file) as f:
         config = json.load(f)
 
@@ -47,26 +48,32 @@ def process_new_granules(config_file: str, prompt: bool = False):
         job_dict['job_parameters']['granules'] = [granule]
         prepared_jobs.append(job_dict)
 
-    submitted = []
+    submitted = hyp3_sdk.Batch()
     for batch in chunks(prepared_jobs):
         try:
-            _ = hyp3.submit_prepared_jobs(batch)
-            submitted.extend(batch)
+            submitted += hyp3.submit_prepared_jobs(batch)
         except HyP3SDKError:
             traceback.print_exc()
             pprint(batch)
 
     print(f'submitted {len(submitted)} jobs to {config["host"]}')
+    if watch:
+        submitted = hyp3.watch(submitted)
+
+    return submitted
 
 
 def main():
     parser = ArgumentParser()
     parser.add_argument('config_file')
+    # FIXME: mutually exclusive?
     parser.add_argument('-y', '--yes', action='store_false',
                         help='Provide a yes response to all prompts to always proceed')
+    parser.add_argument('-w', '--watch', action='store_true',
+                        help='Watch all submitted jobs until completion')
     args = parser.parse_args()
 
-    process_new_granules(args.config_file, prompt=args.yes)
+    process_new_granules(args.config_file, prompt=args.yes, watch=args.watch)
 
 
 if __name__ == '__main__':
