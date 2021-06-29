@@ -4,17 +4,15 @@ from argparse import ArgumentParser
 import boto3
 import hyp3_sdk
 from boto3.s3.transfer import TransferConfig
-from botocore.exceptions import ClientError
 
 S3 = boto3.resource('s3')
 
 
-def object_exists(bucket, key):
-    try:
-        S3.Object(bucket, key).load()
-    except ClientError:
-        return False
-    return True
+def get_project_contents(bucket, prefix) -> set:
+    project_contents = set()
+    for o in S3.Bucket(bucket).objects.filter(Prefix=prefix):
+        project_contents.add(o.key)
+    return project_contents
 
 
 def copy_object(source_bucket, source_key, target_bucket, target_key, chunk_size=104857600):
@@ -46,6 +44,7 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
     print('\nLooking for new files to copy...')
 
     objects_to_copy = []
+    project_contents = get_project_contents(target_bucket, target_prefix)
     for job in jobs:
         if not job.succeeded():
             continue
@@ -54,7 +53,7 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
         for ext in config["transfer_spec"]["extensions"]:
             source_key = zip_key.replace('.zip', ext)
             target_key = source_key.replace(job.job_id, target_prefix)
-            if not object_exists(target_bucket, target_key):
+            if target_key not in project_contents:
                 objects_to_copy.append({
                     'source_bucket': source_bucket,
                     'source_key': source_key,
