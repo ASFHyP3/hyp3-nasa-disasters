@@ -10,7 +10,7 @@ S3 = boto3.resource('s3')
 
 def get_project_contents(bucket, prefix) -> set:
     project_contents = set()
-    for o in S3.Bucket(bucket).objects.filter(Prefix=prefix):
+    for o in S3.Bucket(bucket).objects.filter(Prefix=f'{prefix}/'):
         project_contents.add(o.key)
     return project_contents
 
