@@ -3,8 +3,8 @@ set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_ser
 set cachepath=C:\Users\ASF\Documents\COVID19\Disasters\Esri\MosaicDatasets\PixelCache
 
 REM ---------- Set output gdb and source s3 bucket-----
-set gdbwks=C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets\HKH\HKH_RTC.gdb
-set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\BangladeshWaterMaps\
+set gdbwks=C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets\HKH\HKH.gdb
+set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\HKHwatermaps\
 set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri\HKH_RTC.crf
 
 REM ---------- Using ACS File -------------------------
