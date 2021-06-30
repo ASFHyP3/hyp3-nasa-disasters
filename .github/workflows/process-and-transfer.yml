@@ -1,0 +1,50 @@
+name: Process and Transfer
+
+on:
+  schedule:
+    # Run @ 3:00 AM ( 12:00 PM UTC) every day
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+env:
+  AWS_DEFAULT_REGION: us-west-2
+  AWS_ACCESS_KEY_ID: ${{ secrets.V2_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.V2_AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  process-and-transfer:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - environment: HKHwatermaps
+            config_file: data_management/hkh_watermaps.json
+
+    environment:
+      name: ${{ matrix.environment }}
+
+    env:
+      EDL_USERNAME: ${{ secrets.EARTHDATA_LOGIN_USER }}
+      EDL_PASSWORD: ${{ secrets.EARTHDATA_LOGIN_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          mamba-version: "*"
+          python-version: 3.9
+          activate-environment: hyp3-image-services
+          environment-file: data_management/environment.yml
+
+      - name: Process new granules
+        shell: bash -l {0}
+        run: |
+          python data_management/process_new_granules.py -y -w ${{ matrix.config_file }}
+
+      - name: Transfer new products
+        shell: bash -l {0}
+        run: |
+          python data_management/hyp3_transfer_script.py -y ${{ matrix.config_file }}
+

@@ -1,17 +1,19 @@
+import json
+from argparse import ArgumentParser
+from os import environ
+
 import boto3
 import hyp3_sdk
 from boto3.s3.transfer import TransferConfig
-from botocore.exceptions import ClientError
 
 S3 = boto3.resource('s3')
 
 
-def object_exists(bucket, key):
-    try:
-        S3.Object(bucket, key).load()
-    except ClientError:
-        return False
-    return True
+def get_project_contents(bucket, prefix) -> set:
+    project_contents = set()
+    for o in S3.Bucket(bucket).objects.filter(Prefix=f'{prefix}/'):
+        project_contents.add(o.key)
+    return project_contents
 
 
 def copy_object(source_bucket, source_key, target_bucket, target_key, chunk_size=104857600):
@@ -22,10 +24,21 @@ def copy_object(source_bucket, source_key, target_bucket, target_key, chunk_size
     bucket.copy(CopySource=copy_source, Key=target_key, Config=transfer_config)
 
 
-def main():
-    hyp3 = hyp3_sdk.HyP3(prompt=True)
-    project_name = input('HyP3 project name: ')
-    target_bucket = input('Destination bucket: ')
+def hyp3_transfer_script(config_file: str, prompt: bool = False):
+    with open(config_file) as f:
+        config = json.load(f)
+
+    hyp3 = hyp3_sdk.HyP3(
+        config['host'], username=environ.get('EDL_USERNAME'), password=environ.get('EDL_PASSWORD'), prompt=prompt
+    )
+
+    project_name = config["project_name"]
+    target_bucket = config["transfer_spec"]["target_bucket"]
+    target_prefix = config["transfer_spec"].get("target_prefix", project_name)
+    if prompt:
+        project_name = input(f'HyP3 project name [{project_name}]: ') or project_name
+        target_bucket = input(f'Destination bucket: [{target_bucket}]') or target_bucket
+        target_prefix = input(f'Destination prefix: [{target_prefix}]') or target_prefix
 
     jobs = hyp3.find_jobs(name=project_name)
     print('\n' + project_name)
@@ -34,15 +47,16 @@ def main():
     print('\nLooking for new files to copy...')
 
     objects_to_copy = []
+    project_contents = get_project_contents(target_bucket, target_prefix)
     for job in jobs:
         if not job.succeeded():
             continue
         source_bucket = job.files[0]['s3']['bucket']
         zip_key = job.files[0]['s3']['key']
-        for ext in ('_VV.tif', '_VH.tif', '_rgb.tif', '_VV.tif.xml'):
+        for ext in config["transfer_spec"]["extensions"]:
             source_key = zip_key.replace('.zip', ext)
-            target_key = source_key.replace(job.job_id, job.name)
-            if not object_exists(target_bucket, target_key):
+            target_key = source_key.replace(job.job_id, target_prefix)
+            if target_key not in project_contents:
                 objects_to_copy.append({
                     'source_bucket': source_bucket,
                     'source_key': source_key,
@@ -50,7 +64,7 @@ def main():
                     'target_key': target_key,
                 })
 
-    print(f'\nFound {len(objects_to_copy)} new files to copy to s3://{target_bucket}/{project_name}/')
+    print(f'\nFound {len(objects_to_copy)} new files to copy to s3://{target_bucket}/{target_prefix}/')
     input('Press Enter to continue, Ctrl-c to cancel')
 
     for object_to_copy in objects_to_copy:
@@ -58,4 +72,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = ArgumentParser()
+    parser.add_argument('config_file')
+    parser.add_argument('-y', '--yes', action='store_false',
+                        help='Provide a yes response to all prompts to always proceed')
+    args = parser.parse_args()
+
+    hyp3_transfer_script(args.config_file, prompt=args.yes)
+
