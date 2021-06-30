@@ -2,11 +2,11 @@ import copy
 import json
 import traceback
 from argparse import ArgumentParser
+from os import environ
 from pprint import pprint
 
 import asf_search
 import hyp3_sdk
-from hyp3_sdk import HyP3
 from hyp3_sdk.exceptions import HyP3SDKError
 
 
@@ -21,7 +21,9 @@ def process_new_granules(config_file: str, prompt: bool = False, watch: bool = F
 
     print(f'Processing new granules for project {config["project_name"]}\n')
 
-    hyp3 = HyP3(config['host'], prompt=prompt)
+    hyp3 = hyp3_sdk.HyP3(
+        config['host'], username=environ.get('EDL_USERNAME'), password=environ.get('EDL_PASSWORD'), prompt=prompt
+    )
     search_results = asf_search.geo_search(**config['search_parameters'])
     all_granules = {result.geojson()['properties']['sceneName'] for result in search_results}
 
@@ -66,7 +68,6 @@ def process_new_granules(config_file: str, prompt: bool = False, watch: bool = F
 def main():
     parser = ArgumentParser()
     parser.add_argument('config_file')
-    # FIXME: mutually exclusive?
     parser.add_argument('-y', '--yes', action='store_false',
                         help='Provide a yes response to all prompts to always proceed')
     parser.add_argument('-w', '--watch', action='store_true',

@@ -1,5 +1,6 @@
 import json
 from argparse import ArgumentParser
+from os import environ
 
 import boto3
 import hyp3_sdk
@@ -27,7 +28,9 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
     with open(config_file) as f:
         config = json.load(f)
 
-    hyp3 = hyp3_sdk.HyP3(config['host'], prompt=prompt)
+    hyp3 = hyp3_sdk.HyP3(
+        config['host'], username=environ.get('EDL_USERNAME'), password=environ.get('EDL_PASSWORD'), prompt=prompt
+    )
 
     project_name = config["project_name"]
     target_bucket = config["transfer_spec"]["target_bucket"]
