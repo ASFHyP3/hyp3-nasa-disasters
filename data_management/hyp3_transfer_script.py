@@ -65,7 +65,8 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
                 })
 
     print(f'\nFound {len(objects_to_copy)} new files to copy to s3://{target_bucket}/{target_prefix}/')
-    input('Press Enter to continue, Ctrl-c to cancel')
+    if prompt:
+        input('Press Enter to continue, Ctrl-c to cancel')
 
     for object_to_copy in objects_to_copy:
         copy_object(**object_to_copy)
