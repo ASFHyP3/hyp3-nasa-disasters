@@ -1,8 +1,9 @@
 # This script generates the batch files for the three services generated from the watermap products
-# then runs them in sequence.
+# then runs them in sequence
 
 import os
 from datetime import date, timedelta
+os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_hkh\batchFiles')
 
 today = str(date.today().strftime("%y%m%d"))
 s3tag = 'HKHwatermaps'
@@ -57,12 +58,12 @@ for bat in batfiles:
             print(crf_rgb, file=f)
             print('\nREM ---------- Using ACS File -------------------------', file=f)
             for vb in vars_rgb:
-                print (vb, file=f)
+                print(vb, file=f)
         elif bat == 'rtc.bat':
             print(crf_rtc, file=f)
             print('\nREM ---------- Using ACS File -------------------------', file=f)
             for vb in vars_rtc:
-                print (vb, file=f)
+                print(vb, file=f)
         else:
             print('No valid file.')
 
@@ -77,26 +78,41 @@ print('RTC mosaic dataset complete.')
 
 # create AID packages
 import arcpy
-arcpy.ImportToolbox(r"C:\Users\ASF\Documents\COVID19\Disasters\Esri\MDCS\AID_Management.pyt")
+arcpy.ImportToolbox(r"C:\Users\ASF\Documents\COVID19\Disasters\Esri\AID_GPtools\AID_Management.pyt")
 gdb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets''\\'+projtag+'\\'+projtag+'_'+today+'.gdb'
 
 print('Generating watermap extent AID package...')
 md_wm = gdb+'\\'+'watermap_extent'
 aid_wm = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_WatermapExtent_'+today+'.zmd'
+
 with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb"):
-    arcpy.AID.AIDISDP(md_wm, aid_wm, None)
+    try:
+        arcpy.AID.AIDISDP(md_wm, aid_wm, None)
+    except:
+        print("AID errors generated and ignored.")
+        pass
 print('Watermap extent AID package complete.')
+
 print('Generating RGB AID package...')
 md_rgb = gdb+'\\'+'rgb'
 aid_rgb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RGB_'+today+'.zmd'
 with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb"):
-    arcpy.AID.AIDISDP(md_rgb, aid_rgb, None)
+    try:
+        arcpy.AID.AIDISDP(md_rgb, aid_rgb, None)
+    except:
+        print("AID errors generated and ignored.")
+        pass
 print('RGB AID package complete.')
+
 print('Generating RTC AID package...')
-md_rtc = gdb+'\\'+'rtc'
+md_rtc = gdb+'\\'+'sar_comp'
 aid_rtc = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RTC_'+today+'.zmd'
 with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb"):
-    arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
+    try:
+        arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
+    except:
+        print("AID errors generated and ignored.")
+        pass
 print('RTC AID package complete.')
 
 # update image services
@@ -109,23 +125,23 @@ print('RGB Image Service updated.')
 print('Updating RTC Image Service...')
 arcpy.AID.MAIDIS("asf-daac", "Update Service", "HKH", "None", "HKH_RTC", None, aid_rtc, "Dedicated Instance", "Radiometric Terrain Corrected (RTC) products generated from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region for the 2021 monsoon season, processed by ASF.", "RTC products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
 print('RTC Image Service updated.')
-
-# delete previous version of the gdb and zmd files
-yesterday = str((date.today()-timedelta(days=1)).strftime("%y%m%d"))
-
-del_gdb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets''\\'+projtag+'\\'+projtag+'_'+yesterday+'.gdb'
-if os.path.exists(del_gdb):
-  os.remove(del_gdb)
-else:
-  print("The gdb does not exist")
-
-del_aid_wm = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_WatermapExtent_'+yesterday+'.zmd'
-del_aid_rgb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RGB_'+yesterday+'.zmd'
-del_aid_rtc = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RTC_'+yesterday+'.zmd'
-
-del_list = [del_aid_wm, del_aid_rgb, del_aid_rtc]
-for dl in del_list:
-    if os.path.exists(dl):
-        os.remove(dl)
-    else:
-        print("The zmd file does not exist")
+#
+# # delete previous version of the gdb and zmd files
+# yesterday = str((date.today()-timedelta(days=1)).strftime("%y%m%d"))
+#
+# del_gdb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets''\\'+projtag+'\\'+projtag+'_'+yesterday+'.gdb'
+# if os.path.exists(del_gdb):
+#   os.remove(del_gdb)
+# else:
+#   print("The gdb does not exist")
+#
+# del_aid_wm = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_WatermapExtent_'+yesterday+'.zmd'
+# del_aid_rgb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RGB_'+yesterday+'.zmd'
+# del_aid_rtc = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RTC_'+yesterday+'.zmd'
+#
+# del_list = [del_aid_wm, del_aid_rgb, del_aid_rtc]
+# for dl in del_list:
+#     if os.path.exists(dl):
+#         os.remove(dl)
+#     else:
+#         print("The zmd file does not exist")
