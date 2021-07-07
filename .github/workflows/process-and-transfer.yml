@@ -20,6 +20,8 @@ jobs:
         include:
           - environment: HKHwatermaps
             config_file: data_management/hkh_watermaps.json
+          - environment: Hurricanes
+            config_file: data_management/hurricanes.json
 
     environment:
       name: ${{ matrix.environment }}
