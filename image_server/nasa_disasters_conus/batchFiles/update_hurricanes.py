@@ -3,6 +3,9 @@
 
 import os
 from datetime import date, timedelta
+import subprocess
+import arcpy
+
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_conus\batchFiles')
 
 today = str(date.today().strftime("%y%m%d"))
@@ -69,7 +72,7 @@ for bat in batfiles:
             print('No valid file.')
 
 # run the batch files
-import subprocess
+
 # subprocess.call([batfile_wm])
 # print('Watermap Extent mosaic dataset complete.')
 subprocess.call([batfile_rgb])
@@ -78,7 +81,6 @@ subprocess.call([batfile_rtc])
 print('RTC mosaic dataset complete.')
 
 # create AID packages
-import arcpy
 arcpy.ImportToolbox(r"C:\Users\ASF\Documents\COVID19\Disasters\Esri\AID_GPtools\AID_Management.pyt")
 gdb = r'C:\Users\ASF\Documents\COVID19\Disasters''\\'+dirtag+'\\MosaicDatasets''\\'+projtag+'_'+today+'.gdb'
 
