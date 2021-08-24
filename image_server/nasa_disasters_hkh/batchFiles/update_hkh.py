@@ -2,25 +2,22 @@
 # then runs them in sequence
 
 import os
-from datetime import date, timedelta
-import subprocess
 import arcpy
-
-os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_conus\batchFiles')
+from datetime import date, timedelta
+os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_hkh\batchFiles')
 
 today = str(date.today().strftime("%y%m%d"))
-s3tag = 'RTC_services'
-dirtag = 'Hurricanes'
-projtag = 'RTCservices'
+s3tag = 'HKHwatermaps'
+projtag = 'HKH'
 crftag_wm = projtag+'_WatermapExtent'
 crftag_rgb = projtag+'_RGB'
 crftag_rtc = projtag+'_RTC'
 
 genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe"',
-           r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_conus',
+           r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_hkh',
            r'set cachepath=C:\Users\ASF\Documents\COVID19\Disasters\Esri\MosaicDatasets\PixelCache']
 
-vars = [r'set gdbwks=C:\Users\ASF\Documents\COVID19\Disasters''\\'+dirtag+'\\MosaicDatasets''\\'+projtag+'_'+today+'.gdb',
+vars = [r'set gdbwks=C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets''\\'+projtag+'\\'+projtag+'_'+today+'.gdb',
         r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs''\\'''+s3tag+'\\']
 
 crf_wm = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'+crftag_wm+'_'+today+'.crf'
@@ -31,8 +28,8 @@ batfile_wm = 'wm.bat'
 batfile_rgb = 'rgb.bat'
 batfile_rtc = 'rtc.bat'
 
-vars_wm = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\wm_mosaic.xml -m:%gdbwks%\watermap_extent -s:%acspath% -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+BF+BB+SP+CC+CV',
-           r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\wm_overviews.xml -m:%gdbwks%\watermap_extent -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
+vars_wm = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\watermap_extent.xml -m:%gdbwks%\watermap_extent -s:%acspath% -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+BF+BB+SP+CC+CV',
+           r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\watermap_extent_ovr.xml -m:%gdbwks%\watermap_extent -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
 vars_rgb = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_mosaic.xml -m:%gdbwks%\rgb -s:%acspath% -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+BF+BB+SP+CC+CV',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_overviews.xml -m:%gdbwks%\rgb -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
@@ -72,7 +69,7 @@ for bat in batfiles:
             print('No valid file.')
 
 # run the batch files
-
+import subprocess
 subprocess.call([batfile_wm])
 print('Watermap Extent mosaic dataset complete.')
 subprocess.call([batfile_rgb])
@@ -82,13 +79,18 @@ print('RTC mosaic dataset complete.')
 
 # create AID packages
 arcpy.ImportToolbox(r"C:\Users\ASF\Documents\COVID19\Disasters\Esri\AID_GPtools\AID_Management.pyt")
-gdb = r'C:\Users\ASF\Documents\COVID19\Disasters''\\'+dirtag+'\\MosaicDatasets''\\'+projtag+'_'+today+'.gdb'
+gdb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\MosaicDatasets''\\'+projtag+'\\'+projtag+'_'+today+'.gdb'
 
 print('Generating watermap extent AID package...')
 md_wm = gdb+'\\'+'watermap_extent'
-aid_wm = r'C:\Users\ASF\Documents\COVID19\Disasters''\\'+dirtag+'\\AID_Packages\\'+projtag+'_WatermapExtent_'+today+'.zmd'
+aid_wm = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_WatermapExtent_'+today+'.zmd'
 
-with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Hurricanes\Hurricanes.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Hurricanes\Hurricanes.gdb"):
+# clip mosaic dataset to boundary
+extent_mask = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb\HKH_ServiceExtentMask'
+arcpy.management.ImportMosaicDatasetGeometry(md_wm, "BOUNDARY", "OBJECTID", extent_mask, "FID")
+print('Clipped mosaic dataset to reference shapefile.')
+
+with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb"):
     try:
         arcpy.AID.AIDISDP(md_wm, aid_wm, None)
     except:
@@ -98,8 +100,8 @@ print('Watermap extent AID package complete.')
 
 print('Generating RGB AID package...')
 md_rgb = gdb+'\\'+'rgb'
-aid_rgb = r'C:\Users\ASF\Documents\COVID19\Disasters''\\'+dirtag+'\\AID_Packages\\'+projtag+'_RGB_'+today+'.zmd'
-with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Hurricanes\Hurricanes.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Hurricanes\Hurricanes.gdb"):
+aid_rgb = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RGB_'+today+'.zmd'
+with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb"):
     try:
         arcpy.AID.AIDISDP(md_rgb, aid_rgb, None)
     except:
@@ -109,8 +111,8 @@ print('RGB AID package complete.')
 
 print('Generating RTC AID package...')
 md_rtc = gdb+'\\'+'sar_comp'
-aid_rtc = r'C:\Users\ASF\Documents\COVID19\Disasters''\\'+dirtag+'\\AID_Packages\\'+projtag+'_RTC_'+today+'.zmd'
-with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Hurricanes\Hurricanes.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Hurricanes\Hurricanes.gdb"):
+aid_rtc = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\AID_Packages\HKH_RTC_'+today+'.zmd'
+with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb", workspace=r"C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\Watermaps.gdb"):
     try:
         arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
     except:
@@ -118,19 +120,22 @@ with arcpy.EnvManager(scratchWorkspace=r"C:\Users\ASF\Documents\COVID19\Disaster
         pass
 print('RTC AID package complete.')
 
-#  update image services
+# update image services
 import keyring
 pw = keyring.get_password("portal_creds", "hkristenson_ASF")
 arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw)
 
+# print('Updating Watermap Extent Image Service...')
+# arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "HKH_Watermaps_Clipped", None, aid_wm, "Dedicated Instance", "Watermap Extent products generated from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region for the 2021 monsoon season, generated by ASF.", "Imagery products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
+# print('Watermap Extent Image Service updated.')
 print('Updating Watermap Extent Image Service...')
-arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "CONUS_watermaps", None, aid_wm, "Dedicated Instance", "Watermap Extent products generated from Sentinel-1 SAR imagery over eastern CONUS for the 2021 hurricane season, generated by ASF.", "Imagery products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
+arcpy.AID.MAIDIS("asf-daac", "Update Service", "HKH", "None", "HKH_Watermap_Extent", None, aid_wm, "Dedicated Instance", "Watermap Extent products generated from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region for the 2021 monsoon season, generated by ASF.", "Imagery products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
 print('Watermap Extent Image Service updated.')
 print('Updating RGB Image Service...')
-arcpy.AID.MAIDIS("asf-daac", "Update Service", "ASF_RTC", "None", "ASF_S1_RGB", None, aid_rgb, "Dedicated Instance", "Sentinel-1 RGB Decomposition of RTC VV and VH imagery over eastern CONUS for the 2021 hurricane season, processed by ASF. Blue areas have low returns in VV and VH (smooth surfaces such as calm water, but also frozen/crusted soil or dry sand), green areas have high returns in VH (volume scatterers such as vegetation or some types of snow/ice), and red areas have relatively high VV returns and relatively low VH returns (such as urban or sparsely vegetated areas).", "RGB Decomposition products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
+arcpy.AID.MAIDIS("asf-daac", "Update Service", "HKH", "None", "HKH_RGB", None, aid_rgb, "Dedicated Instance", "Sentinel-1 RGB Decomposition of RTC VV and VH imagery over the Hindu Kush Himalayan (HKH) region for the 2021 monsoon season, starting May 16, 2021. Blue areas have low returns in VV and VH (smooth surfaces such as calm water, but also frozen/crusted soil or dry sand), Green areas have high returns in VH (volume scatterers such as vegetation or some types of snow/ice), and Red areas have relatively high VV returns and relatively low VH returns (such as urban or sparsely vegetated areas).", "Imagery products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
 print('RGB Image Service updated.')
 print('Updating RTC Image Service...')
-arcpy.AID.MAIDIS("asf-daac", "Update Service", "ASF_RTC", "None", "ASF_S1_RTC", None, aid_rtc, "Dedicated Instance", "Radiometric Terrain Corrected (RTC) products generated from Sentinel-1 SAR imagery over eastern CONUS for the 2021 hurricane season, processed by ASF. Surface water appears very dark under calm conditions, as signal bounces off the surface away from the sensor. High VV values are commonly driven by surface roughness and/or high soil moisture, and high VH values commonly indicate the presence of vegetation.", "RTC products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
+arcpy.AID.MAIDIS("asf-daac", "Update Service", "HKH", "None", "HKH_RTC", None, aid_rtc, "Dedicated Instance", "Radiometric Terrain Corrected (RTC) products generated from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region for the 2021 monsoon season, processed by ASF.", "RTC products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus Sentinel data 2021, processed by ESA.", '', False, False, True, None, None, None, None)
 print('RTC Image Service updated.')
 #
 # # delete previous version of the gdb and zmd files

@@ -13,12 +13,12 @@
       <pixel_type>#</pixel_type>
       <AddRasters>
         <AddRaster>
-          <dataset_id>s1</dataset_id>
+          <dataset_id>watermap_extent</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
           <Sources>
             <data_path>C:\work_c\data</data_path>
           </Sources>
-          <filter>*</filter>
+          <filter>*_WM.tif</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
         </AddRaster>
@@ -33,7 +33,7 @@
         <allowed_compressions>JPEG;NONE;LZ77</allowed_compressions>
         <default_compression_type>JPEG</default_compression_type>
         <JPEG_quality>80</JPEG_quality>
-        <resampling_type>BILINEAR</resampling_type>
+        <resampling_type>NEAREST</resampling_type>
         <LERC_Tolerance>0.01</LERC_Tolerance>
         <clip_to_footprints>CLIP</clip_to_footprints>
         <clip_to_boundary>CLIP</clip_to_boundary>
@@ -54,7 +54,7 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;StartDate;EndDate;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
         <use_time>ENABLED</use_time>
         <start_time_field>StartDate</start_time_field>
         <end_time_field>EndDate</end_time_field>
@@ -62,8 +62,8 @@
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>Sentinel1_RTC_VV_dB_Stretch.rft.xml;None;Sentinel1_RTC_VH_dB_Stretch.rft.xml;Sentinel1_RTC_VV_Power.rft.xml;Sentinel1_RTC_VH_Power.rft.xml;Sentinel1_RTC_VV_Amplitude.rft.xml;Sentinel1_RTC_VH_Amplitude.rft.xml;Sentinel1_RTC_VV_dB.rft.xml;Sentinel1_RTC_VH_dB.rft.xml</processing_templates>
-        <default_processing_template>Sentinel1_RTC_VV_dB_Stretch.rft.xml</default_processing_template>
+		<processing_templates>WatermapExtentBlue.rft.xml;None</processing_templates>
+        <default_processing_template>WatermapExtentBlue.rft.xml</default_processing_template>
       </DefaultProperties>
       <Table>
           <AddFields>AddFields</AddFields>
@@ -123,7 +123,7 @@
         </CalculateCellSizeranges>
         <BuildFootprint>
           <reset_footprint>NONE</reset_footprint>
-          <max_data_value>4294967295</max_data_value>
+          <max_data_value>1</max_data_value>
           <min_data_value>0</min_data_value>
           <approx_num_vertices>12</approx_num_vertices>
           <update_boundary>UPDATE_BOUNDARY</update_boundary>
@@ -143,7 +143,6 @@
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
         <Environment>
-          <parallelProcessingFactor>11</parallelProcessingFactor>
           <cellSize>300</cellSize>
         </Environment>
         <BuildOverviews>
@@ -163,7 +162,7 @@
           <tile_cols>5120</tile_cols>
           <overview_factor>2</overview_factor>
           <force_overview_tiles>NO_FORCE_OVERVIEW_TILES</force_overview_tiles>
-          <resampling_method>BILINEAR</resampling_method>
+          <resampling_method>NEAREST</resampling_method>
           <compression_method>JPEG_YCbCr</compression_method>
           <compression_quality>80</compression_quality>
         </DefineOverviews>
