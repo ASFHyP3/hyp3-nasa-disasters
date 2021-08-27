@@ -240,3 +240,7 @@ def main():
 
     # Save message log to a txt file
     Messager.save_to_txt(log_dir, log_messages.message_list)
+
+
+if __name__ == '__main__':
+    main()
