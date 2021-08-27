@@ -54,13 +54,11 @@ class MosaicDataset:
                                                    raster_type=self.raster_type,
                                                    input_path=self.input_path,
                                                    **kwargs)
-        # arcpy.AddMessage("Added raster files in {0} to {1} mosaic dataset".format(self.input_path, self.mosaic_dataset))
         log.info("\n\nAdded raster files in {0} to {1} mosaic dataset".format(self.input_path, self.mosaic_dataset))
 
     def build_boundary_mosaic_dataset(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/build-boundary.htm
         arcpy.management.BuildBoundary(in_mosaic_dataset=self.mosaic_dataset, **kwargs)
-        # arcpy.AddMessage("Built boundary for mosaic dataset {0}".format(self.mosaic_dataset))
         log.info("\n\nBuilt boundary for mosaic dataset {0}".format(self.mosaic_dataset))
 
     def calculate_fields_with_selection(self, where_clause=None, **kwargs):
@@ -70,13 +68,11 @@ class MosaicDataset:
             arcpy.management.CalculateFields(in_table=selection, **kwargs)
         else:
             arcpy.management.CalculateFields(in_table=self.mosaic_dataset, **kwargs)
-        # arcpy.AddMessage("Calculated field(s) for mosaic dataset: {0}".format(self.mosaic_dataset))
         log.info("\n\nCalculated field(s) for mosaic dataset: {0}".format(self.mosaic_dataset))
 
     def remove_rasters_from_mosaic_dataset(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/remove-rasters-from-mosaic-dataset.htm
         arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=self.mosaic_dataset, **kwargs)
-        # arcpy.AddMessage("Removed rasters from mosaic dataset {0}".format(self.mosaic_dataset))
         log.info("\n\nRemoved rasters from mosaic dataset {0}".format(self.mosaic_dataset))
 
 
@@ -88,7 +84,6 @@ class Raster:
     def copy_raster(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/copy-raster.htm
         arcpy.management.CopyRaster(in_raster=self.in_raster, out_rasterdataset=self.out_rasterdataset, **kwargs)
-        # arcpy.AddMessage("Copied raster {0} to {1} ".format(self.in_raster, self.out_rasterdataset))
         log.info("\n\nCopied raster {0} to {1} ".format(self.in_raster, self.out_rasterdataset))
 
 
@@ -141,8 +136,6 @@ def main():
     # ovi_sel: select the overview files
     ovi_sel = "Name LIKE '%Ovi%'"
 
-    # Log Messages
-    # Open auto ingestion script with time stamp
     log.info("\n\nStarting auto ingestion script")
 
     # Add raster files and calculate the fields for the source mosaic dataset
@@ -207,7 +200,6 @@ def main():
     #                   ovi_time_period_days, log_messages.log)
     # del_s3.delete_s3_object_by_date()
 
-    # Close auto ingestion script with time stamp
     log.info("\n\nClosing auto ingestion script")
 
 
