@@ -9,10 +9,12 @@ arcpy.env.overwriteOutput = True
 # source_mds: full path to source mosaic dataset which will reference all images in the S3 bucket
 source_mds = r"C:\Users\rob10341\OneDrive - Esri\RPR_ESRI_Projects\NASA\NASA_scripting\NASA_scripting.gdb\image_management_testing_nasa_working_source"
 
-# derived_mds: full path to derived mosaic dataset which will hold the rasters from the source mosaic dataset after date selection with overviews (crf)
+# derived_mds: full path to derived mosaic dataset which will hold the rasters from the source mosaic dataset after date
+# selection with overviews (crf)
 derived_mds = r"C:\Users\rob10341\OneDrive - Esri\RPR_ESRI_Projects\NASA\NASA_scripting\NASA_scripting.gdb\image_management_testing_nasa_working_derived"
 
-# reference_mds: full path to reference mosaic dataset which will be used for the image services (can be further selected for date)
+# reference_mds: full path to reference mosaic dataset which will be used for the image services (can be further
+# selected for date)
 reference_mds = r"C:\Users\rob10341\OneDrive - Esri\RPR_ESRI_Projects\NASA\NASA_scripting\NASA_scripting.gdb\image_management_testing_nasa_working_referenced"
 
 # acs_path: full path to the cloud connection file (.acs)
@@ -33,7 +35,8 @@ aws_secret_access_key = ""
 # directory of log files
 log_dir = r"C:\Users\rob10341\OneDrive - Esri\RPR_ESRI_Projects\NASA\NASA_scripting"
 
-# image_type_filter: image type filter used to select the type of imagery to be added to the mosaic datasets. This is necessary where different data sources are stored in the same bucket
+# image_type_filter: image type filter used to select the type of imagery to be added to the mosaic datasets. This is
+# necessary where different data sources are stored in the same bucket
 # For example, both rbg and VV + VH are stored in the same bucket. *rgb* | *VV* | *VH* as * is used as a wildcard
 image_type_filter = "*rgb*"
 
@@ -183,9 +186,11 @@ def main():
         where_clause=sql_statement,
         fields=[
             ["StartDate",
-             '!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
+             '!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + '
+             '!Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
             ["EndDate",
-             '!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
+             '!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + '
+             '!Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
             ["GroupName", '!Name!.split(";")[0][:-4]'],
             ["Tag", '!Name!.split("_")[8]'],
         ],
@@ -226,8 +231,9 @@ def main():
     manage_reference.build_boundary_mosaic_dataset()
 
     # Delete outdated raster files in S3
-    # del_s3 = s3_Object(s3_bucket, s3_dir, aws_access_key_id, aws_secret_access_key, time_period_days, ovi_time_period_days, log_messages.log)
-    # del_s3.delete_S3_object_by_date()
+    # del_s3 = S3Object(s3_bucket, s3_dir, aws_access_key_id, aws_secret_access_key, time_period_days,
+    #                   ovi_time_period_days, log_messages.log)
+    # del_s3.delete_s3_object_by_date()
 
     # Close auto ingestion script with time stamp
     log_messages.log("\n\nClosing auto ingestion script at: " + str(datetime.datetime.now()))
