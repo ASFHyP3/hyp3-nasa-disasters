@@ -1,8 +1,12 @@
 import datetime
+import logging
 import os
 
 import arcpy
 import boto3
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 arcpy.env.overwriteOutput = True
 
@@ -32,9 +36,6 @@ aws_access_key_id = ""
 # aws_secret_access_key: aws secret key
 aws_secret_access_key = ""
 
-# directory of log files
-log_dir = r"C:\Users\rob10341\OneDrive - Esri\RPR_ESRI_Projects\NASA\NASA_scripting"
-
 # image_type_filter: image type filter used to select the type of imagery to be added to the mosaic datasets. This is
 # necessary where different data sources are stored in the same bucket
 # For example, both rbg and VV + VH are stored in the same bucket. *rgb* | *VV* | *VH* as * is used as a wildcard
@@ -47,28 +48,11 @@ time_period_days = 31
 ovi_time_period_days = 1
 
 
-class Messager:
-    # Email properties can either be provided at initialization or using sendEmailOnExit method
-    def __init__(self):
-        self.message_list = []
-
-    def log(self, msg):
-        print(msg)  # print messages out immediately
-        self.message_list.append(msg)  # hold onto message to append to email body
-
-    def save_to_txt(self, log_dir, message_list):
-        txt = open(os.path.join(log_dir, "log_file_" + str(datetime.date.today()) + ".txt"), "w")
-        for message in message_list:
-            txt.write(str(message))
-        txt.close()
-
-
 class MosaicDataset:
-    def __init__(self, mosaic_dataset, raster_type, input_path, log):
+    def __init__(self, mosaic_dataset, raster_type, input_path):
         self.mosaic_dataset = mosaic_dataset
         self.raster_type = raster_type
         self.input_path = input_path
-        self.log = log
 
     def add_rasters_to_mosaic_dataset(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/add-rasters-to-mosaic-dataset.htm
@@ -77,13 +61,13 @@ class MosaicDataset:
                                                    input_path=self.input_path,
                                                    **kwargs)
         # arcpy.AddMessage("Added raster files in {0} to {1} mosaic dataset".format(self.input_path, self.mosaic_dataset))
-        self.log("\n\nAdded raster files in {0} to {1} mosaic dataset".format(self.input_path, self.mosaic_dataset))
+        log.info("\n\nAdded raster files in {0} to {1} mosaic dataset".format(self.input_path, self.mosaic_dataset))
 
     def build_boundary_mosaic_dataset(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/build-boundary.htm
         arcpy.management.BuildBoundary(in_mosaic_dataset=self.mosaic_dataset, **kwargs)
         # arcpy.AddMessage("Built boundary for mosaic dataset {0}".format(self.mosaic_dataset))
-        self.log("\n\nBuilt boundary for mosaic dataset {0}".format(self.mosaic_dataset))
+        log.info("\n\nBuilt boundary for mosaic dataset {0}".format(self.mosaic_dataset))
 
     def calculate_fields_with_selection(self, where_clause=None, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/calculate-fields.htm
@@ -93,31 +77,30 @@ class MosaicDataset:
         else:
             arcpy.management.CalculateFields(in_table=self.mosaic_dataset, **kwargs)
         # arcpy.AddMessage("Calculated field(s) for mosaic dataset: {0}".format(self.mosaic_dataset))
-        self.log("\n\nCalculated field(s) for mosaic dataset: {0}".format(self.mosaic_dataset))
+        log.info("\n\nCalculated field(s) for mosaic dataset: {0}".format(self.mosaic_dataset))
 
     def remove_rasters_from_mosaic_dataset(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/remove-rasters-from-mosaic-dataset.htm
         arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=self.mosaic_dataset, **kwargs)
         # arcpy.AddMessage("Removed rasters from mosaic dataset {0}".format(self.mosaic_dataset))
-        self.log("\n\nRemoved rasters from mosaic dataset {0}".format(self.mosaic_dataset))
+        log.info("\n\nRemoved rasters from mosaic dataset {0}".format(self.mosaic_dataset))
 
 
 class Raster:
-    def __init__(self, in_raster, out_rasterdataset, log):
+    def __init__(self, in_raster, out_rasterdataset):
         self.in_raster = in_raster
         self.out_rasterdataset = out_rasterdataset
-        self.log = log
 
     def copy_raster(self, **kwargs):
         # https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/copy-raster.htm
         arcpy.management.CopyRaster(in_raster=self.in_raster, out_rasterdataset=self.out_rasterdataset, **kwargs)
         # arcpy.AddMessage("Copied raster {0} to {1} ".format(self.in_raster, self.out_rasterdataset))
-        self.log("\n\nCopied raster {0} to {1} ".format(self.in_raster, self.out_rasterdataset))
+        log.info("\n\nCopied raster {0} to {1} ".format(self.in_raster, self.out_rasterdataset))
 
 
 class S3Object:
     def __init__(self, s3_bucket, s3_dir, aws_access_key_id, aws_secret_access_key, time_period_days,
-                 ovi_time_period_days, log):
+                 ovi_time_period_days):
         self.s3_bucket = s3_bucket
         self.s3_dir = s3_dir
         self.aws_access_key_id = aws_access_key_id
@@ -126,7 +109,6 @@ class S3Object:
         self.ovi_time_period_days = ovi_time_period_days
         self.s3 = boto3.client('s3', aws_access_key_id=self.aws_access_key_id,
                                aws_secret_access_key=self.aws_secret_access_key)
-        self.log = log
 
     def delete_s3_object_by_date(self):
         raster_del_list = []
@@ -135,21 +117,21 @@ class S3Object:
             if ("tif" in s3_obj_key) and (
                     datetime.datetime.today() - datetime.datetime.strptime(s3_obj_key.split("/")[-1].split("_")[2][0:8],
                                                                            "%Y%m%d")).days >= self.time_period_days:
-                print(s3_obj_key)
+                log.info(s3_obj_key)
                 raster_del_list.append(s3_obj_key)
                 # s3.delete_object(Bucket=s3_bucket, Key=s3_obj_key)
             elif ("crf" in s3_obj_key) and ("_alllayers" in s3_obj_key) and (
                     datetime.datetime.today() - datetime.datetime.strptime(
                     s3_obj_key.split("/")[1].replace(".crf", "").replace("Ovi", "").replace("_", ""),
                     "%Y%m%d")).days >= self.ovi_time_period_days:
-                print(s3_obj_key)
+                log.info(s3_obj_key)
                 raster_del_list.append(s3_obj_key)
                 # s3.delete_object(Bucket=s3_bucket, Key=s3_obj_key)
             elif ("crf" in s3_obj_key) and ("conf" in s3_obj_key) and (
                     datetime.datetime.today() - datetime.datetime.strptime(
                     s3_obj_key.split("/")[1].replace(".crf", "").replace("Ovi", "").replace("_", ""),
                     "%Y%m%d")).days >= self.ovi_time_period_days:
-                print(s3_obj_key)
+                log.info(s3_obj_key)
                 raster_del_list.append(s3_obj_key)
                 # s3.delete_object(Bucket=s3_bucket, Key=s3_obj_key)
         return raster_del_list
@@ -169,12 +151,11 @@ def main():
     ovi_sel = "Name LIKE '%Ovi%'"
 
     # Log Messages
-    log_messages = Messager()
     # Open auto ingestion script with time stamp
-    log_messages.log("\n\nStarting auto ingestion script at: " + str(datetime.datetime.now()))
+    log.info("\n\nStarting auto ingestion script at: " + str(datetime.datetime.now()))
 
     # Add raster files and calculate the fields for the source mosaic dataset
-    manage_source = MosaicDataset(source_mds, "Raster Dataset", acs_path_s3, log_messages.log)
+    manage_source = MosaicDataset(source_mds, "Raster Dataset", acs_path_s3)
     manage_source.add_rasters_to_mosaic_dataset(
         update_cellsize_ranges="",
         update_boundary="UPDATE_BOUNDARY",
@@ -197,7 +178,7 @@ def main():
     )
 
     # Add new raster files and remove outdated raster files from the derived mosaic dataset
-    manage_derived = MosaicDataset(derived_mds, "Table / Raster Catalog", source_mds, log_messages.log)
+    manage_derived = MosaicDataset(derived_mds, "Table / Raster Catalog", source_mds)
     manage_derived.add_rasters_to_mosaic_dataset(
         update_cellsize_ranges="",
         update_boundary="UPDATE_BOUNDARY",
@@ -207,11 +188,11 @@ def main():
     manage_derived.remove_rasters_from_mosaic_dataset(where_clause=date_sel, update_boundary="UPDATE_BOUNDARY")
 
     # Create overview file for the derived mosaic dataset
-    manage_derived_create_ovi = Raster(derived_mds, overview_crf, log_messages.log)
+    manage_derived_create_ovi = Raster(derived_mds, overview_crf)
     manage_derived_create_ovi.copy_raster()
 
     # Add overview file to derived mosaic dataset and calculate fields
-    manage_derived = MosaicDataset(derived_mds, "Raster Dataset", overview_crf, log_messages.log)
+    manage_derived = MosaicDataset(derived_mds, "Raster Dataset", overview_crf)
     manage_derived.add_rasters_to_mosaic_dataset(
         update_cellsize_ranges="",
         update_boundary="UPDATE_BOUNDARY",
@@ -227,7 +208,7 @@ def main():
     )
 
     # Build the boundary file for the reference mosaic dataset
-    manage_reference = MosaicDataset(reference_mds, "", "", log_messages.log)
+    manage_reference = MosaicDataset(reference_mds, "", "")
     manage_reference.build_boundary_mosaic_dataset()
 
     # Delete outdated raster files in S3
@@ -236,10 +217,7 @@ def main():
     # del_s3.delete_s3_object_by_date()
 
     # Close auto ingestion script with time stamp
-    log_messages.log("\n\nClosing auto ingestion script at: " + str(datetime.datetime.now()))
-
-    # Save message log to a txt file
-    Messager.save_to_txt(log_dir, log_messages.message_list)
+    log.info("\n\nClosing auto ingestion script at: " + str(datetime.datetime.now()))
 
 
 if __name__ == '__main__':
