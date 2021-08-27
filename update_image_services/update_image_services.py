@@ -30,12 +30,6 @@ s3_bucket = "hyp3-nasa-disasters"
 # s3 dir: directory structure after s3 bucket
 s3_dir = "RTC_services"
 
-# aws_access_key_id: aws access key
-aws_access_key_id = ""
-
-# aws_secret_access_key: aws secret key
-aws_secret_access_key = ""
-
 # image_type_filter: image type filter used to select the type of imagery to be added to the mosaic datasets. This is
 # necessary where different data sources are stored in the same bucket
 # For example, both rbg and VV + VH are stored in the same bucket. *rgb* | *VV* | *VH* as * is used as a wildcard
@@ -99,16 +93,13 @@ class Raster:
 
 
 class S3Object:
-    def __init__(self, s3_bucket, s3_dir, aws_access_key_id, aws_secret_access_key, time_period_days,
+    def __init__(self, s3_bucket, s3_dir, time_period_days,
                  ovi_time_period_days):
         self.s3_bucket = s3_bucket
         self.s3_dir = s3_dir
-        self.aws_access_key_id = aws_access_key_id
-        self.aws_secret_access_key = aws_secret_access_key
         self.time_period_days = time_period_days
         self.ovi_time_period_days = ovi_time_period_days
-        self.s3 = boto3.client('s3', aws_access_key_id=self.aws_access_key_id,
-                               aws_secret_access_key=self.aws_secret_access_key)
+        self.s3 = boto3.client('s3')
 
     def delete_s3_object_by_date(self):
         raster_del_list = []
@@ -212,7 +203,7 @@ def main():
     manage_reference.build_boundary_mosaic_dataset()
 
     # Delete outdated raster files in S3
-    # del_s3 = S3Object(s3_bucket, s3_dir, aws_access_key_id, aws_secret_access_key, time_period_days,
+    # del_s3 = S3Object(s3_bucket, s3_dir, time_period_days,
     #                   ovi_time_period_days, log_messages.log)
     # del_s3.delete_s3_object_by_date()
 
