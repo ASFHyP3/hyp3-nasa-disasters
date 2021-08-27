@@ -5,7 +5,7 @@ import os
 import arcpy
 import boto3
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 log = logging.getLogger(__name__)
 
 arcpy.env.overwriteOutput = True
@@ -152,7 +152,7 @@ def main():
 
     # Log Messages
     # Open auto ingestion script with time stamp
-    log.info("\n\nStarting auto ingestion script at: " + str(datetime.datetime.now()))
+    log.info("\n\nStarting auto ingestion script")
 
     # Add raster files and calculate the fields for the source mosaic dataset
     manage_source = MosaicDataset(source_mds, "Raster Dataset", acs_path_s3)
@@ -217,7 +217,7 @@ def main():
     # del_s3.delete_s3_object_by_date()
 
     # Close auto ingestion script with time stamp
-    log.info("\n\nClosing auto ingestion script at: " + str(datetime.datetime.now()))
+    log.info("\n\nClosing auto ingestion script")
 
 
 if __name__ == '__main__':
