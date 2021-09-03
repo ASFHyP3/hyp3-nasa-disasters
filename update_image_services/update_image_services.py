@@ -85,7 +85,7 @@ def main():
     arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=args.derived_mds, where_clause=date_sel)
 
     log.info('Creating overview file for the derived mosaic dataset')
-    with arcpy.EnvManager(pyramid="PYRAMIDS 3"):
+    with arcpy.EnvManager(compression="'JPEG_YCbCr' 80", tileSize="5120 5120", pyramid="PYRAMIDS 3", cellSize=300):
         arcpy.management.CopyRaster(in_raster=args.derived_mds, out_rasterdataset=overview_crf)
 
     log.info('Adding overview file to derived mosaic dataset and calculating fields')
