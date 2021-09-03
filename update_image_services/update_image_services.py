@@ -69,6 +69,7 @@ def main():
              '!Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
             ['GroupName', '!Name!.split(";")[0][:-4]'],
             ['Tag', '!Name!.split("_")[8]'],
+            ['MaxPS', '1610'],
         ],
     )
 
@@ -103,8 +104,11 @@ def main():
     arcpy.management.CalculateFields(
         in_table=selection,
         fields=[
-            ['MaxPS', '1610'],
-            ['StartDate', '!Name!.split("_")[2] + "/" + !Name!.split("_")[3] + "/" + !Name!.split("_")[1]'],
+            ['StartDate', '!Name!.split("_")[2] + "/" + !Name!.split("_")[3] + "/" + !Name!.split("_")[1]'],  # FIXME 8 hours before earliest raster
+            ['EndDate', '!Name!.split("_")[2] + "/" + !Name!.split("_")[3] + "/" + !Name!.split("_")[1]'],  # FIXME 8 hours after latest raster
+            ['MinPS', '1600'],
+            ['Category', '2'],
+            ['GroupName', 'Mosaic Overview'],  # TODO add date generated
         ],
     )
 
