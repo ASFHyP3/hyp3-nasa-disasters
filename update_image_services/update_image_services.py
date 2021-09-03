@@ -20,8 +20,8 @@ def get_args():
     parser.add_argument('derived_mds',
                         help='full path to derived mosaic dataset which will hold the rasters from the source mosaic '
                              'dataset after date')
-    parser.add_argument('reference_mds',
-                        help='full path to reference mosaic dataset which will be used for the image services (can be '
+    parser.add_argument('referenced_mds',
+                        help='full path to referenced mosaic dataset which will be used for the image services (can be '
                              'further selected for date)')
     parser.add_argument('acs_path', help='full path to the cloud connection file (.acs)')
     parser.add_argument('image_type_filter',
@@ -44,7 +44,7 @@ def main():
     # overview_crf: will update automatically to create a crf file through the acs named Ovi_
     overview_crf = os.path.join(acs_path_s3, 'Ovi_' + str(datetime.date.today()).replace('-', '_') + '.crf')
 
-    log.info('Adding raster files and calculating the fields for the source mosaic dataset')
+    log.info(f'Adding raster files and calculating the fields for {args.source_mds}')
     arcpy.management.AddRastersToMosaicDataset(
         in_mosaic_dataset=args.source_mds,
         raster_type='Raster Dataset',
@@ -72,7 +72,7 @@ def main():
         ],
     )
 
-    log.info('Adding new raster files and removing outdated raster files from the derived mosaic dataset')
+    log.info(f'Adding new raster files and removing outdated raster files from {args.derived_mds}')
     arcpy.management.AddRastersToMosaicDataset(
         in_mosaic_dataset=args.derived_mds,
         raster_type='Table / Raster Catalog',
@@ -84,11 +84,11 @@ def main():
     date_sel = f"StartDate <= timestamp '{cutoff_date.strftime('%Y-%m-%d %I:%M:%S')}'"
     arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=args.derived_mds, where_clause=date_sel)
 
-    log.info('Creating overview file for the derived mosaic dataset')
+    log.info(f'Creating overview file for {args.derived_mds}')
     with arcpy.EnvManager(compression="'JPEG_YCbCr' 80", tileSize="5120 5120", pyramid="PYRAMIDS 3", cellSize=300):
         arcpy.management.CopyRaster(in_raster=args.derived_mds, out_rasterdataset=overview_crf)
 
-    log.info('Adding overview file to derived mosaic dataset and calculating fields')
+    log.info(f'Adding overview file to {args.derived_mds} and calculating fields')
     arcpy.management.AddRastersToMosaicDataset(
         in_mosaic_dataset=args.derived_mds,
         raster_type='Raster Dataset',
@@ -108,8 +108,8 @@ def main():
         ],
     )
 
-    log.info('Building the boundary file for the reference mosaic dataset')
-    arcpy.management.BuildBoundary(in_mosaic_dataset=args.reference_mds)
+    log.info(f'Building the boundary file for {args.referenced_mds}')
+    arcpy.management.BuildBoundary(in_mosaic_dataset=args.referenced_mds)
 
     log.info('Finished')
 
