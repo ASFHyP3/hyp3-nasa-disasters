@@ -104,13 +104,19 @@ def main():
     arcpy.management.CalculateFields(
         in_table=selection,
         fields=[
-            ['StartDate', '!Name!.split("_")[2] + "/" + !Name!.split("_")[3] + "/" + !Name!.split("_")[1]'],  # FIXME 8 hours before earliest raster
-            ['EndDate', '!Name!.split("_")[2] + "/" + !Name!.split("_")[3] + "/" + !Name!.split("_")[1]'],  # FIXME 8 hours after latest raster
-            ['MinPS', '1600'],
-            ['Category', '2'],
-            ['GroupName', 'Mosaic Overview'],  # TODO add date generated
-        ],
-    )
+            ['StartDate', 
+             'datetime.datetime.strptime(!Name!.replace("Ovi_",""), "%Y_%m_%d") + datetime.timedelta(hours=-8)'],
+            ['EndDate',
+             'datetime.datetime.strptime(!Name!.replace("Ovi_",""), "%Y_%m_%d") + datetime.timedelta(hours=8)'],
+            ['MinPS',
+             '1600'],
+            ['MaxPS',
+             '1610'],
+            ['Category',
+             '2'],
+            ['GroupName', 
+             'Mosaic Overview'],  # TODO add date generated
+        ],)
 
     log.info(f'Building the boundary file for {args.referenced_mds}')
     arcpy.management.BuildBoundary(in_mosaic_dataset=args.referenced_mds)
