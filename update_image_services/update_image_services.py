@@ -23,13 +23,13 @@ def get_args():
     parser.add_argument('referenced_mds',
                         help='full path to referenced mosaic dataset which will be used for the image services (can be '
                              'further selected for date)')
-    parser.add_argument('acs_path', help='full path to the cloud connection file (.acs)')
+    parser.add_argument('raster_path', help='full path to the input raster files')
     parser.add_argument('image_type_filter',
                         help='image type filter used to select the type of imagery to be added to the mosaic datasets. '
                              'This is necessary where different data sources  are stored in the same bucket For '
                              'example, both rbg and VV + VH are stored in the same bucket. *rgb* | *VV* | *VH* as * is '
                              'used as a wildcard')
-    parser.add_argument('s3_prefix', help='directory structure after s3 bucket')
+    parser.add_argument('overview_location', help='location to store overview .crf file')
     parser.add_argument('--time-period-days', type=int, default=31,
                         help='number of days from the current day to maintain in the derived mosaic dataset')
     args = parser.parse_args()
@@ -39,16 +39,11 @@ def get_args():
 def main():
     args = get_args()
 
-    # acs_path_s3: will update automatically to combine the acs_path and s3_bucket
-    acs_path_s3 = os.path.join(args.acs_path, args.s3_prefix)
-    # overview_crf: will update automatically to create a crf file through the acs named Ovi_
-    overview_crf = os.path.join(acs_path_s3, 'Ovi_' + str(datetime.date.today()).replace('-', '_') + '.crf')
-
     log.info(f'Adding raster files and calculating the fields for {args.source_mds}')
     arcpy.management.AddRastersToMosaicDataset(
         in_mosaic_dataset=args.source_mds,
         raster_type='Raster Dataset',
-        input_path=acs_path_s3,
+        input_path=args.raster_path,
         update_cellsize_ranges='NO_CELL_SIZES',
         filter=args.image_type_filter,
         duplicate_items_action='EXCLUDE_DUPLICATES',
@@ -87,13 +82,13 @@ def main():
 
     log.info(f'Creating overview file for {args.derived_mds}')
     with arcpy.EnvManager(compression="'JPEG_YCbCr' 80", tileSize="5120 5120", pyramid="PYRAMIDS 3", cellSize=300):
-        arcpy.management.CopyRaster(in_raster=args.derived_mds, out_rasterdataset=overview_crf)
+        arcpy.management.CopyRaster(in_raster=args.derived_mds, out_rasterdataset=args.overview_location)
 
     log.info(f'Adding overview file to {args.derived_mds} and calculating fields')
     arcpy.management.AddRastersToMosaicDataset(
         in_mosaic_dataset=args.derived_mds,
         raster_type='Raster Dataset',
-        input_path=overview_crf,
+        input_path=args.overview_location,
         update_cellsize_ranges='NO_CELL_SIZES',
     )
     selection = arcpy.management.SelectLayerByAttribute(
