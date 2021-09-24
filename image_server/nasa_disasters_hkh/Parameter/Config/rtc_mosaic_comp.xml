@@ -54,7 +54,7 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;StartDate;EndDate;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;StartDate;MinPS;MaxPS;LowPS;HighPS;StartDate;EndDate;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
         <use_time>ENABLED</use_time>
         <start_time_field>StartDate</start_time_field>
         <end_time_field>EndDate</end_time_field>
@@ -62,7 +62,7 @@
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>Sentinel1_RTC_VV_dB_Stretch.rft.xml;None;Sentinel1_RTC_VV_Power.rft.xml;Sentinel1_RTC_VH_Power.rft.xml;Sentinel1_RTC_VV_Amplitude.rft.xml;Sentinel1_RTC_VH_Amplitude.rft.xml;Sentinel1_RTC_VV_dB.rft.xml;Sentinel1_RTC_VH_dB.rft.xml</processing_templates>
+		<processing_templates>Sentinel1_RTC_VV_dB_Stretch.rft.xml;None;Sentinel1_RTC_VH_dB_Stretch.rft.xml;Sentinel1_RTC_VV_Power.rft.xml;Sentinel1_RTC_VH_Power.rft.xml;Sentinel1_RTC_VV_Amplitude.rft.xml;Sentinel1_RTC_VH_Amplitude.rft.xml;Sentinel1_RTC_VV_dB.rft.xml;Sentinel1_RTC_VH_dB.rft.xml</processing_templates>
         <default_processing_template>Sentinel1_RTC_VV_dB_Stretch.rft.xml</default_processing_template>
       </DefaultProperties>
       <Table>

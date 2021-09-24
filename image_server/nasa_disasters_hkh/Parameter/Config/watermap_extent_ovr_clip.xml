@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Name>ASFs1</Name>
-  <Command>CM+AR+AF+BB+SP+CC+CV</Command>
+  <Command>CM+AR+AF+IG+BB+SP+CC+CV</Command>
   <Workspace>
     <WorkspacePath>md</WorkspacePath>
     <Geodatabase>Feb3</Geodatabase>
@@ -13,12 +13,12 @@
       <pixel_type>#</pixel_type>
       <AddRasters>
         <AddRaster>
-          <dataset_id>s1_rgb</dataset_id>
+          <dataset_id>watermap_extent</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
           <Sources>
             <data_path>C:\work_c\data</data_path>
           </Sources>
-          <filter>*_rgb.tif</filter>
+          <filter>*</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
         </AddRaster>
@@ -33,7 +33,7 @@
         <allowed_compressions>JPEG;NONE;LZ77</allowed_compressions>
         <default_compression_type>JPEG</default_compression_type>
         <JPEG_quality>80</JPEG_quality>
-        <resampling_type>BILINEAR</resampling_type>
+        <resampling_type>NEAREST</resampling_type>
         <LERC_Tolerance>0.01</LERC_Tolerance>
         <clip_to_footprints>CLIP</clip_to_footprints>
         <clip_to_boundary>CLIP</clip_to_boundary>
@@ -43,7 +43,7 @@
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
         <default_mosaic_method>ByAttribute</default_mosaic_method>
-        <order_field>StartDate</order_field>
+        <order_field>Date</order_field>
         <order_base>1/1/2050 12:00:00 AM</order_base>
         <sorting_order>Ascending</sorting_order>
         <mosaic_operator>FIRST</mosaic_operator>
@@ -54,65 +54,29 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;StartDate;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
         <use_time>ENABLED</use_time>
-        <start_time_field>StartDate</start_time_field>
-        <end_time_field>EndDate</end_time_field>
+        <start_time_field>Date</start_time_field>
+        <end_time_field>#</end_time_field>
         <time_format>#</time_format>
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>None</processing_templates>
-        <default_processing_template>None</default_processing_template>
+		<processing_templates>WatermapExtentBlue.rft.xml;None</processing_templates>
+        <default_processing_template>WatermapExtentBlue.rft.xml</default_processing_template>
       </DefaultProperties>
       <Table>
           <AddFields>AddFields</AddFields>
           <Fields>
             <Field>
-              <name>StartDate</name>
-              <type>date</type>
-              <length></length>
-            </Field>
-            <Field>
-              <name>EndDate</name>
+              <name>Date</name>
               <type>date</type>
               <length></length>
             </Field>
           </Fields>
       </Table>
       <Processes>
-      <CalculateValues>
-          <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>StartDate</fieldName>
-              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
-          </CalculateValue>
-          <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>EndDate</fieldName>
-              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>GroupName</fieldName>
-              <expression>(!Name!.split(";")[0][:-4])</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>Tag</fieldName>
-              <expression>!Name!.split("_")[8]</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>MaxPS</fieldName>
-              <expression>1610</expression>
-          </CalculateValue>
-      </CalculateValues>
+      <CalculateValues></CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
           <do_compute_min>NO_MIN_CELL_SIZES</do_compute_min>
@@ -142,8 +106,15 @@
           <append_to_existing>OVERWRITE</append_to_existing>
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
+        <ImportGeometry>
+           <target_featureclass_type>BOUNDARY</target_featureclass_type>
+           <target_join_field>OBJECTID</target_join_field>
+           <input_featureclass>$iwfc$</input_featureclass>
+           <input_join_field>FID</input_join_field>
+       </ImportGeometry>
         <Environment>
-          <cellSize>300</cellSize>
+          <parallelProcessingFactor>11</parallelProcessingFactor>
+          <cellSize>900</cellSize>
         </Environment>
         <BuildOverviews>
           <where_clause>#</where_clause>
@@ -162,7 +133,7 @@
           <tile_cols>5120</tile_cols>
           <overview_factor>2</overview_factor>
           <force_overview_tiles>NO_FORCE_OVERVIEW_TILES</force_overview_tiles>
-          <resampling_method>BILINEAR</resampling_method>
+          <resampling_method>NEAREST</resampling_method>
           <compression_method>JPEG_YCbCr</compression_method>
           <compression_quality>80</compression_quality>
         </DefineOverviews>
