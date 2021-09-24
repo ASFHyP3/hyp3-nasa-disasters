@@ -11,8 +11,6 @@ import arcpy
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 log = logging.getLogger(__name__)
 
-arcpy.env.overwriteOutput = True
-
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -22,55 +20,64 @@ def get_args():
 
 
 def main(config):
-    cutoff_date = datetime.datetime.today() - datetime.timedelta(days=config['time_period_in_days'])
+    cutoff_date = datetime.datetime.now(tz=datetime.timezone.utc) - datetime.timedelta(days=config['time_period_in_days'])
+    crf_name = 'Ovi_' + str(datetime.datetime.now(tz=datetime.timezone.utc).strftime('%Y%m%dT%H%M%S')) + '.crf'
 
     for dataset in config['datasets']:
-        log.info(f'Adding raster files and calculating the fields for {dataset["source_mosaic"]}')
+        log.info(f'Removing all rasters from {dataset["source_mosaic"]} and {dataset["derived_mosaic"]}')
+        arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=dataset['source_mosaic'],
+                                                        where_clause='OBJECTID>=0')
+        arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=dataset['derived_mosaic'],
+                                                        where_clause='OBJECTID>=0')
+
+        log.info(f'Adding raster files and calculating fields for {dataset["source_mosaic"]}')
         arcpy.management.AddRastersToMosaicDataset(
             in_mosaic_dataset=dataset['source_mosaic'],
             raster_type='Raster Dataset',
             input_path=dataset['raster_location'],
             update_cellsize_ranges='NO_CELL_SIZES',
             filter=dataset['raster_filter'],
-            duplicate_items_action='EXCLUDE_DUPLICATES',
-        )
-        selection = arcpy.management.SelectLayerByAttribute(
-            in_layer_or_view=dataset['source_mosaic'],
-            selection_type='NEW_SELECTION',
-            where_clause='StartDate IS NULL',
         )
         arcpy.management.CalculateFields(
-            in_table=selection,
+            in_table=dataset['source_mosaic'],
             fields=[
-                ['StartDate',
-                 '!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + '
-                 '!Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
-                ['EndDate',
-                 '!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + '
-                 '!Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15]'],
+                ['StartDate', "datetime.strptime(!Name!.split('_')[2], '%Y%m%dT%H%M%S').strftime('%m/%d/%Y %H:%M:%S')"],
+                ['EndDate', "datetime.strptime(!Name!.split('_')[2], '%Y%m%dT%H%M%S').strftime('%m/%d/%Y %H:%M:%S')"],
+            ],
+        )
+        log.info(f'Removing outdated raster files from {dataset["source_mosaic"]}')
+        date_sel = f"StartDate <= timestamp '{cutoff_date.strftime('%Y-%m-%d %H:%M:%S')}'"
+        arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=dataset['source_mosaic'],
+                                                        where_clause=date_sel)
+        arcpy.management.CalculateFields(
+            in_table=dataset['source_mosaic'],
+            fields=[
                 ['GroupName', '!Name!.split(";")[0][:-4]'],
                 ['Tag', '!Name!.split("_")[8]'],
+                ['MinPS', '0'],
                 ['MaxPS', '1610'],
             ],
         )
 
-        log.info(f'Adding new raster files and removing outdated raster files from {dataset["derived_mosaic"]}')
+        log.info(f'Adding raster files and calculating fields for {dataset["derived_mosaic"]}')
         arcpy.management.AddRastersToMosaicDataset(
             in_mosaic_dataset=dataset['derived_mosaic'],
             raster_type='Table / Raster Catalog',
             input_path=dataset['source_mosaic'],
             update_cellsize_ranges='NO_CELL_SIZES',
-            duplicate_items_action='EXCLUDE_DUPLICATES',
         )
-        date_sel = f"StartDate <= timestamp '{cutoff_date.strftime('%Y-%m-%d %I:%M:%S')}'"
-        arcpy.management.RemoveRastersFromMosaicDataset(in_mosaic_dataset=dataset['derived_mosaic'], where_clause=date_sel)
+        arcpy.management.CalculateFields(
+            in_table=dataset['derived_mosaic'],
+            fields=[
+                ['MinPS', '0'],
+            ],
+        )
 
         log.info(f'Creating overview file for {dataset["derived_mosaic"]}')
-        crf_name = 'Ovi_' + str(datetime.date.today()).replace('-', '_') + '.crf'
         s3_crf_key = os.path.join(dataset['overview_location'], crf_name)
         with tempfile.TemporaryDirectory(dir=config['raster_store']) as temp_dir:
             local_crf = os.path.join(temp_dir, crf_name)
-            with arcpy.EnvManager(compression="'JPEG_YCbCr' 80", tileSize="5120 5120", pyramid="PYRAMIDS 3", cellSize=300):
+            with arcpy.EnvManager(pyramid='PYRAMIDS 3', cellSize=900):
                 arcpy.management.CopyRaster(in_raster=dataset['derived_mosaic'], out_rasterdataset=local_crf)
             subprocess.run(['aws', 's3', 'cp', local_crf, s3_crf_key.replace('/vsis3/', 's3://'), '--recursive'])
 
@@ -84,16 +91,17 @@ def main(config):
         selection = arcpy.management.SelectLayerByAttribute(
             in_layer_or_view=dataset['derived_mosaic'],
             selection_type='NEW_SELECTION',
-            where_clause="Name LIKE '%Ovi%'",
+            where_clause="Name LIKE 'Ovi_%'",
         )
         arcpy.management.CalculateFields(
             in_table=selection,
             fields=[
-                ['StartDate', (cutoff_date - datetime.timedelta(days=1)).strftime("'%m/%d/%Y %H:%M:%S'")],
-                ['EndDate', (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("'%m/%d/%Y %H:%M:%S'")],
+                ['StartDate', cutoff_date.strftime("'%m/%d/%Y %H:%M:%S'")],
+                ['EndDate', datetime.datetime.now(tz=datetime.timezone.utc).strftime("'%m/%d/%Y %H:%M:%S'")],
                 ['MinPS', '1600'],
+                ['MaxPS', '18000'],
                 ['Category', '2'],
-                #['GroupName', 'Mosaic Overview'],  # TODO add date generated
+                ['GroupName', "'Mosaic Overview'"],
             ],
         )
 
