@@ -41,8 +41,8 @@ def main(config):
         arcpy.management.CalculateFields(
             in_table=dataset['source_mosaic'],
             fields=[
-                ['StartDate', "datetime.strptime(!Name!.split('_')[2], '%Y%m%dT%H%M%S').strftime('%m/%d/%Y %H:%M:%S')"],
-                ['EndDate', "datetime.strptime(!Name!.split('_')[2], '%Y%m%dT%H%M%S').strftime('%m/%d/%Y %H:%M:%S')"],
+                ['StartDate', "datetime.datetime.strptime(!Name!.split('_')[2], '%Y%m%dT%H%M%S')"],
+                ['EndDate', "datetime.datetime.strptime(!Name!.split('_')[2], '%Y%m%dT%H%M%S')"],
             ],
         )
         log.info(f'Removing outdated raster files from {dataset["source_mosaic"]}')
@@ -97,7 +97,7 @@ def main(config):
             in_table=selection,
             fields=[
                 ['StartDate', cutoff_date.strftime("'%m/%d/%Y %H:%M:%S'")],
-                ['EndDate', datetime.datetime.now(tz=datetime.timezone.utc).strftime("'%m/%d/%Y %H:%M:%S'")],
+                ['EndDate', 'datetime.datetime.now(tz=datetime.timezone.utc)'],
                 ['MinPS', '1600'],
                 ['MaxPS', '18000'],
                 ['Category', '2'],
