@@ -1,0 +1,14 @@
+{
+  "raster_store": "/home/arcgis/raster_store/",
+  "time_period_in_days": 31,
+  "datasets": [
+    {
+      "raster_location": "/vsis3/hyp3-nasa-disasters/RTC_services/",
+      "raster_filter": "*_rgb.tif",
+      "overview_location": "/vsis3/hyp3-nasa-disasters/overviews/ASF_S1_RGB/",
+      "source_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/rgb",
+      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/rgb_derived",
+      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/rgb_referenced"
+    }
+  ]
+}
