@@ -13,11 +13,10 @@ import arcpy
 import os
 
 # Set geodatabase to use as starting point
-#ingdb = ['path to the source gdb uploaded to the image server']
-ingdb = r'C:\\Users\\ASF\\Documents\\COVID19\\Disasters\\Hurricanes\\MosaicDatasets\\RTCservices_211001.gdb'
+ingdb = ['path to the source gdb uploaded to the image server']
+
 # Set path to ags to use for publishing the dataset
-#agspath = ['path to the ags file to arcgis on gis.asf.alaska.edu.ags']
-agspath = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\arcgis on gis.asf.alaska.edu.ags'
+agspath = ['path to the ags file to arcgis on gis.asf.alaska.edu.ags']
 
 # Format source, derived and referenced mosaic datasets for each service
 for md in ['rgb', 'sar_comp', 'watermap_extent']:
@@ -82,7 +81,7 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
     sdd_draft = sd_draft+'raft'
     sd_stage = sd_draft[:-1]
     arcpy.server.StageService(sdd_draft, sd_stage, None)
-    arcpy.AddMessage('Service definition staged for ' + ds + '...')
-    print('Service definition staged for ' + ds + '...')
+    arcpy.AddMessage('Service definition staged for ' + ds + '.')
+    print('Service definition staged for ' + ds + '.')
 
 
