@@ -10,9 +10,14 @@
 # This script must be run on the input geodatabase after it has been uploaded to the server.
 
 import arcpy
+import os
 
 # Set geodatabase to use as starting point
-ingdb = ['path to the source gdb uploaded to the image server']
+#ingdb = ['path to the source gdb uploaded to the image server']
+ingdb = r'C:\\Users\\ASF\\Documents\\COVID19\\Disasters\\Hurricanes\\MosaicDatasets\\RTCservices_211001.gdb'
+# Set path to ags to use for publishing the dataset
+#agspath = ['path to the ags file to arcgis on gis.asf.alaska.edu.ags']
+agspath = r'C:\Users\ASF\Documents\COVID19\Disasters\Watermaps\arcgis on gis.asf.alaska.edu.ags'
 
 # Format source, derived and referenced mosaic datasets for each service
 for md in ['rgb', 'sar_comp', 'watermap_extent']:
@@ -51,3 +56,33 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
     # Create referenced mosaic dataset from derived mosaic dataset
     arcpy.AddMessage('Created reference mosaic dataset from ' + md_der)
     print('Created reference mosaic dataset from ' + md_der)
+
+    # Generate draft service definition from the dataset
+    dirpath = os.path.dirname(ingdb)
+    tag = os.path.splitext(os.path.basename(ingdb))[0]
+    if md == 'rgb':
+        ds = 'RGB'
+    elif md == 'sar_comp':
+        ds = 'RTC'
+    elif md == 'watermap_extent':
+        ds = 'WM'
+    else:
+        ds = 'NONE'
+        print('No matching dataset name')
+    sd_draft = dirpath + '\\' + tag + '_' + ds + '.sdd'
+    sname = 'ASF_S1_'+ds
+
+    arcpy.AddMessage('Generating draft service definition for ' + ds + '...')
+    print('Generating draft service definition for ' + ds + '...')
+    arcpy.CreateImageSDDraft(md_ref, sd_draft, sname, "ARCGIS_SERVER", agspath, "FALSE")
+
+    # Stage a service definition
+    arcpy.AddMessage('Draft SD generated. Staging service definition for ' + ds + '...')
+    print('Draft SD generated. Staging service definition for ' + ds + '...')
+    sdd_draft = sd_draft+'raft'
+    sd_stage = sd_draft[:-1]
+    arcpy.server.StageService(sdd_draft, sd_stage, None)
+    arcpy.AddMessage('Service definition staged for ' + ds + '...')
+    print('Service definition staged for ' + ds + '...')
+
+
