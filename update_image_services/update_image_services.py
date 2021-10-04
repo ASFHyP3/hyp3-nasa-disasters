@@ -48,7 +48,7 @@ def main(config):
         arcpy.management.CalculateFields(
             in_table=dataset['source_mosaic'],
             fields=[
-                ['GroupName', '!Name!.split(";")[0][:-4]'],
+                ['GroupName', '"_".join(!Name!.split(";")[0].split("_")[:-1])'],
                 ['Tag', '!Name!.split("_")[8]'],
                 ['MinPS', '0'],
                 ['MaxPS', '1610'],
