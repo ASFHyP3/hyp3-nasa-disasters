@@ -12,7 +12,7 @@
 #
 # This script must be run on the input geodatabase after it has been uploaded to the server.
 #
-# The service definition (.sd) files can be published using /arcgis/server/tools/admin/createservice :
+# The service definition (.sd) files can be published using /arcgis/server/tools/admin/createservice, e.g.:
 # createservice -u <user> -p <password> -s "http://localhost/arcgis" -f ASF_S1_RGB.sd -F ASF_S1 -n ASF_S1_RGB
 
 import tempfile
