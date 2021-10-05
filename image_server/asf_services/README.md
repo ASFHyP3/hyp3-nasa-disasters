@@ -13,7 +13,8 @@ The datasets currently published to image services include the following:
 The source rasters for the mosaic datasets are stored in an AWS S3 bucket, with a different prefix for each AOI. The contents of these buckets are updated daily. The overview CRF files are also written to the S3 bucket, under the esri prefix.
 
 The following path can be replaced to reflect the location of this directory when the repo is downloaded:
-C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\
+	
+	C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\
 
 All files necessary for this workflow are contained within this asf_services directory, except for those including credentials. See the [Credentials](#credentials) section for more information. 
 
