@@ -20,7 +20,7 @@ All files necessary for this workflow are contained within this asf_services dir
 
 ## Workflow
 
-There are two AOIs supported by the scripts in this directory. The Hurricanes AOI covers the East Coast of the U.S., and the HKH AOI covers the Hindu Kush Himalayan region, which prone to flooding during the monsoon season.
+There are two AOIs supported by the scripts in this directory. The Hurricanes AOI covers the East Coast of the U.S., and the HKH AOI covers the Hindu Kush Himalayan region, which is prone to flooding during the monsoon season.
 
 We plan to extend the Hurricanes AOI to cover the contiguous U.S. States, so the services themselves are branded as RTC_services in some cases. 
 
