@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<metadata xml:lang="en">
+	<Esri>
+		<CreaDate>20210204</CreaDate>
+		<CreaTime>07205000</CreaTime>
+		<ArcGISFormat>1.0</ArcGISFormat>
+		<SyncOnce>TRUE</SyncOnce>
+		<ModDate>20210218</ModDate>
+		<ModTime>15370600</ModTime>
+		<scaleRange>
+			<minScale>150000000</minScale>
+			<maxScale>5000</maxScale>
+		</scaleRange>
+		<ArcGISProfile>ItemDescription</ArcGISProfile>
+	</Esri>
+	<tool name="MAIDIS" displayname="Manage AID Image Services" toolboxalias="AID" xmlns="">
+		<arcToolboxHelpPath>c:\program files\arcgis\pro\Resources\Help\gp</arcToolboxHelpPath>
+		<parameters>
+			<param name="aid_is" displayname="AID Image Server" type="Required" direction="Input" datatype="String" expression="aid_is">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Select the server alias where the image service has to be created or modified.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="action" displayname="Action" type="Required" direction="Input" datatype="String" expression="Create Service | Update Service | Delete Service | Start/Stop Service | Set Service Permission">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt;Create Service - Creates an image service in the selected server.&lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt;Update Service - Updates an image service in the selected server. &lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt;Delete Service - Deletes an image service from the selected server.&lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;Start/Stop Service - Starts or stops an image service in the selected server.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="server_folder_name" displayname="Server Folder Name" type="Optional" direction="Input" datatype="String" expression="{server_folder_name}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt;Create Service&lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt; &lt;/SPAN&gt;&lt;SPAN&gt;&lt;SPAN&gt;Select the folder name to which the service should be created. Enter a new folder name to create a folder.&lt;/SPAN&gt;&lt;/SPAN&gt;&lt;SPAN&gt; &lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt;Update Service/Start Service/Stop Service/Delete Service&lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;P STYLE="font-size:12pt"&gt;&lt;SPAN&gt;&lt;SPAN&gt; &lt;/SPAN&gt;&lt;SPAN&gt;&lt;SPAN&gt;Select the folder name in which the service is present&lt;/SPAN&gt;&lt;/SPAN&gt;&lt;SPAN&gt; &lt;/SPAN&gt;&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="new_service_name" displayname="Image Service Name" type="Required" direction="Input" datatype="String" expression="new_service_name">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Enter the name of the service to be created&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="existing_service_name" displayname="Image Service Name" type="Optional" direction="Input" datatype="String" expression="{existing_service_name}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Select the service on which operation should be performed&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="service_definition_package" displayname="AID Image Service Definition Package" type="Required" direction="Input" datatype="File" expression="service_definition_package">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Select the package created by the "Create AID Image Service Definition Package" tool to be published&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="update_service_definition_package" displayname="AID Image Service Definition Package" type="Optional" direction="Input" datatype="File" expression="{update_service_definition_package}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Select the package created by the "Create AID Image Service Definition Package" tool to be updated&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="instance_type" displayname="Instance Type" type="Optional" direction="Input" datatype="String" expression="{Dedicated Instance | Shared Instance}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Select the instance type Dedicated/Shared&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="description" displayname="Description" type="Optional" direction="Input" datatype="String" expression="{description}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Enter the description of the image service to be created or updated&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="copyright" displayname="Copyright" type="Optional" direction="Input" datatype="String" expression="{copyright}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Enter the copyright of the image service to be created or updated&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="change_service_status" displayname="Change service status" type="Optional" direction="Input" datatype="String" expression="{change_service_status}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;This field shows the current status of the selected service. Change the value to update the status of the service&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="delete_source" displayname="Delete Source" type="Optional" direction="Input" datatype="Boolean" expression="{delete_source}"/>
+			<param name="create_portal_item" displayname="Create Portal Item" type="Optional" direction="Input" datatype="Boolean" expression="{create_portal_item}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Select this option to create a portal item for the created image service URL&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="enable_wms" displayname="Enable WMS" type="Optional" direction="Input" datatype="Boolean" expression="{enable_wms}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Select to enable WMS capabilities&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="enable_wcs" displayname="Enable WCS" type="Optional" direction="Input" datatype="Boolean" expression="{enable_wcs}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Select to enable WCS capabilities&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="enable_tiled_imagery" displayname="Enable Tiled Imagery" type="Optional" direction="Input" datatype="Boolean" expression="{enable_tiled_imagery}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Select to enable tiled imagery&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="set_service_permissions" displayname="Set service permissions" type="Optional" direction="Input" datatype="Boolean" expression="{set_service_permissions}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Select this to set access to the service&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="users" displayname="Users to give or revoke permission" type="Optional" direction="Input" datatype="Value Table" expression="{User {Permission detail};User {Permission detail}...}">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Select the users and corresponding permissions&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+		</parameters>
+	</tool>
+	<dataIdInfo>
+		<idCitation>
+			<resTitle>Manage AID Image Services</resTitle>
+		</idCitation>
+	</dataIdInfo>
+	<distInfo>
+		<distributor>
+			<distorFormat>
+				<formatName>ArcToolbox Tool</formatName>
+			</distorFormat>
+		</distributor>
+	</distInfo>
+	<mdHrLv>
+		<ScopeCd value="005"/>
+	</mdHrLv>
+	<mdDateSt Sync="TRUE">20210218</mdDateSt>
+</metadata>

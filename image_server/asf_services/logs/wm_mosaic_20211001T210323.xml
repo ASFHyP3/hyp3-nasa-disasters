@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<Projects>
+	<MDCS>
+		<StartTime>20211001T202539</StartTime>
+		<EndTime>20211001T210323</EndTime>
+		<TotalDuration>2263</TotalDuration>
+		<Message>
+			Checking for updates..
+			<Error>
+				<type>warning</type>
+				<text>Update Available. Please read C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\scripts\CheckForUpdate.json</text>
+			</Error>
+		</Message>
+		<Message>Using template:C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter\Config\wm_mosaic.xml</Message>
+		<Message>Processing command(s):CM+AF+AR+BF+BB+SP+CC+CV</Message>
+		<Message>Done...</Message>
+		<CM>
+			<Message>Command:CM-&gt;Create a new mosaic dataset.</Message>
+			<Message>Creating Geodatabase: (C:/Users/hjkristenson/PycharmProjects/hyp3-nasa-disasters/image_server/asf_services/MD/RTCservices/RTCservices_211001.gdb)</Message>
+			<Message>Creating source mosaic datasets:</Message>
+			<Message>	watermap_extent</Message>
+			<Status>OK</Status>
+			<Duration>3</Duration>
+		</CM>
+		<AF>
+			<Message>Command:AF-&gt;Add fields.</Message>
+			<Message>Adding custom fields:</Message>
+			<Message>Using mosaic dataset:watermap_extent</Message>
+			<Message>	Creating fields:</Message>
+			<Message>		StartDate</Message>
+			<Message>		EndDate</Message>
+			<Status>OK</Status>
+			<Duration>15</Duration>
+		</AF>
+		<AR>
+			<Message>Command:AR-&gt;Add rasters/data to a mosaic dataset.</Message>
+			<Message>Adding rasters:</Message>
+			<Message>	Using mosaic dataset/ID:watermap_extent/watermap_extent</Message>
+			<Message>	Using ART for WATERMAP_EXTENT: Raster Dataset</Message>
+			<Message>Adding items..</Message>
+			<Message>Calling (arcpy.AddRastersToMosaicDataset_management)</Message>
+			<Message>Status: OK</Message>
+			<Message>Calculating 'Dataset ID' for the mosaic dataset (watermap_extent) with value (watermap_extent)</Message>
+			<Status>OK</Status>
+			<Duration>2221</Duration>
+		</AR>
+		<BF>
+			<Message>Command:BF-&gt;Build footprint.</Message>
+			<Message>	Recomputing footprint for the mosaic dataset: watermap_extent</Message>
+			<Message>Calling (arcpy.BuildFootprints_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>2</Duration>
+		</BF>
+		<BB>
+			<Message>Command:BB-&gt;Build boundary.</Message>
+			<Message>Building the boundary NONE</Message>
+			<Status>OK</Status>
+			<Duration>2</Duration>
+		</BB>
+		<SP>
+			<Message>
+				Command:SP-&gt;Set mosaic dataset properties.
+				<Error>
+					<type>warning</type>
+					<text>SP flag is not found!</text>
+				</Error>
+			</Message>
+			<Message>Using default for Set property</Message>
+			<Message>Calling (arcpy.SetMosaicDatasetProperties_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>3</Duration>
+		</SP>
+		<CC>
+			<Message>Command:CC-&gt;Computes the minimum and maximum cell sizes for the rasters in a mosaic dataset.</Message>
+			<Message>Calculating cell ranges for:C:/Users/hjkristenson/PycharmProjects/hyp3-nasa-disasters/image_server/asf_services/MD/RTCservices/RTCservices_211001.gdb\watermap_extent</Message>
+			<Status>OK</Status>
+			<Duration>5</Duration>
+		</CC>
+		<CV>
+			<Message>Command:CV-&gt;Calculate mosaic dataset values.</Message>
+			<Message>Calculate values:C:/Users/hjkristenson/PycharmProjects/hyp3-nasa-disasters/image_server/asf_services/MD/RTCservices/RTCservices_211001.gdb\watermap_extent</Message>
+			<Status>OK</Status>
+			<Duration>7</Duration>
+		</CV>
+	</MDCS>
+</Projects>

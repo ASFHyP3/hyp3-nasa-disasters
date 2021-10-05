@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<Projects>
+	<MDCS>
+		<StartTime>20211005T005030</StartTime>
+		<EndTime>20211005T014425</EndTime>
+		<TotalDuration>3234</TotalDuration>
+		<Message>
+			Checking for updates..
+			<Error>
+				<type>warning</type>
+				<text>Update Available. Please read C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\scripts\CheckForUpdate.json</text>
+			</Error>
+		</Message>
+		<Message>Using template:C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter\Config\rtc_overviews.xml</Message>
+		<Message>Processing command(s):SE+CRA+AR+UPDATEOVERVIEWFIELDS</Message>
+		<Message>Done...</Message>
+		<SE>
+			<Message>Command:SE-&gt;Set environment variables.</Message>
+			<Message>Set environment variables on index: 0</Message>
+			<Message>Env[parallelProcessingFactor]=11</Message>
+			<Message>Env[cellSize]=900</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</SE>
+		<CRA>
+			<Message>Command:CRA-&gt;Copy Raster.</Message>
+			<Message>	Copy Raster.:sar_comp</Message>
+			<Message>Calling (arcpy.CopyRaster_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>3222</Duration>
+		</CRA>
+		<AR>
+			<Message>Command:AR-&gt;Add rasters/data to a mosaic dataset.</Message>
+			<Message>Adding rasters:</Message>
+			<Message>	Using mosaic dataset/ID:sar_comp/s1</Message>
+			<Message>	Using ART for SAR_COMP: Raster Dataset</Message>
+			<Message>Adding items..</Message>
+			<Message>Calling (arcpy.AddRastersToMosaicDataset_management)</Message>
+			<Message>Status: OK</Message>
+			<Message>Calculating 'Dataset ID' for the mosaic dataset (sar_comp) with value (s1)</Message>
+			<Status>OK</Status>
+			<Duration>11</Duration>
+		</AR>
+		<UpdateOverviewFields>
+			<Message>Command:UpdateOverviewFields-&gt;User defined command (UpdateOverviewFields)</Message>
+			<Message>Determining Start and End Dates...</Message>
+			<Message>Updating Overview Field Values...</Message>
+			<Message>Overview fields updated.</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</UpdateOverviewFields>
+	</MDCS>
+</Projects>

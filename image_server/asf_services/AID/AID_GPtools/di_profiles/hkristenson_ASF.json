@@ -1,0 +1,1 @@
+{"update_frequency": "daily", "default_pod_id": "DIc13b0b5e1", "pods": [{"pod_id": "DIc13b0b5e1", "pod_type": "di", "pod_cloud_type": "aws", "region": "us-west-2", "dns": "https://asf.img.arcgis.com/arcgis/", "pod_alias": "asf-daac"}], "last_updated": "20211001T114909", "users": {"DIc13b0b5e1": ["user1", "user2", "user3", "user4", "user5", "public"]}}
