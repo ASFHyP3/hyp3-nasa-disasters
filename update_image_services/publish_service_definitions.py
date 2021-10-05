@@ -19,9 +19,6 @@ import os
 # Set geodatabase to use as starting point
 ingdb = '/home/arcgis/RTCServices/RTCservices_211004.gdb'
 
-# Set path to ags to use for publishing the dataset
-#agspath = 'path to the ags file to arcgis on gis.asf.alaska.edu.ags'
-
 # Format source, derived and referenced mosaic datasets for each service
 for md in ['rgb', 'sar_comp', 'watermap_extent']:
     mdpath = ingdb + '/' + md
@@ -30,7 +27,6 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
 
     # Generate derived mosaic dataset from original source mosaic dataset
     arcpy.management.Copy(mdpath, md_der)
-    arcpy.AddMessage('Created ' + md_der + ' from ' + mdpath)
     print('Created ' + md_der + ' from ' + mdpath)
     arcpy.management.RemoveRastersFromMosaicDataset(mdpath, "Category = 2", "NO_BOUNDARY",
                                                     "MARK_OVERVIEW_ITEMS", "DELETE_OVERVIEW_IMAGES",
@@ -38,7 +34,6 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
                                                     "NO_CELL_SIZES")
 
     # Remove overviews from original source mosaic dataset
-    arcpy.AddMessage('Removed overviews from ' + md + ' source mosaic dataset')
     print('Removed overviews from ' + md + ' source mosaic dataset')
     arcpy.management.CreateReferencedMosaicDataset(md_der, md_ref,
                                                    'PROJCS["WGS_1984_Web_Mercator_Auxiliary_Sphere",'
@@ -57,7 +52,6 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
                                                    None, "BUILD_BOUNDARY")
 
     # Create referenced mosaic dataset from derived mosaic dataset
-    arcpy.AddMessage('Created reference mosaic dataset from ' + md_der)
     print('Created reference mosaic dataset from ' + md_der)
 
     # Generate draft service definition from the dataset
@@ -75,15 +69,10 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
     sd_name = dirpath + '/' + tag + '_' + ds
     sname = 'ASF_S1_'+ds
 
-    arcpy.AddMessage('Generating draft service definition for ' + ds + '...')
     print('Generating draft service definition for ' + ds + '...')
     arcpy.CreateImageSDDraft(md_ref, f'{sd_name}.sddraft', sname, "ARCGIS_SERVER")
 
     # Stage a service definition
-    arcpy.AddMessage('Draft SD generated. Staging service definition for ' + ds + '...')
     print('Draft SD generated. Staging service definition for ' + ds + '...')
-    #sdd_draft = sd_draft+'raft'
-    #sd_stage = sd_draft[:-1]
     arcpy.server.StageService(f'{sd_name}.sddraft', f'{sd_name}.sd', None)
-    arcpy.AddMessage('Service definition staged for ' + ds + '.')
     print('Service definition staged for ' + ds + '.')
