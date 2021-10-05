@@ -73,7 +73,7 @@ The geodatabase in the **Parameter/Boundary** directory contains feature classes
 
 The **Parameter/RasterFunctionTemplates** directory contains the RFTs published with the services.
 
-The **Parameter/Rastertype** includes config files used to combine the VV and VH datasets into a single two-band raster for each acquisition.
+The **Parameter/Rastertype** directory includes config files used to combine the VV and VH datasets into a single two-band raster for each acquisition.
 
 The **scripts** directory contains the python scripts called during the MDCS process. The only custom script is **MDCS_UC.py**, which adds attribute fields and sets attribute values for the mosaic datasets and overviews. 
 
