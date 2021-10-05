@@ -9,7 +9,7 @@ import arcpy
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\batchFiles')
 
 today = str(date.today().strftime("%y%m%d"))
-s3tag = 'RTCservices'
+s3tag = 'RTC_services'
 dirtag = 'Hurricanes'
 projtag = 'RTCservices'
 crftag_wm = projtag+'_WatermapExtent'
