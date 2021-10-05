@@ -40,6 +40,10 @@ The batchFiles directory contains all of the scripts that orchestrate the workfl
 - update_hkh.py can be run alone to update the services for the HKH AOI
 - update_services.bat runs the update_hkh.py and update_hurricanes.py scripts sequentially, and can be used to set up an automated workflow to update the services daily.
 
+The python path will need to be changed to match the system used to run the scripts. The current python path is specified as:
+
+	C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe
+
 ## Credentials
 
 The scrips make use of an acs file, and also portal credentials. These credentials are not saved in this repo, and will need to be generated for use before these scripts can be run. 
