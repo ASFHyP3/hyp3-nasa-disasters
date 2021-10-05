@@ -17,14 +17,14 @@ import arcpy
 import os
 
 # Set geodatabase to use as starting point
-ingdb = ['path to the source gdb uploaded to the image server']
+ingdb = '/home/arcgis/RTCServices/RTCservices_211004.gdb'
 
 # Set path to ags to use for publishing the dataset
-agspath = ['path to the ags file to arcgis on gis.asf.alaska.edu.ags']
+#agspath = 'path to the ags file to arcgis on gis.asf.alaska.edu.ags'
 
 # Format source, derived and referenced mosaic datasets for each service
 for md in ['rgb', 'sar_comp', 'watermap_extent']:
-    mdpath = ingdb + '\\' + md
+    mdpath = ingdb + '/' + md
     md_der = mdpath + '_derived'
     md_ref = mdpath + '_referenced'
 
@@ -72,18 +72,18 @@ for md in ['rgb', 'sar_comp', 'watermap_extent']:
     else:
         ds = 'NONE'
         print('No matching dataset name')
-    sd_draft = dirpath + '\\' + tag + '_' + ds + '.sdd'
+    sd_name = dirpath + '/' + tag + '_' + ds
     sname = 'ASF_S1_'+ds
 
     arcpy.AddMessage('Generating draft service definition for ' + ds + '...')
     print('Generating draft service definition for ' + ds + '...')
-    arcpy.CreateImageSDDraft(md_ref, sd_draft, sname, "ARCGIS_SERVER", agspath, "FALSE")
+    arcpy.CreateImageSDDraft(md_ref, f'{sd_name}.sddraft', sname, "ARCGIS_SERVER")
 
     # Stage a service definition
     arcpy.AddMessage('Draft SD generated. Staging service definition for ' + ds + '...')
     print('Draft SD generated. Staging service definition for ' + ds + '...')
-    sdd_draft = sd_draft+'raft'
-    sd_stage = sd_draft[:-1]
-    arcpy.server.StageService(sdd_draft, sd_stage, None)
+    #sdd_draft = sd_draft+'raft'
+    #sd_stage = sd_draft[:-1]
+    arcpy.server.StageService(f'{sd_name}.sddraft', f'{sd_name}.sd', None)
     arcpy.AddMessage('Service definition staged for ' + ds + '.')
     print('Service definition staged for ' + ds + '.')
