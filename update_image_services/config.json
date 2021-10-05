@@ -6,25 +6,25 @@
       "raster_location": "/vsis3/hyp3-nasa-disasters/RTC_services/",
       "raster_filter": "*_rgb.tif",
       "overview_location": "/vsis3/hyp3-nasa-disasters/overviews/ASF_S1_RGB/",
-      "source_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/rgb",
-      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/rgb_derived",
-      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/rgb_referenced"
+      "source_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/rgb",
+      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/rgb_derived",
+      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/rgb_referenced"
     },
     {
       "raster_location": "/vsis3/hyp3-nasa-disasters/RTC_services/",
       "raster_filter": "*_V*.tif",
       "overview_location": "/vsis3/hyp3-nasa-disasters/overviews/ASF_S1_RTC/",
-      "source_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/sar_comp",
-      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/sar_comp_derived",
-      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/sar_comp_referenced"
+      "source_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/sar_comp",
+      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/sar_comp_derived",
+      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/sar_comp_referenced"
     },
     {
       "raster_location": "/vsis3/hyp3-nasa-disasters/RTC_services/",
       "raster_filter": "*_WM.tif",
       "overview_location": "/vsis3/hyp3-nasa-disasters/overviews/ASF_S1_WM/",
-      "source_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/watermap_extent",
-      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/watermap_extent_derived",
-      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices_210920.gdb/watermap_extent_referenced"
+      "source_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/watermap_extent",
+      "derived_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/watermap_extent_derived",
+      "referenced_mosaic": "/home/arcgis/RTCservices/RTCservices.gdb/watermap_extent_referenced"
     }
   ]
 }
