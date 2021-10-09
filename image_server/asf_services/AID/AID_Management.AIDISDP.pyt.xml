@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<metadata xml:lang="en">
+	<Esri>
+		<CreaDate>20210203</CreaDate>
+		<CreaTime>13125100</CreaTime>
+		<ArcGISFormat>1.0</ArcGISFormat>
+		<SyncOnce>TRUE</SyncOnce>
+		<ModDate>20210218</ModDate>
+		<ModTime>15431800</ModTime>
+		<scaleRange>
+			<minScale>150000000</minScale>
+			<maxScale>5000</maxScale>
+		</scaleRange>
+		<ArcGISProfile>ItemDescription</ArcGISProfile>
+	</Esri>
+	<tool name="AIDISDP" displayname="Create AID Image Service Definition Package" toolboxalias="AID" xmlns="">
+		<arcToolboxHelpPath>c:\program files\arcgis\pro\Resources\Help\gp</arcToolboxHelpPath>
+		<parameters>
+			<param name="input_data" displayname="Input Mosaic Dataset / Raster Dataset" type="Required" direction="Input" datatype="Mosaic Dataset or Raster Dataset or File" expression="input_data">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN STYLE="font-size:12pt"&gt;Enter the input data to be packaged. It can be a mosaic, raster or a cloud raster URL( starting with /vsicurl, /vsis3 or /vsiaz)&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="service_package" displayname="AID Image Service Definition package" type="Required" direction="Output" datatype="File" expression="service_package">
+				<dialogReference>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;Enter the output file path of the service package to be created&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;</dialogReference>
+			</param>
+			<param name="service_additional_properties" displayname="Service additional properties" type="Optional" direction="Input" datatype="File" expression="{service_additional_properties}"/>
+		</parameters>
+	</tool>
+	<dataIdInfo>
+		<idCitation>
+			<resTitle>Create AID Image Service Definition Package</resTitle>
+		</idCitation>
+	</dataIdInfo>
+	<distInfo>
+		<distributor>
+			<distorFormat>
+				<formatName>ArcToolbox Tool</formatName>
+			</distorFormat>
+		</distributor>
+	</distInfo>
+	<mdHrLv>
+		<ScopeCd value="005"/>
+	</mdHrLv>
+	<mdDateSt Sync="TRUE">20210218</mdDateSt>
+</metadata>
