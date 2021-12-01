@@ -2,8 +2,8 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run @ 3:00 AM ( 12:00 PM UTC) every day
-    - cron: '0 12 * * *'
+    # Run @ 23:00 AK ( 08:00 UTC) every day
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 env:
@@ -49,4 +49,3 @@ jobs:
         shell: bash -l {0}
         run: |
           python data_management/hyp3_transfer_script.py -y ${{ matrix.config_file }}
-
