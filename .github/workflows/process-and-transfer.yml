@@ -22,6 +22,8 @@ jobs:
             config_file: data_management/hkh_watermaps.json
           - environment: Hurricanes
             config_file: data_management/hurricanes.json
+          - environment: Floods
+            config_file: data_management/floods.json
 
     environment:
       name: ${{ matrix.environment }}
