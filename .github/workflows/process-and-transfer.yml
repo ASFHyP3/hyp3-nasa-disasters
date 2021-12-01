@@ -2,8 +2,8 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run @ 23:00 AK ( 08:00 UTC) every day
-    - cron: '0 8 * * *'
+    # Run @ 22:00 AK ( 07:00 UTC) every day
+    - cron: '0 7 * * *'
   workflow_dispatch:
 
 env:
