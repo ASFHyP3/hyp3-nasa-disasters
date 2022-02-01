@@ -151,6 +151,7 @@ Resources:
                 Action:
                 - s3:ListBucket
                 - s3:GetBucketAcl
+                - s3:GetBucketLocation
                 Resource: !Sub "arn:aws:s3:::${Bucket}"
               - Effect: Allow
                 Action:
