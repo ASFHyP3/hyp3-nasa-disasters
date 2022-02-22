@@ -2,7 +2,6 @@ name: arcpy
 channels:
   - esri
 dependencies:
-  - arcgis-server-py3=10.9.1
-  - boto3
+  - arcgis-server-py3=10.8.1
 variables:
   ARCGISHOME: /arcgis/server/
