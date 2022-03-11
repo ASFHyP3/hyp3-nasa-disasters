@@ -1,0 +1,29 @@
+{
+  "project_name": "nas_australia",
+  "host": "https://hyp3-watermap.asf.alaska.edu",
+  "search_parameters": {
+    "platform": ["S1"],
+    "processingLevel": ["SLC"],
+    "beamMode": ["IW"],
+    "polarization": ["VV+VH"],
+    "start": "2022-02-15",
+    "intersectsWith": "POLYGON((152.8317 -29.0177,152.7194 -29.2966,152.7931 -29.6132,152.8785 -29.9129,153.2837 -29.8375,153.6489 -28.6351,153.5513 -28.5683,152.9636 -28.8118,152.8317 -29.0177))"
+  },
+  "job_spec": {
+    "job_type": "WATER_MAP",
+    "job_parameters": {
+      "resolution": 30,
+      "speckle_filter": true,
+      "max_vv_threshold": -15.5,
+      "max_vh_threshold": -23.0,
+      "hand_threshold": 15.0,
+      "hand_fraction": 0.8,
+      "membership_threshold": 0.45
+    }
+  },
+  "transfer_spec": {
+    "target_bucket": "hyp3-nasa-disasters",
+    "target_prefix": "RTC_services",
+    "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif",  "_dem.tif", "_WM.tif", "_WM_HAND.tif"]
+  }
+}
