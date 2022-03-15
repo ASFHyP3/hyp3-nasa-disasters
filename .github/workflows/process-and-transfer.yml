@@ -2,7 +2,7 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run @ 21:45 AK DST ( 05:45 UTC) every day
+    # Run @ 20:45 AK DST ( 05:45 UTC) every day
     - cron: '45 5 * * *'
   workflow_dispatch:
 
