@@ -2,16 +2,14 @@
 # then runs them in sequence
 
 import os
-from datetime import date, timedelta
+import datetime
 import subprocess
 
 import arcpy
 
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_conus\batchFiles')
 
-#today = str(date.today().strftime("%y%m%d"))
-# Because we're now processing in the evening AK time, we'll use the next day's date to tag the updates.
-today = str((date.today()+timedelta(days=1)).strftime("%y%m%d"))
+today = datetime.datetime.now(datetime.timezone.utc).strftime("%y%m%d_%H%M")
 s3tag = 'RTC_services'
 dirtag = 'Hurricanes'
 projtag = 'RTCservices'
