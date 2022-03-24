@@ -23,7 +23,7 @@
   },
   "transfer_spec": {
     "target_bucket": "hyp3-nasa-disasters",
-    "target_prefix": "RTC_services",
+    "target_prefix": "Australia",
     "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif",  "_dem.tif", "_WM.tif", "_WM_HAND.tif"]
   }
 }
