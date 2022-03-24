@@ -24,8 +24,6 @@ jobs:
             config_file: data_management/floods.json
           - environment: PDC Brazil
             config_file: data_management/pdc_brazil.json
-          - environment: NAS Australia
-            config_file: data_management/nas_australia.json
           - environment: Alaska
             config_file: data_management/alaska.json
 
