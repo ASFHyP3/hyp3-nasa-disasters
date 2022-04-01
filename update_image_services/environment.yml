@@ -3,6 +3,5 @@ channels:
   - esri
 dependencies:
   - arcgis-server-py3=10.8.1
-  - boto3
 variables:
   ARCGISHOME: /arcgis/server/

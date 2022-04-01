@@ -2,8 +2,8 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run @ 3:00 AM ( 12:00 PM UTC) every day
-    - cron: '0 12 * * *'
+    # Run @ 21:45 AK DST ( 05:45 UTC) every day
+    - cron: '45 5 * * *'
   workflow_dispatch:
 
 env:
@@ -18,10 +18,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - environment: HKHwatermaps
-            config_file: data_management/hkh_watermaps.json
           - environment: Hurricanes
             config_file: data_management/hurricanes.json
+          - environment: Floods
+            config_file: data_management/floods.json
+          - environment: PDC Brazil
+            config_file: data_management/pdc_brazil.json
+          - environment: Alaska
+            config_file: data_management/alaska.json
 
     environment:
       name: ${{ matrix.environment }}
@@ -49,4 +53,3 @@ jobs:
         shell: bash -l {0}
         run: |
           python data_management/hyp3_transfer_script.py -y ${{ matrix.config_file }}
-
