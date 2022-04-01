@@ -1,0 +1,1 @@
+This directory is the output location for the pixel cache. No sample data has been uploaded.
