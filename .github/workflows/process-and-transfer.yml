@@ -26,6 +26,8 @@ jobs:
             config_file: data_management/pdc_brazil.json
           - environment: Alaska
             config_file: data_management/alaska.json
+          - environment: Ukraine
+            config_file: data_management/nas_ukraine.json
 
     environment:
       name: ${{ matrix.environment }}

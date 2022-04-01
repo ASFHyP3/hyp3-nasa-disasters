@@ -72,17 +72,17 @@ for bat in batfiles:
         for v in vars:
             print(v, file=f)
         # write the service-specific variables and batch commands
-        if bat == 'RTCservices_wm.bat':
+        if bat == 'Ukraine_wm.bat':
             print(crf_wm, file=f)
             print('\nREM ---------- Using ACS File -------------------------', file=f)
             for vb in vars_wm:
                 print(vb, file=f)
-        elif bat == 'RTCservices_rgb.bat':
+        elif bat == 'Ukraine_rgb.bat':
             print(crf_rgb, file=f)
             print('\nREM ---------- Using ACS File -------------------------', file=f)
             for vb in vars_rgb:
                 print(vb, file=f)
-        elif bat == 'RTCservices_rtc.bat':
+        elif bat == 'Ukraine_rtc.bat':
             print(crf_rtc, file=f)
             print('\nREM ---------- Using ACS File -------------------------', file=f)
             for vb in vars_rtc:
