@@ -2,8 +2,8 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run @ 21:45 AK DST ( 05:45 UTC) every day
-    - cron: '45 5 * * *'
+    # Run every six hours, on the hour
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 env:
@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - environment: Hurricanes
