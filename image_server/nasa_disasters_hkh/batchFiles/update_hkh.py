@@ -2,11 +2,12 @@
 # then runs them in sequence
 
 import os
+
 import arcpy
-from datetime import date, timedelta
+
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\nasa_disasters_hkh\batchFiles')
 
-today = str(date.today().strftime("%y%m%d"))
+today = datetime.datetime.now(datetime.timezone.utc).strftime("%y%m%d_%H%M")
 s3tag = 'HKHwatermaps'
 projtag = 'HKH'
 crftag_wm = projtag+'_WatermapExtent'
