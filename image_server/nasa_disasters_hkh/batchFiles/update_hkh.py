@@ -3,7 +3,6 @@
 
 import datetime
 import os
-import datetime
 
 import arcpy
 
