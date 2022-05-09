@@ -1,6 +1,7 @@
 # This script generates the batch files for the three services generated from the watermap products
 # then runs them in sequence
 
+import datetime
 import os
 import datetime
 
