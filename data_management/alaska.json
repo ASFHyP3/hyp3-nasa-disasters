@@ -15,7 +15,7 @@
       "resolution": 30,
       "speckle_filter": true,
       "max_vv_threshold": -15.5,
-      "max_vh_threshold": -23.0,
+      "max_vh_threshold": -28.0,
       "hand_threshold": 15.0,
       "hand_fraction": 0.8,
       "membership_threshold": 0.45
