@@ -115,6 +115,13 @@ extent_mask = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_
 arcpy.management.ImportMosaicDatasetGeometry(md_wm, "BOUNDARY", "OBJECTID", extent_mask, "FID")
 print('Clipped mosaic dataset to reference shapefile.')
 
+# Build multidimensional info
+print("Building multidimensional info...")
+arcpy.md.BuildMultidimensionalInfo(md_wm, 'Dataset_ID', 'StartDate')
+
+arcpy.AddMessage("Multidimensional mosaic dataset {} is complete.".format(mdname))
+print("Multidimensional mosaic dataset {} is complete.".format(mdname))
+
 with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
     try:
         arcpy.AID.AIDISDP(md_wm, aid_wm, None)
