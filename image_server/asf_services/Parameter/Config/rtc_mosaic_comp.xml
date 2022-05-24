@@ -33,7 +33,7 @@
         <allowed_compressions>JPEG;NONE;LZ77</allowed_compressions>
         <default_compression_type>JPEG</default_compression_type>
         <JPEG_quality>80</JPEG_quality>
-        <resampling_type>BILINEAR</resampling_type>
+        <resampling_type>NEAREST</resampling_type>
         <LERC_Tolerance>0.01</LERC_Tolerance>
         <clip_to_footprints>CLIP</clip_to_footprints>
         <clip_to_boundary>CLIP</clip_to_boundary>
