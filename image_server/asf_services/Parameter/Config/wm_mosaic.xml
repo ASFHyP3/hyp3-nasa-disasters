@@ -13,7 +13,7 @@
       <pixel_type>#</pixel_type>
       <AddRasters>
         <AddRaster>
-          <dataset_id>watermap_extent</dataset_id>
+          <dataset_id>ASF_S1_watermap_extent</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
           <Sources>
             <data_path>C:\work_c\data</data_path>
