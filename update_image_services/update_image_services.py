@@ -52,6 +52,7 @@ def main(config):
                 ['Tag', '!Name!.split("_")[8]'],
                 ['MinPS', '0'],
                 ['MaxPS', '1610'],
+                ['image_URL','"https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/RTC_services/" + str(!name!) + ".tif"'],
             ],
         )
 
