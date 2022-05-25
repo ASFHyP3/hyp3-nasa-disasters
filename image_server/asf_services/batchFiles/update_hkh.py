@@ -28,11 +28,11 @@ vars = [r'set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\i
         r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs''\\'''+s3tag+'\\']
 
 crf_wm = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
-         +crftag_wm+'_'+today+'B.crf'
+         +crftag_wm+'_'+today+'.crf'
 crf_rgb = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
-          +crftag_rgb+'_'+today+'B.crf'
+          +crftag_rgb+'_'+today+'.crf'
 crf_rtc = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
-          +crftag_rtc+'_'+today+'B.crf'
+          +crftag_rtc+'_'+today+'.crf'
 
 batfile_wm = 'HKH_wm.bat'
 batfile_rgb = 'HKH_rgb.bat'
@@ -90,7 +90,6 @@ for bat in batfiles:
             print('No valid file.')
 
 # run the batch files
-
 subprocess.call([batfile_wm])
 print('Watermap Extent mosaic dataset complete.')
 subprocess.call([batfile_rgb])
