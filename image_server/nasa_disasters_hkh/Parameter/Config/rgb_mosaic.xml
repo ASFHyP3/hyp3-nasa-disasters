@@ -13,7 +13,7 @@
       <pixel_type>#</pixel_type>
       <AddRasters>
         <AddRaster>
-          <dataset_id>s1_rgb</dataset_id>
+          <dataset_id>ASF_S1_RGB_Decomposition</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
           <Sources>
             <data_path>C:\work_c\data</data_path>
@@ -54,7 +54,7 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;StartDate;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;StartDate;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName;DownloadURL</transmission_fields>
         <use_time>ENABLED</use_time>
         <start_time_field>StartDate</start_time_field>
         <end_time_field>EndDate</end_time_field>
@@ -76,6 +76,11 @@
             <Field>
               <name>EndDate</name>
               <type>date</type>
+              <length></length>
+            </Field>
+            <Field>
+              <name>DownloadURL</name>
+              <type>text</type>
               <length></length>
             </Field>
           </Fields>
@@ -111,6 +116,12 @@
                    <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
               <fieldName>MaxPS</fieldName>
               <expression>1610</expression>
+          </CalculateValue>
+		  <CalculateValue>
+			  		  <expression_type>PYTHON</expression_type>
+                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
+              <fieldName>DownloadURL</fieldName>
+              <expression>"https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/HKHwatermaps/" + str(!Name!) + ".tif"</expression>
           </CalculateValue>
       </CalculateValues>
         <CalculateCellSizeranges>
