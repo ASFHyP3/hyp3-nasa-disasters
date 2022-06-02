@@ -132,6 +132,12 @@ print('Watermap extent AID package complete.')
 print('Generating RGB AID package...')
 md_rgb = gdb+'\\'+'rgb'
 aid_rgb = aid_path+'\\'+projtag+'_RGB_'+today+'.zmd'
+
+# build multidimensional info
+print("Building multidimensional info...")
+arcpy.md.BuildMultidimensionalInfo(md_rgb, 'Dataset_ID', 'StartDate')
+print("Multidimensional mosaic dataset {} is complete.".format(md_rgb))
+
 with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
     try:
         arcpy.AID.AIDISDP(md_rgb, aid_rgb, None)
@@ -143,6 +149,12 @@ print('RGB AID package complete.')
 print('Generating RTC AID package...')
 md_rtc = gdb+'\\'+'sar_comp'
 aid_rtc = aid_path+'\\'+projtag+'_RTC_'+today+'.zmd'
+
+# build multidimensional info
+print("Building multidimensional info...")
+arcpy.md.BuildMultidimensionalInfo(md_rtc, 'Dataset_ID', 'StartDate')
+print("Multidimensional mosaic dataset {} is complete.".format(md_rtc))
+
 with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
     try:
         arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
