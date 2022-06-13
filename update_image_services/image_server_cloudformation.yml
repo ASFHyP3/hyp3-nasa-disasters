@@ -22,7 +22,11 @@ Parameters:
 
   ImageId:
     Type: AWS::EC2::Image::Id
-    Default: ami-037b459896b65e4c4
+    Default: ami-0b1ddcef10ffe54fb
+
+  InstanceType:
+    Type: string
+    Default: m6i.2xlarge
 
   OverviewPrefix:
     Type: String
@@ -49,7 +53,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref ImageId
-      InstanceType: m5.2xlarge
+      InstanceType: !Ref InstanceType
       KeyName: !Ref KeyName
       IamInstanceProfile: !Ref InstanceProfile
       NetworkInterfaces:
