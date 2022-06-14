@@ -25,7 +25,7 @@ Parameters:
     Default: ami-0b1ddcef10ffe54fb
 
   InstanceType:
-    Type: string
+    Type: String
     Default: m6i.2xlarge
 
   OverviewPrefix:
