@@ -59,7 +59,8 @@ vars_rtc = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_overviews.xml '
             r'-m:%gdbwks%\sar_comp -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
-batfiles = [batfile_wm, batfile_rgb, batfile_rtc]
+# batfiles = [batfile_wm, batfile_rgb, batfile_rtc]
+batfiles = [batfile_rgb]
 
 for bat in batfiles:
     with open(bat, 'w') as f:
@@ -90,12 +91,13 @@ for bat in batfiles:
             print('No valid file.')
 
 # run the batch files
-subprocess.call([batfile_wm])
-print('Watermap Extent mosaic dataset complete.')
+
+# subprocess.call([batfile_wm])
+# print('Watermap Extent mosaic dataset complete.')
 subprocess.call([batfile_rgb])
 print('RGB mosaic dataset complete.')
-subprocess.call([batfile_rtc])
-print('RTC mosaic dataset complete.')
+# subprocess.call([batfile_rtc])
+# print('RTC mosaic dataset complete.')
 
 # create AID packages
 aid_path = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID''\\'+projtag
@@ -104,30 +106,30 @@ arcpy.ImportToolbox(r"C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\
 gdb = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'\
         +projtag+'\\'+projtag+'_'+today+'.gdb'
 
-print('Generating watermap extent AID package...')
-md_wm = gdb+'\\'+'watermap_extent'
-aid_wm = aid_path+'\\'+projtag+'_WatermapExtent_'+today+'.zmd'
+# print('Generating watermap extent AID package...')
+# md_wm = gdb+'\\'+'watermap_extent'
+# aid_wm = aid_path+'\\'+projtag+'_WatermapExtent_'+today+'.zmd'
+#
+# # clip mosaic dataset to boundary
+# extent_mask = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter' \
+#               r'\Boundary\ExtentMasks.gdb\HKH_ServiceExtentMask '
+# arcpy.management.ImportMosaicDatasetGeometry(md_wm, "BOUNDARY", "OBJECTID", extent_mask, "FID")
+# print('Clipped mosaic dataset to reference shapefile.')
+#
+# # Build multidimensional info
+# print("Building multidimensional info...")
+# arcpy.md.BuildMultidimensionalInfo(md_wm, 'Dataset_ID', 'StartDate')
+#
+# arcpy.AddMessage("Multidimensional mosaic dataset {} is complete.".format(md_wm))
+# print("Multidimensional mosaic dataset {} is complete.".format(md_wm))
 
-# clip mosaic dataset to boundary
-extent_mask = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter' \
-              r'\Boundary\ExtentMasks.gdb\HKH_ServiceExtentMask '
-arcpy.management.ImportMosaicDatasetGeometry(md_wm, "BOUNDARY", "OBJECTID", extent_mask, "FID")
-print('Clipped mosaic dataset to reference shapefile.')
-
-# Build multidimensional info
-print("Building multidimensional info...")
-arcpy.md.BuildMultidimensionalInfo(md_wm, 'Dataset_ID', 'StartDate')
-
-arcpy.AddMessage("Multidimensional mosaic dataset {} is complete.".format(md_wm))
-print("Multidimensional mosaic dataset {} is complete.".format(md_wm))
-
-with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
-    try:
-        arcpy.AID.AIDISDP(md_wm, aid_wm, None)
-    except:
-        print("AID errors generated and ignored.")
-        pass
-print('Watermap extent AID package complete.')
+# with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
+#     try:
+#         arcpy.AID.AIDISDP(md_wm, aid_wm, None)
+#     except:
+#         print("AID errors generated and ignored.")
+#         pass
+# print('Watermap extent AID package complete.')
 
 print('Generating RGB AID package...')
 md_rgb = gdb+'\\'+'rgb'
@@ -150,32 +152,42 @@ print('Generating RTC AID package...')
 md_rtc = gdb+'\\'+'sar_comp'
 aid_rtc = aid_path+'\\'+projtag+'_RTC_'+today+'.zmd'
 
-# build multidimensional info
-print("Building multidimensional info...")
-arcpy.md.BuildMultidimensionalInfo(md_rtc, 'Dataset_ID', 'StartDate')
-print("Multidimensional mosaic dataset {} is complete.".format(md_rtc))
-
-with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
-    try:
-        arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
-    except:
-        print("AID errors generated and ignored.")
-        pass
-print('RTC AID package complete.')
+# # build multidimensional info
+# print("Building multidimensional info...")
+# arcpy.md.BuildMultidimensionalInfo(md_rtc, 'Dataset_ID', 'StartDate')
+# print("Multidimensional mosaic dataset {} is complete.".format(md_rtc))
+#
+# with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
+#     try:
+#         arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
+#     except:
+#         print("AID errors generated and ignored.")
+#         pass
+# print('RTC AID package complete.')
+# print('Generating RTC AID package...')
+# md_rtc = gdb+'\\'+'sar_comp'
+# aid_rtc = aid_path+'\\'+projtag+'_RTC_'+today+'.zmd'
+# with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
+#     try:
+#         arcpy.AID.AIDISDP(md_rtc, aid_rtc, None)
+#     except:
+#         print("AID errors generated and ignored.")
+#         pass
+# print('RTC AID package complete.')
 
 # update image services
 import keyring
 pw = keyring.get_password("portal_creds", "hkristenson_ASF")
 arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw)
 
-print('Updating Watermap Extent Image Service...')
-arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_WM", None, aid_wm, "Dedicated Instance",
-                 "**TEST OF COMBINED PUBLICATION DIRECTORY** Watermap Extent products generated from Sentinel-1 SAR "
-                 "imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region for the 2022 monsoon "
-                 "season, generated by ASF.", "Imagery products processed by ASF DAAC HyP3 2022 using GAMMA software. "
-                 "Contains modified Copernicus Sentinel data 2022, processed by ESA.", '',
-                 False, False, True, None, None, None, None)
-print('Watermap Extent Image Service updated.')
+# print('Updating Watermap Extent Image Service...')
+# arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_WM", None, aid_wm, "Dedicated Instance",
+#                  "**TEST OF COMBINED PUBLICATION DIRECTORY** Watermap Extent products generated from Sentinel-1 SAR "
+#                  "imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region for the 2021 monsoon "
+#                  "season, generated by ASF.", "Imagery products processed by ASF DAAC HyP3 2021 using GAMMA software. "
+#                  "Contains modified Copernicus Sentinel data 2021, processed by ESA.", '',
+#                  False, False, True, None, None, None, None)
+# print('Watermap Extent Image Service updated.')
 print('Updating RGB Image Service...')
 arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RGB", None, aid_rgb, "Dedicated Instance",
                  "**TEST OF COMBINED PUBLICATION DIRECTORY** Sentinel-1 RGB Decomposition of RTC VV and VH "
@@ -197,6 +209,15 @@ arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RTC
                  "Sentinel data 2022, processed by ESA.", '',
                  False, False, True, None, None, None, None)
 print('RTC Image Service updated.')
+# print('Updating RTC Image Service...')
+# arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RTC", None, aid_rtc, "Dedicated Instance",
+#                  "**TEST OF COMBINED PUBLICATION DIRECTORY** Radiometric Terrain Corrected (RTC) products generated "
+#                  "from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region "
+#                  "for the 2021 monsoon season, processed by ASF.",
+#                  "RTC products processed by ASF DAAC HyP3 2021 using GAMMA software. Contains modified Copernicus "
+#                  "Sentinel data 2021, processed by ESA.", '',
+#                  False, False, True, None, None, None, None)
+# print('RTC Image Service updated.')
 
 #
 # # delete previous version of the gdb and zmd files
