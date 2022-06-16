@@ -118,8 +118,8 @@ print('Clipped mosaic dataset to reference shapefile.')
 print("Building multidimensional info...")
 arcpy.md.BuildMultidimensionalInfo(md_wm, 'Dataset_ID', 'StartDate')
 
-arcpy.AddMessage("Multidimensional mosaic dataset {} is complete.".format(mdname))
-print("Multidimensional mosaic dataset {} is complete.".format(mdname))
+arcpy.AddMessage("Multidimensional mosaic dataset {} is complete.".format(md_wm))
+print("Multidimensional mosaic dataset {} is complete.".format(md_wm))
 
 with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
     try:
