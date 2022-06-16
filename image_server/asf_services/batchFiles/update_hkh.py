@@ -200,15 +200,15 @@ arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RGB
                  "Copernicus Sentinel data 2022, processed by ESA.", '',
                  False, False, True, None, None, None, None)
 print('RGB Image Service updated.')
-print('Updating RTC Image Service...')
-arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RTC", None, aid_rtc, "Dedicated Instance",
-                 "**TEST OF COMBINED PUBLICATION DIRECTORY** Radiometric Terrain Corrected (RTC) products generated "
-                 "from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region "
-                 "for the 2022 monsoon season, processed by ASF.",
-                 "RTC products processed by ASF DAAC HyP3 2022 using GAMMA software. Contains modified Copernicus "
-                 "Sentinel data 2022, processed by ESA.", '',
-                 False, False, True, None, None, None, None)
-print('RTC Image Service updated.')
+# print('Updating RTC Image Service...')
+# arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RTC", None, aid_rtc, "Dedicated Instance",
+#                  "**TEST OF COMBINED PUBLICATION DIRECTORY** Radiometric Terrain Corrected (RTC) products generated "
+#                  "from Sentinel-1 SAR imagery over flood-prone regions in the Hindu Kush Himalayan (HKH) region "
+#                  "for the 2022 monsoon season, processed by ASF.",
+#                  "RTC products processed by ASF DAAC HyP3 2022 using GAMMA software. Contains modified Copernicus "
+#                  "Sentinel data 2022, processed by ESA.", '',
+#                  False, False, True, None, None, None, None)
+# print('RTC Image Service updated.')
 # print('Updating RTC Image Service...')
 # arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", "Combined_HKH_RTC", None, aid_rtc, "Dedicated Instance",
 #                  "**TEST OF COMBINED PUBLICATION DIRECTORY** Radiometric Terrain Corrected (RTC) products generated "
