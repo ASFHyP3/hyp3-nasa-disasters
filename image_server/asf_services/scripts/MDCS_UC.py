@@ -103,7 +103,7 @@ class UserCode:
             del ds_cursor
         return True
 
-    def UpdateNameFieldRTC(self, data):
+    def UpdateFieldsRTC(self, data):
         log = data['log']
         xmlDOM = data['mdcs']
         base = data['base']
@@ -131,6 +131,43 @@ class UserCode:
                     row[3] = 1610
                     row[4] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
                         GroupField) + "_VV.tif"
+                    row[5] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
+                        GroupField) + "_VH.tif"
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(newNameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
+    def UpdateNameFieldRGB(self, data):
+        log = data['log']
+        xmlDOM = data['mdcs']
+        base = data['base']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        s3name = base.getXMLNodeValue(xmlDOM, 's3tag')
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
+                                               "Tag", "MaxPS", "DownloadURL"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Name Values..', 0)
+            for row in ds_cursor:
+                try:
+                    ## NameField = row[0]
+                    GroupField = row[1]
+                    TagField = row[2]
+                    if (TagField is not None):
+                        TagField = "VV,VH"
+                    ## lstNameField = NameField.split(';')
+                    lstTagField = TagField.split(',')
+                    newNameField = GroupField + "_" + lstTagField[0] + ';' + GroupField + "_" + lstTagField[1]
+                    row[0] = newNameField
+                    row[2] = TagField
+                    row[3] = 1610
+                    row[4] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
+                        GroupField) + "_rgb.tif"
                     row[5] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
                         GroupField) + "_VH.tif"
                     ds_cursor.updateRow(row)
