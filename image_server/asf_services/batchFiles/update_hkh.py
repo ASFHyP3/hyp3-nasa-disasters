@@ -1,14 +1,15 @@
 # This script generates the batch files for the three services generated from the watermap products
 # then runs them in sequence
 
+import datetime
 import os
-from datetime import date, timedelta
 import subprocess
+
 import arcpy
 
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\batchFiles')
 
-today = str(date.today().strftime("%y%m%d"))
+today = datetime.datetime.now(datetime.timezone.utc).strftime("%y%m%d_%H%M")
 s3tag = 'HKHwatermaps'
 projtag = 'HKH'
 crftag_wm = projtag+'_WatermapExtent'
