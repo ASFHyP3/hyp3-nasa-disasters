@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Name>ASFs1</Name>
-  <CustomCommand>
-    <UpdateNameField>
-      <s3tag>$stag$</s3tag>
-    </UpdateNameField>
-  </CustomCommand>
   <Command>CM+AR+AF+BB+SP+CC+CV</Command>
   <Workspace>
     <WorkspacePath>md</WorkspacePath>
