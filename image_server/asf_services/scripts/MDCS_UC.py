@@ -103,7 +103,7 @@ class UserCode:
             del ds_cursor
         return True
 
-    def UpdateNameField(self, data):
+    def UpdateNameFieldRTC(self, data):
         log = data['log']
         xmlDOM = data['mdcs']
         base = data['base']
