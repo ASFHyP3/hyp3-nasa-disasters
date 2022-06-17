@@ -40,14 +40,14 @@ batfile_rgb = 'HKH_rgb.bat'
 batfile_rtc = 'HKH_rtc.bat'
 
 vars_wm = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\wm_mosaic.xml '
-           r'-m:%gdbwks%\watermap_extent -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
-           r'-c:CM+AF+AR+UpdateFieldsWM+BF+BB+SP+CC',
+           r'-m:%gdbwks%\watermap_extent -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation '
+           r'-p:USE_PIXEL_CACHE$pixelcache -p:%s3tag%$stag -c:CM+AF+AR+UpdateFieldsWM+BF+BB+SP+CC',
            r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\wm_overviews.xml '
            r'-m:%gdbwks%\watermap_extent -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
 vars_rgb = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_mosaic.xml '
             r'-m:%gdbwks%\rgb -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
-            r'-c:CM+AF+AR+UpdateFieldsRGB+BF+BB+SP+CC',
+            r'-p:%s3tag%$stag -c:CM+AF+AR+UpdateFieldsRGB+BF+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_overviews.xml '
             r'-m:%gdbwks%\rgb -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
@@ -56,7 +56,7 @@ vars_rtc = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\
             r'-c:CM+AF+AR+UpdateFieldsRTC+BF+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_mosaic_comp.xml '
             r'-m:%gdbwks%\sar_comp -s:%gdbwks%\sar_s1 -p:CompositeVV_VH_32.art.xml$art '
-            r'-c:CM+AR+UpdateNameFieldRTC+BB+SP+CC',
+            r'-p:%s3tag%$stag -c:CM+AR+UpdateNameFieldRTC+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_overviews.xml '
             r'-m:%gdbwks%\sar_comp -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
