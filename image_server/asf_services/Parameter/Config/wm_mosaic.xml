@@ -3,7 +3,7 @@
   <Name>ASFs1</Name>
   <CustomCommand>
     <UpdateFieldsRGB>
-      <s3tag>$stag$</s3tag>
+      <s3_tag>$s3tag$</s3_tag>
     </UpdateFieldsRGB>
   </CustomCommand>
   <Command>CM+AR+AF+BB+SP+CC+CV</Command>
