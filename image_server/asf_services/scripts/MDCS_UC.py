@@ -129,9 +129,9 @@ class UserCode:
                     row[0] = newNameField
                     row[2] = TagField
                     row[3] = 1610
-                    row[4] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3tag) + str('/') + str(
+                    row[4] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
                         GroupField) + "_VV.tif"
-                    row[5] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3tag) + str('/') + str(
+                    row[5] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
                         GroupField) + "_VH.tif"
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(newNameField), 0)
