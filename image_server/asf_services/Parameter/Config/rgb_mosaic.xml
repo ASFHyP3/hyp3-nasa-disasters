@@ -2,9 +2,9 @@
 <Application>
   <Name>ASFs1</Name>
   <CustomCommand>
-    <UpdateNameField>
+    <UpdateFieldsRGB>
       <s3tag>$stag$</s3tag>
-    </UpdateNameField>
+    </UpdateFieldsRGB>
   </CustomCommand>
   <Command>CM+AR+AF+BB+SP+CC+CV</Command>
   <Workspace>
