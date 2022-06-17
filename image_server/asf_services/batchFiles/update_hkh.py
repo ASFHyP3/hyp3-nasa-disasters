@@ -52,10 +52,10 @@ vars_rgb = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\
 
 vars_rtc = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_mosaic_s1.xml '
             r'-m:%gdbwks%\sar_s1 -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
-            r'-c:CM+AF+AR+BF+BB+SP+CC+CV',
+            r'-c:CM+AF+AR+UpdateFieldsRTC+BF+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_mosaic_comp.xml '
             r'-m:%gdbwks%\sar_comp -s:%gdbwks%\sar_s1 -p:CompositeVV_VH_32.art.xml$art '
-            r'-c:CM+AR+UpdateFieldsRTC+BB+SP+CC',
+            r'-c:CM+AR+UpdateNameFieldRTC+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_overviews.xml '
             r'-m:%gdbwks%\sar_comp -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
