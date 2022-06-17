@@ -105,11 +105,15 @@ class UserCode:
 
     def UpdateNameField(self, data):
         log = data['log']
+        xmlDOM = data['mdcs']
+        base = data['base']
         workspace = data['workspace']
         md = data['mosaicdataset']
+        s3name = base.getXMLNodeValue(xmlDOM, 's3tag')
         ds = os.path.join(workspace, md)
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
-                                               "Tag", "MaxPS"])  # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+                                               "Tag", "MaxPS", "DownloadURL_VV", "DownloadURL_VH"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Name Values..', 0)
             for row in ds_cursor:
@@ -125,6 +129,10 @@ class UserCode:
                     row[0] = newNameField
                     row[2] = TagField
                     row[3] = 1610
+                    row[4] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3tag) + str('/') + str(
+                        GroupField) + "_VV.tif"
+                    row[5] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3tag) + str('/') + str(
+                        GroupField) + "_VH.tif"
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(newNameField), 0)
                 except Exception as exp:
