@@ -103,6 +103,42 @@ class UserCode:
             del ds_cursor
         return True
 
+    def UpdateFieldsWM(self, data):
+        log = data['log']
+        xmlDOM = data['mdcs']
+        base = data['base']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        s3name = base.getXMLNodeValue(xmlDOM, 's3tag')
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
+                                               "Tag", "MaxPS", "StartDate",
+                                               "EndDate", "DownloadURL"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Name Values..', 0)
+            for row in ds_cursor:
+                try:
+                    NameField = row[0]
+                    GroupField = NameField.split(";")[0][:-3]
+                    TagField = NameField.split("_")[8]
+                    MaxPSField = 1610
+                    StartDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" + NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" + NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    EndDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" + NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" + NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    DownloadURLField = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(NameField) + ".tif"
+                    row[1] = GroupField
+                    row[2] = TagField
+                    row[3] = MaxPSField
+                    row[4] = StartDateField
+                    row[5] = EndDateField
+                    row[6] = DownloadURLField
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(NameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
     def UpdateFieldsRGB(self, data):
         log = data['log']
         xmlDOM = data['mdcs']
@@ -125,7 +161,7 @@ class UserCode:
                     MaxPSField = 1610
                     StartDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" + NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" + NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
                     EndDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" + NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" + NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
-                    DownloadURLField = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(GroupField) + "_rgb.tif"
+                    DownloadURLField = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(NameField) + ".tif"
                     row[1] = GroupField
                     row[2] = TagField
                     row[3] = MaxPSField
