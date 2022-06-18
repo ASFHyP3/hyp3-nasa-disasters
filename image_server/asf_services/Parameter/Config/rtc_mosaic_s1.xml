@@ -91,38 +91,6 @@
           </Fields>
       </Table>
       <Processes>
-      <CalculateValues>
-          <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>StartDate</fieldName>
-              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
-          </CalculateValue>
-          <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>EndDate</fieldName>
-              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>GroupName</fieldName>
-              <expression>(!Name!.split(";")[0][:-3])</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>Tag</fieldName>
-              <expression>!Name!.split("_")[8]</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>MaxPS</fieldName>
-              <expression>1610</expression>
-          </CalculateValue>
-      </CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
           <do_compute_min>MIN_CELL_SIZES</do_compute_min>
