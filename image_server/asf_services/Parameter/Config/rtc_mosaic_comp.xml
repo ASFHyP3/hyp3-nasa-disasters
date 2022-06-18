@@ -59,7 +59,7 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;StartDate;EndDate;MinPS;MaxPS;LowPS;HighPS;StartDate;EndDate;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;StartDate;EndDate;MinPS;MaxPS;LowPS;HighPS;StartDate;EndDate;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName;DownloadURL_VV;DownloadURL_VH</transmission_fields>
         <use_time>ENABLED</use_time>
         <start_time_field>StartDate</start_time_field>
         <end_time_field>EndDate</end_time_field>
