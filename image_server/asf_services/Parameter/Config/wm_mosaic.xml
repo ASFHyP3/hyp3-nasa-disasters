@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Name>ASFs1</Name>
+  <CustomCommand>
+    <UpdateFieldsRGB>
+      <s3tag>$stag$</s3tag>
+    </UpdateFieldsRGB>
+  </CustomCommand>
   <Command>CM+AR+AF+BB+SP+CC+CV</Command>
   <Workspace>
     <WorkspacePath>md</WorkspacePath>
@@ -54,7 +59,7 @@
         <cell_size_tolerance>1.8</cell_size_tolerance>
         <cell_size>3</cell_size>
         <metadata_level>BASIC</metadata_level>
-        <transmission_fields>Name;StartDate;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName</transmission_fields>
+        <transmission_fields>Name;StartDate;EndDate;MinPS;MaxPS;LowPS;HighPS;Date;ZOrder;Dataset_ID;CenterX;CenterY;Tag;ProductName;GroupName;DownloadURL</transmission_fields>
         <use_time>ENABLED</use_time>
         <start_time_field>StartDate</start_time_field>
         <end_time_field>EndDate</end_time_field>
@@ -78,41 +83,14 @@
               <type>date</type>
               <length></length>
             </Field>
+            <Field>
+              <name>DownloadURL</name>
+              <type>text</type>
+              <length></length>
+            </Field>
           </Fields>
       </Table>
       <Processes>
-      <CalculateValues>
-          <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>StartDate</fieldName>
-              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
-          </CalculateValue>
-          <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>EndDate</fieldName>
-              <expression>(!Name!.split("_")[2][4:6] + "/" + !Name!.split("_")[2][6:8] + "/" + !Name!.split("_")[2][:4] + " " + !Name!.split("_")[2][9:11] + ":" + !Name!.split("_")[2][11:13] + ":" + !Name!.split("_")[2][13:15])</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>GroupName</fieldName>
-              <expression>(!Name!.split(";")[0][:-3])</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>Tag</fieldName>
-              <expression>!Name!.split("_")[8]</expression>
-          </CalculateValue>
-		  <CalculateValue>
-			  		  <expression_type>PYTHON</expression_type>
-                   <!-- NOTE: Set expression_type to PYTHON explicitly for 64 bit systems -->
-              <fieldName>MaxPS</fieldName>
-              <expression>1610</expression>
-          </CalculateValue>
-      </CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
           <do_compute_min>NO_MIN_CELL_SIZES</do_compute_min>

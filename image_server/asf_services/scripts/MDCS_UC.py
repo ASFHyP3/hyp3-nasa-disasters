@@ -31,8 +31,10 @@ class UserCode:
         pass    # initialize variables that need to be shared between multiple user commands.
 
     def sample00(self, data):
-        base = data['base']         # using Base class for its XML specific common functions. (getXMLXPathValue, getXMLNodeValue, getXMLNode)
-        xmlDOM = data['mdcs']       # access to MDCS config file
+        base = data['base']
+        # using Base class for its XML specific common functions. (getXMLXPathValue, getXMLNodeValue, getXMLNode)
+        xmlDOM = data['mdcs']
+        # access to MDCS config file
         command_used = base.getXMLNodeValue(xmlDOM, 'Command')
         workspace = data['workspace']
         md = data['mosaicdataset']
@@ -51,7 +53,9 @@ class UserCode:
         data['useResponse'] = True
         data['response'] = ['msg0', 'msg1', 'msg2']
         data['status'] = True   # overall function status
-        return True    # True must be returned if data['useResponse'] is required. data['response'] can be used to return multiple values.
+        return True
+        # True must be returned if data['useResponse'] is required.
+        # data['response'] can be used to return multiple values.
 
     def customCV(self, data):
         workspace = data['workspace']
@@ -103,15 +107,135 @@ class UserCode:
             del ds_cursor
         return True
 
-    def UpdateNameField(self, data):
+    def UpdateFieldsWM(self, data):
+        log = data['log']
+        xmlDOM = data['mdcs']
+        base = data['base']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        s3name = base.getXMLNodeValue(xmlDOM, 's3tag')
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
+                                               "Tag", "MaxPS", "StartDate",
+                                               "EndDate", "DownloadURL"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Field Values..', 0)
+            for row in ds_cursor:
+                try:
+                    NameField = row[0]
+                    GroupField = NameField.split(";")[0][:-3]
+                    TagField = NameField.split("_")[8]
+                    MaxPSField = 1610
+                    StartDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" +
+                                      NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" +
+                                      NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    EndDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" +
+                                    NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" +
+                                    NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    DownloadURLField = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + \
+                                       str('/') + str(NameField) + ".tif"
+                    row[1] = GroupField
+                    row[2] = TagField
+                    row[3] = MaxPSField
+                    row[4] = StartDateField
+                    row[5] = EndDateField
+                    row[6] = DownloadURLField
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(NameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
+    def UpdateFieldsRGB(self, data):
+        log = data['log']
+        xmlDOM = data['mdcs']
+        base = data['base']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        s3name = base.getXMLNodeValue(xmlDOM, 's3tag')
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
+                                               "Tag", "MaxPS", "StartDate",
+                                               "EndDate", "DownloadURL"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Field Values..', 0)
+            for row in ds_cursor:
+                try:
+                    NameField = row[0]
+                    GroupField = NameField.split(";")[0][:-4]
+                    TagField = NameField.split("_")[8]
+                    MaxPSField = 1610
+                    StartDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" +
+                                      NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" +
+                                      NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    EndDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" +
+                                    NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" +
+                                    NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    DownloadURLField = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + \
+                                       str('/') + str(NameField) + ".tif"
+                    row[1] = GroupField
+                    row[2] = TagField
+                    row[3] = MaxPSField
+                    row[4] = StartDateField
+                    row[5] = EndDateField
+                    row[6] = DownloadURLField
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(NameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
+    def UpdateFieldsRTC(self, data):
         log = data['log']
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName",
-                                               "Tag", "MaxPS"])  # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName", "Tag",
+                                               "MaxPS", "StartDate", "EndDate"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
-            log.Message('Updating Name Values..', 0)
+            log.Message('Updating Field Values..', 0)
+            for row in ds_cursor:
+                try:
+                    NameField = row[0]
+                    GroupField = NameField.split(";")[0][:-3]
+                    TagField = NameField.split("_")[8]
+                    MaxPSField = 1610
+                    StartDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" +
+                                      NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" +
+                                      NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    EndDateField = (NameField.split("_")[2][4:6] + "/" + NameField.split("_")[2][6:8] + "/" +
+                                    NameField.split("_")[2][:4] + " " + NameField.split("_")[2][9:11] + ":" +
+                                    NameField.split("_")[2][11:13] + ":" + NameField.split("_")[2][13:15])
+                    row[1] = GroupField
+                    row[2] = TagField
+                    row[3] = MaxPSField
+                    row[4] = StartDateField
+                    row[5] = EndDateField
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(NameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
+    def UpdateNameFieldRTC(self, data):
+        log = data['log']
+        xmlDOM = data['mdcs']
+        base = data['base']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        s3name = base.getXMLNodeValue(xmlDOM, 's3tag')
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "GroupName", "Tag", "MaxPS",
+                                               "DownloadURL_VV", "DownloadURL_VH"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Field Values..', 0)
             for row in ds_cursor:
                 try:
                     ## NameField = row[0]
@@ -125,6 +249,10 @@ class UserCode:
                     row[0] = newNameField
                     row[2] = TagField
                     row[3] = 1610
+                    row[4] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
+                        GroupField) + "_VV.tif"
+                    row[5] = "https://s3-us-west-2.amazonaws.com/hyp3-nasa-disasters/" + str(s3name) + str('/') + str(
+                        GroupField) + "_VH.tif"
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(newNameField), 0)
                 except Exception as exp:
