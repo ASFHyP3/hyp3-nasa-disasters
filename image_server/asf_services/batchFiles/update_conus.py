@@ -1,8 +1,8 @@
 # This script generates the batch files for the three services generated from the watermap products
 # then runs them in sequence
 
-import os
 import datetime
+import os
 import subprocess
 
 import arcpy
@@ -11,7 +11,6 @@ os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_serve
 
 today = datetime.datetime.now(datetime.timezone.utc).strftime("%y%m%d_%H%M")
 s3tag = 'RTC_services'
-dirtag = 'Hurricanes'
 projtag = 'RTCservices'
 crftag_wm = projtag+'_WatermapExtent'
 crftag_rgb = projtag+'_RGB'
@@ -26,7 +25,8 @@ genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py
 
 vars = [r'set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'
         +projtag+'\\'+projtag+'_'+today+'.gdb',
-        r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs''\\'''+s3tag+'\\']
+        r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs''\\',
+        r'set s3tag='+s3tag]
 
 crf_wm = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
          +crftag_wm+'_'+today+'.crf'
@@ -40,23 +40,23 @@ batfile_rgb = 'RTCservices_rgb.bat'
 batfile_rtc = 'RTCservices_rtc.bat'
 
 vars_wm = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\wm_mosaic.xml '
-           r'-m:%gdbwks%\watermap_extent -s:%acspath% -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
-           r'-c:CM+AF+AR+BF+BB+SP+CC+CV',
+           r'-m:%gdbwks%\watermap_extent -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation '
+           r'-p:USE_PIXEL_CACHE$pixelcache -p:%s3tag%$stag -c:CM+AF+AR+UpdateFieldsWM+BF+BB+SP+CC',
            r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\wm_overviews.xml '
            r'-m:%gdbwks%\watermap_extent -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
 vars_rgb = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_mosaic.xml '
-            r'-m:%gdbwks%\rgb -s:%acspath% -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
-            r'-c:CM+AF+AR+BF+BB+SP+CC+CV',
+            r'-m:%gdbwks%\rgb -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
+            r'-p:%s3tag%$stag -c:CM+AF+AR+UpdateFieldsRGB+BF+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_overviews.xml '
             r'-m:%gdbwks%\rgb -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
 vars_rtc = [r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_mosaic_s1.xml '
-            r'-m:%gdbwks%\sar_s1 -s:%acspath% -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
-            r'-c:CM+AF+AR+BF+BB+SP+CC+CV',
+            r'-m:%gdbwks%\sar_s1 -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache '
+            r'-c:CM+AF+AR+UpdateFieldsRTC+BF+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_mosaic_comp.xml '
             r'-m:%gdbwks%\sar_comp -s:%gdbwks%\sar_s1 -p:CompositeVV_VH_32.art.xml$art '
-            r'-c:CM+AR+UpdateNameField+BB+SP+CC',
+            r'-p:%s3tag%$stag -c:CM+AR+UpdateNameFieldRTC+BB+SP+CC',
             r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rtc_overviews.xml '
             r'-m:%gdbwks%\sar_comp -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf']
 
@@ -140,7 +140,7 @@ with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
         pass
 print('RTC AID package complete.')
 
-#  update image services
+# update image services
 import keyring
 pw = keyring.get_password("portal_creds", "hkristenson_ASF")
 arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw)
