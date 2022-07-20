@@ -4,6 +4,6 @@ channels:
   - nodefaults
 dependencies:
   - python>=3.8
-  - asf_search
+  - asf_search=4.0.3
   - boto3
   - hyp3_sdk
