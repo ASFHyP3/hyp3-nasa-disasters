@@ -25,14 +25,14 @@ genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py
 
 vars = [r'set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'
         +projtag+'\\'+projtag+'_'+today+'.gdb',
-        r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs''\\',
+        r'set acspath=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs''\\',
         r'set s3tag='+s3tag]
 
-crf_wm = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
+crf_wm = r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'\
          +crftag_wm+'_'+today+'.crf'
-crf_rgb = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
+crf_rgb = r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'\
           +crftag_rgb+'_'+today+'.crf'
-crf_rtc = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
+crf_rtc = r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'\
           +crftag_rtc+'_'+today+'.crf'
 
 batfile_wm = 'Ukraine_wm.bat'

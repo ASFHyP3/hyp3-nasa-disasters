@@ -4,9 +4,9 @@ set cachepath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_se
 
 REM ---------- Set output gdb and source s3 bucket-----
 set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD\RTCservices\RTCservices_220621_1908.gdb
-set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\
+set acspath=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\
 set s3tag=RTC_services
-set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri\RTCservices_RGB_220621_1908.crf
+set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri\RTCservices_RGB_220621_1908.crf
 
 REM ---------- Using ACS File -------------------------
 %ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\rgb_mosaic.xml -m:%gdbwks%\rgb -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -p:%s3tag%$stag -c:CM+AF+AR+UpdateFieldsRGB+BF+BB+SP+CC
