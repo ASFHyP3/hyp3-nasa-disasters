@@ -1,5 +1,5 @@
 {
-  "project_name": "usda_china",
+  "project_name": "USDA",
   "host": "https://hyp3-watermap.asf.alaska.edu",
   "search_parameters": {
     "platform": ["S1"],
