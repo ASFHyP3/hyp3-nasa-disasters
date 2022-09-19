@@ -35,8 +35,11 @@ jobs:
             config_file: data_management/nm_wildfires.json
           - environment: USDA
             config_file: data_management/usda_china2021.json
+          - environment: USDA
             config_file: data_management/usda_china2022.json
+          - environment: USDA
             config_file: data_management/usda_madagascar.json
+          - environment: USDA
             config_file: data_management/usda_pakistan.json
 
     environment:
