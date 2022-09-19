@@ -1,5 +1,5 @@
 {
-  "project_name": "USDA",
+  "project_name": "USDA_Pakistan",
   "host": "https://hyp3-watermap.asf.alaska.edu",
   "search_parameters": {
     "platform": ["S1"],
