@@ -8,4 +8,4 @@ set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AW
 
 REM ---------- Using ACS File -------------------------
 %ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\cb_vv_coh12.xml -m:%gdbwks%\vv_coh12 -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+UpdateFieldsCoh+BF+BB+SP+CC
-%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\cb_vv_coh12_ovr.xml -m:%gdbwks%\vv_coh12 -s:%outcrf% -c:SE+CRA+AR+UpdateCohOverviewFields -p:%outcrf%$outcrf
+%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\cb_vv_coh12_ovr.xml -m:%gdbwks%\vv_coh12 -s:%outcrf% -c:SE+CRA+AR+UpdateOverviewFields -p:%outcrf%$outcrf
