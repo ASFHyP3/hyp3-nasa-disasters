@@ -13,7 +13,7 @@
       <pixel_type>#</pixel_type>
       <AddRasters>
         <AddRaster>
-          <dataset_id>vv_summer_COH12</dataset_id>
+          <dataset_id>COH12_VV</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
