@@ -8,12 +8,12 @@
 # Requirements: Python 3.9.12
 # Required Arguments: csv file, xml file
 # Author: Sheridan Moore, Imagery and Remote Sensing, Advanced Analytics, 
-#	Professional Services, Esri (sheridanmoore@esri.com)
+#	      Professional Services, Esri (sheridanmoore@esri.com)
 #
 # HK Note: this script requires a python installation of at least 3.9
 # ------------------------------------------------------------------------------
 
-# neccessary python modules
+# necessary python modules
 import pandas as pd
 import xml.etree.ElementTree as et
 
