@@ -9,13 +9,15 @@
 # Required Arguments: csv file, xml file
 # Author: Sheridan Moore, Imagery and Remote Sensing, Advanced Analytics, 
 #	Professional Services, Esri (sheridanmoore@esri.com)
+#
+# HK Note: this script requires a python installation of at least 3.9
 # ------------------------------------------------------------------------------
 
-#neccessary python modules
+# neccessary python modules
 import pandas as pd
 import xml.etree.ElementTree as et
 
-#remove all children from parent 
+# remove all children from parent
 def kill_children(parent_et_element, child_tag):
 	"""
 	Removes all children from parent in XML file
@@ -25,15 +27,15 @@ def kill_children(parent_et_element, child_tag):
 	child_tag -- string of the tag for the child
 	"""
 
-	#find all children with specified tag
+	# find all children with specified tag
 	children = parent_et_element.findall(child_tag)
 
-	#remove all of the children
+	# remove all of the children
 	for child in children:
 		parent_et_element.remove(child)
 
 
-#read csv file
+# read csv file
 def csv_to_list(csv_file):
 	"""
 	Reads a csv of data and converts to a list of data strings
@@ -48,13 +50,13 @@ def csv_to_list(csv_file):
 	csv_list_of_data -- a list of strings where data paths
 	"""
 
-	#read csv file
+	# read csv file
 	df = pd.read_csv(csv_file, header=None) 
 	
-	#create empty list
+	# create empty list
 	csv_list_of_data = []
 
-	#loop through csv data and add to list
+	# loop through csv data and add to list
 	for element in df[0]:
 		element = str(element) #convert each element to string if not already
 		csv_list_of_data.append(element)
@@ -62,7 +64,7 @@ def csv_to_list(csv_file):
 	return csv_list_of_data
 
 
-#write to xml file
+# write to xml file
 def write_to_xml(csv_data, new_xml_file_name, export_bool):
 	"""
 	Writes data from csv to xml file.
@@ -76,7 +78,7 @@ def write_to_xml(csv_data, new_xml_file_name, export_bool):
 	num_csv_data_files -- the number of data paths added to the XML file
 	"""
 
-	#find sources, add csv data as a new data_path
+	# find sources, add csv data as a new data_path
 	for element in root.iter():
 		if element.tag == "Sources":
 			for data in csv_data:
@@ -84,17 +86,17 @@ def write_to_xml(csv_data, new_xml_file_name, export_bool):
 				et.SubElement(element, "data_path").text = data
 				et.indent(tree, "	")
 
-	#export
+	# export
 	if export_bool:
 		tree.write(new_xml_file_name, "UTF-8")
 
-	#get number of added files
+	# get number of added files
 	num_csv_data_files = len(csv_data)
 
 	return num_csv_data_files
 
 
-#iterate through the parent
+# iterate through the parent
 def iterate_parent(parent, tag):
 	"""
 	Iterates through a parent XML directory to get the location of the 
@@ -108,10 +110,10 @@ def iterate_parent(parent, tag):
 	et_element -- the location of the element in the XML file
 	"""
 
-	#identify zeros for increment
+	# identify zeros for increment
 	i = 0
 
-	#loop through parent and find the location of the child
+	# loop through parent and find the location of the child
 	for child in parent:
 		if child.tag == tag:
 			et_element = parent[i]
@@ -121,7 +123,7 @@ def iterate_parent(parent, tag):
 	return et_element
 
 
-#get location of sources
+# get location of sources
 def find_sources(root):
 	"""
 	Iterates through each branch of the XML file to find the location of Sources
@@ -134,8 +136,8 @@ def find_sources(root):
 		of sources
 	"""
 
-	#finds the location of sources within xml file
-	#Application.Workspace.MosaicDataset.AddRasters.AddRaster.Sources
+	# finds the location of sources within xml file
+	# Application.Workspace.MosaicDataset.AddRasters.AddRaster.Sources
 	worspace_et_element = iterate_parent(root, "Workspace")
 	mosaic_dataset_et_element = iterate_parent(worspace_et_element, "MosaicDataset")
 	add_rasters_et_element = iterate_parent(mosaic_dataset_et_element, "AddRasters")
@@ -164,32 +166,32 @@ def add_source_child(root):
 			et.indent(tree, "	")
 
 
-#start the code 
+# start the code
 if __name__ == '__main__':
 
-	#input variables needed / things to change
-	csv_file = "C:\\Users\\she12794\\OneDrive - Esri\\Documents\\00_git_repos\\hyp3-nasa-disasters\\SEM\\vv_COH12_urls_small.txt"
+	# input variables needed / things to change
+	csv_file = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\sourcelists\COH12_test_sample_urls.txt'
 	export_bool = True
-	xml_original_file = "C:\\Users\\she12794\\OneDrive - Esri\\Documents\\00_git_repos\\hyp3-nasa-disasters\\SEM\\cb_vv_coh12_SEM.xml"
-	new_xml_file_name = "test_xml_3.xml"
+	xml_original_file = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter\Config\cb_vv_coh12.xml'
+	new_xml_file_name = "cb_vv_coh12_sample.xml"
 
-	#read xml file
+	# read xml file
 	tree = et.parse(xml_original_file)
 	root = tree.getroot()
 
 	try:
-		#get xml sources
+		# get xml sources
 		sources_et_element = find_sources(root)
 		sources_str = et.tostring(sources_et_element).decode("utf-8")
 
-	#if there is no source element
+	# if there is no source element
 	except UnboundLocalError:
 		add_source_child(root)
 		csv_data = csv_to_list(csv_file)
 		num_csv_data_files = write_to_xml(csv_data, new_xml_file_name, export_bool)
 		print("{num_csv_data_files} data_path record(s) have been added.".format(num_csv_data_files = num_csv_data_files))
 
-	#if there is a source element
+	# if there is a source element
 	else:
 		kill_children(sources_et_element, "data_path")
 		csv_data = csv_to_list(csv_file)
