@@ -37,7 +37,6 @@
             <data_path>https://sentinel-1-global-coherence-earthbigdata.s3.us-west-2.amazonaws.com/data/tiles/N52E077/N52E077_summer_vv_COH12.tif</data_path>
             <data_path>https://sentinel-1-global-coherence-earthbigdata.s3.us-west-2.amazonaws.com/data/tiles/N52E077/N52E077_winter_vv_COH12.tif</data_path>
           </Sources>
-          <filter>*</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
         </AddRaster>
