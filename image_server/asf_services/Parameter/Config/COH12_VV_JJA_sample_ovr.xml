@@ -69,7 +69,7 @@
 				<geographic_transform>#</geographic_transform>
 				<max_num_of_download_items>50</max_num_of_download_items>
 				<max_num_of_records_returned>2000</max_num_of_records_returned>
-				<processing_templates>None;ScaledCoherence.rft.xml;UnscaledCoherence</processing_templates>
+				<processing_templates>ScaledCoherence.rft.xml;UnscaledCoherence.rft.xml;None</processing_templates>
 				<default_processing_template>UnscaledCoherence.rft.xml</default_processing_template>
 			</DefaultProperties>
 			<Processes>
