@@ -79,4 +79,4 @@ arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw
 print('Generating {} Image Service...'.format(service))
 arcpy.AID.MAIDIS("asf-daac", "Create Service", "test", service, '', aid, None, "Dedicated Instance", service_desc,
                  "Credits for the GSSICB images", '', False, False, True, None, None, None, None)
-print('{} Image Service updated.'.format(service))
+print('{} Image Service published.'.format(service))
