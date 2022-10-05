@@ -303,7 +303,7 @@ class UserCode:
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "ProductType", "Season", "Polarization", "Tile", "Dataset_ID",
-                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName"])
+                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName", "DownloadURL"])
         # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Field Values..', 0)
@@ -340,6 +340,8 @@ class UserCode:
                     TagField = DatasetIDField
                     MaxPSField = 1610
                     GroupNameField = DatasetIDField
+                    DownloadURLField = r'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-' \
+                                       r'2.amazonaws.com/data/tiles/{}/{}.tif'.format(TileField, NameField)
                     row[1] = ProductTypeField
                     row[2] = SeasonField
                     row[3] = PolarizationField
@@ -350,6 +352,7 @@ class UserCode:
                     row[8] = StartDateField
                     row[9] = EndDateField
                     row[10] = GroupNameField
+                    row[11] = DownloadURLField
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(NameField), 0)
                 except Exception as exp:
