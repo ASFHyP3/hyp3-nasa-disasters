@@ -78,30 +78,37 @@
 					<Field>
 						<name>StartDate</name>
 						<type>date</type>
+						<length></length>
 					</Field>
 					<Field>
 						<name>EndDate</name>
 						<type>date</type>
+						<length></length>
 					</Field>
 					<Field>
 						<name>ProductType</name>
 						<type>text</type>
+						<length></length>
 					</Field>
 					<Field>
 						<name>Season</name>
 						<type>text</type>
+						<length></length>
 					</Field>
 					<Field>
 						<name>Polarization</name>
 						<type>text</type>
+						<length></length>
 					</Field>
 					<Field>
 						<name>Tile</name>
 						<type>text</type>
+						<length></length>
 					</Field>
 					<Field>
 						<name>DownloadURL</name>
 						<type>text</type>
+						<length></length>
 					</Field>
 				</Fields>
 			</Table>
