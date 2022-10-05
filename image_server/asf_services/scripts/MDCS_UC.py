@@ -313,26 +313,30 @@ class UserCode:
                     ProductTypeField = NameField.split("_")[3]
                     SeasonName = NameField.split("_")[1]
                     if SeasonName == 'summer':
-                        SeasonField = 'JJA'
+                        SeasonCode = 'JJA'
+                        SeasonField = 'June/July/August'
                         StartDateField = '06/01/2020'
                         EndDateField = '08/31/2020'
                     elif SeasonName == 'fall':
-                        SeasonField = 'SON'
+                        SeasonCode = 'SON'
+                        SeasonField = 'September/October/November'
                         StartDateField = '09/01/2020'
                         EndDateField = '11/30/2020'
                     elif SeasonName == 'winter':
-                        SeasonField = 'DJF'
+                        SeasonCode = 'DJF'
+                        SeasonField = 'December/January/February'
                         StartDateField = '12/01/2019'
                         EndDateField = '02/29/2020'
                     elif SeasonName == 'spring':
-                        SeasonField = 'MAM'
+                        SeasonCode = 'MAM'
+                        SeasonField = 'March/April/May'
                         StartDateField = '03/01/2020'
                         EndDateField = '05/31/2020'
                     else:
                         SeasonField = 'unknown'
                     PolarizationField = str(NameField.split("_")[2]).upper()
                     TileField = NameField.split("_")[0]
-                    DatasetIDField = ProductTypeField+'_'+PolarizationField+'_'+SeasonField
+                    DatasetIDField = ProductTypeField+'_'+PolarizationField+'_'+SeasonCode
                     TagField = DatasetIDField
                     MaxPSField = 1610
                     GroupNameField = DatasetIDField
