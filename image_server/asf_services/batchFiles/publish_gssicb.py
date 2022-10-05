@@ -11,6 +11,10 @@ import arcpy
 service = 'COH12_VV_JJA_sample'
 # enter the description of the service
 service_desc = "Enter a description of the service"
+# select one of the two publishing type options:
+# publish_type = 'create'
+publish_type = 'update'
+print('Starting process to {} the {} service...'.format(publish_type, service))
 
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\batchFiles')
 
@@ -22,19 +26,22 @@ scratch_ws = r"C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_s
 ImageServerScratch.gdb"
 
 # set general variables for the batch file
+gdb = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'+projtag+'\\'+projtag+'_'+service+'_'+today+'.gdb'
+md = gdb+'\\'+service
+
 genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe"',
            r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services',
            r'set cachepath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services'
            r'\PixelCache']
-gdb = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'+projtag+'\\'+projtag+'_'+service+'_'+today+'.gdb'
-md = gdb+'\\'+service
 
 vars = [r'set gdbwks='+gdb,
         r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'
         +projtag+'_'+service+'_'+today+'.crf']
 
-md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+r' -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+UpdateFieldsCoh+BF+BB+SP+CC'
-ovr_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+ovr_config+r' -m:%gdbwks%\\'+service+r' -s:%outcrf% -c:SE+CRA+AR+UpdateCohOverviewFields -p:%outcrf%$outcrf'
+md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+\
+         r' -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+UpdateFieldsCoh+BF+BB+SP+CC'
+ovr_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+ovr_config+r' -m:%gdbwks%\\'+service+\
+          r' -s:%outcrf% -c:SE+CRA+AR+UpdateCohOverviewFields -p:%outcrf%$outcrf'
 
 # generate batch file
 batfile = service+'.bat'
@@ -72,11 +79,22 @@ with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
         pass
 print('{} AID package complete.'.format(service))
 
-# update image services
+# portal login
 pw = keyring.get_password("portal_creds", "hkristenson_ASF")
 arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw)
 
-print('Generating {} Image Service...'.format(service))
-arcpy.AID.MAIDIS("asf-daac", "Create Service", "test", service, '', aid, None, "Dedicated Instance", service_desc,
-                 "Credits for the GSSICB images", '', False, False, True, None, None, None, None)
-print('{} Image Service published.'.format(service))
+# publish service
+if publish_type == 'create':
+    # create image service
+    print('Generating {} Image Service...'.format(service))
+    arcpy.AID.MAIDIS("asf-daac", "Create Service", "test", service, '', aid, None, "Dedicated Instance", service_desc,
+                     "Credits for the GSSICB images", '', False, False, True, None, None, None, None)
+    print('{} Image Service published.'.format(service))
+elif publish_type == 'update':
+    # update image services
+    print('Updating {} Image Service...'.format(service))
+    arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", service, None, aid, "Dedicated Instance",
+                     service_desc, "Credits for the GSSICB images",
+                     '', False, False, True, None, None, None, None)
+else:
+    print('No valid publish type designated')
