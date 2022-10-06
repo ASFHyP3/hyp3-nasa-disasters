@@ -12,7 +12,7 @@
 			<pixel_type>#</pixel_type>
 			<AddRasters>
 				<AddRaster>
-					<dataset_id>COH12_VV_JJA_sample</dataset_id>
+					<dataset_id>COH12_VV_JJA</dataset_id>
 					<raster_type>Raster Dataset;$art$</raster_type>
 					<Sources>
 						<data_path>https://sentinel-1-global-coherence-earthbigdata.s3.us-west-2.amazonaws.com/data/tiles/N24W071/N24W071_summer_vv_COH12.tif</data_path>
