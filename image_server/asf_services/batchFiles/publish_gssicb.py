@@ -8,12 +8,12 @@ import subprocess
 import arcpy
 
 # enter the name of the service to generate
-service = 'COH12_VV_JJA_sample'
+service = 'COH12_VV_JJA_France_ACS'
 # enter the description of the service
-service_desc = "Enter a description of the service"
+service_desc = "Summer (June/July/August) median COH12 (12-day coherence) in VV polarization over France from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set (https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter/)"
 # select one of the two publishing type options:
-# publish_type = 'create'
-publish_type = 'update'
+publish_type = 'create'
+# publish_type = 'update'
 print('Starting process to {} the {} service...'.format(publish_type, service))
 
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\batchFiles')
@@ -87,14 +87,14 @@ arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw
 if publish_type == 'create':
     # create image service
     print('Generating {} Image Service...'.format(service))
-    arcpy.AID.MAIDIS("asf-daac", "Create Service", "test", service, '', aid, None, "Dedicated Instance", service_desc,
-                     "Credits for the GSSICB images", '', False, False, True, None, None, None, None)
+    arcpy.AID.MAIDIS("asf-daac", "Create Service", "GSSICB", service, '', aid, None, "Dedicated Instance", service_desc,
+                     "Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set was accessed on 05 October 2022 from https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter.", '', False, False, True, None, None, None, None)
     print('{} Image Service published.'.format(service))
 elif publish_type == 'update':
     # update image services
     print('Updating {} Image Service...'.format(service))
-    arcpy.AID.MAIDIS("asf-daac", "Update Service", "test", "None", service, None, aid, "Dedicated Instance",
-                     service_desc, "Credits for the GSSICB images",
+    arcpy.AID.MAIDIS("asf-daac", "Update Service", "GSSICB", "None", service, None, aid, "Dedicated Instance",
+                     service_desc, "Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set was accessed on 10 October 2022 from https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter.",
                      '', False, False, True, None, None, None, None)
 else:
     print('No valid publish type designated')
