@@ -41,6 +41,11 @@ You may want to add multiple services to a web map, or add new services into
 an existing web map. This is easily done using the URL of the REST Endpoint for the 
 image service. 
 
+Note that you will need to sign in with ArcGIS credentials to make changes to a web
+map. If you did not create the original web map, you may not be able to make changes
+to the web map (depending on the permissions the author has set for the map). You can,
+however, make changes and save the map to your own account.
+
 * Open an existing web map
 * Click the Add button and select "Add Layer from Web"
 
