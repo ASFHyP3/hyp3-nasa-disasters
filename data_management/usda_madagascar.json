@@ -1,0 +1,30 @@
+{
+  "project_name": "USDA_Madagascar",
+  "host": "https://hyp3-watermap.asf.alaska.edu",
+  "search_parameters": {
+    "platform": ["S1"],
+    "processingLevel": ["SLC"],
+    "beamMode": ["IW"],
+    "polarization": ["VV+VH"],
+    "start": "2021-12-15",
+    "end": "2022-03-31",
+    "intersectsWith": "POLYGON((45.34 -24.4634,46.9582 -25.2304,47.6833 -23.191,49.9572 -16.5976,50.6596 -14.6336,49.2066 -12.4441,46.6249 -18.5307,45.34 -24.4634))"
+  },
+  "job_spec": {
+    "job_type": "WATER_MAP",
+    "job_parameters": {
+      "resolution": 30,
+      "speckle_filter": true,
+      "max_vv_threshold": -15.5,
+      "max_vh_threshold": -27.0,
+      "hand_threshold": 15.0,
+      "hand_fraction": 0.8,
+      "membership_threshold": 0.45
+    }
+  },
+  "transfer_spec": {
+    "target_bucket": "hyp3-nasa-disasters",
+    "target_prefix": "USDA",
+    "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif",  "_dem.tif", "_WM.tif", "_WM_HAND.tif"]
+  }
+}
