@@ -1,0 +1,243 @@
+<?xml version="1.0" ?>
+<Projects>
+	<MDCS>
+		<StartTime>20221019T151425</StartTime>
+		<EndTime>20221019T153817</EndTime>
+		<TotalDuration>1431</TotalDuration>
+		<Message>
+			Checking for updates..
+			<Error>
+				<type>warning</type>
+				<text>Update Available. Please read C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\scripts\CheckForUpdate.json</text>
+			</Error>
+		</Message>
+		<Message>Using template:C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter\Config\\COH12_VV_SON_France.xml</Message>
+		<Message>Processing command(s):CM+AF+AR+UPDATEFIELDSCOH+BF+BB+SP+CC</Message>
+		<Message>Done...</Message>
+		<CM>
+			<Message>Command:CM-&gt;Create a new mosaic dataset.</Message>
+			<Message>Creating Geodatabase: (C:/Users/hjkristenson/PycharmProjects/hyp3-nasa-disasters/image_server/asf_services/MD/GSSICB/GSSICB_COH12_VV_SON_France_221019_2314.gdb)</Message>
+			<Message>Creating source mosaic datasets:</Message>
+			<Message>	COH12_VV_SON_France</Message>
+			<Status>OK</Status>
+			<Duration>4</Duration>
+		</CM>
+		<AF>
+			<Message>Command:AF-&gt;Add fields.</Message>
+			<Message>Adding custom fields:</Message>
+			<Message>Using mosaic dataset:COH12_VV_SON_France</Message>
+			<Message>	Creating fields:</Message>
+			<Message>		StartDate</Message>
+			<Message>		EndDate</Message>
+			<Message>		ProductType</Message>
+			<Message>		Season</Message>
+			<Message>		Polarization</Message>
+			<Message>		Tile</Message>
+			<Message>		DownloadURL</Message>
+			<Status>OK</Status>
+			<Duration>90</Duration>
+		</AF>
+		<AR>
+			<Message>Command:AR-&gt;Add rasters/data to a mosaic dataset.</Message>
+			<Message>Adding rasters:</Message>
+			<Message>	Using mosaic dataset/ID:COH12_VV_SON_France/COH12_VV_SON_France</Message>
+			<Message>	Using ART for COH12_VV_SON_FRANCE: Raster Dataset</Message>
+			<Message>Adding items..</Message>
+			<Message>Calling (arcpy.AddRastersToMosaicDataset_management)</Message>
+			<Message>Status: OK</Message>
+			<Message>Calculating 'Dataset ID' for the mosaic dataset (COH12_VV_SON_France) with value (COH12_VV_SON_France)</Message>
+			<Status>OK</Status>
+			<Duration>1320</Duration>
+		</AR>
+		<UpdateFieldsCoh>
+			<Message>Command:UpdateFieldsCoh-&gt;User defined command (UpdateFieldsCoh)</Message>
+			<Message>Updating Field Values..</Message>
+			<Message>N42E000_fall_vv_COH12 updated</Message>
+			<Message>N42E001_fall_vv_COH12 updated</Message>
+			<Message>N42E002_fall_vv_COH12 updated</Message>
+			<Message>N42E003_fall_vv_COH12 updated</Message>
+			<Message>N42E004_fall_vv_COH12 updated</Message>
+			<Message>N42E005_fall_vv_COH12 updated</Message>
+			<Message>N42E006_fall_vv_COH12 updated</Message>
+			<Message>N42E007_fall_vv_COH12 updated</Message>
+			<Message>N42E008_fall_vv_COH12 updated</Message>
+			<Message>N42E009_fall_vv_COH12 updated</Message>
+			<Message>N42W001_fall_vv_COH12 updated</Message>
+			<Message>N42W002_fall_vv_COH12 updated</Message>
+			<Message>N42W003_fall_vv_COH12 updated</Message>
+			<Message>N42W004_fall_vv_COH12 updated</Message>
+			<Message>N42W005_fall_vv_COH12 updated</Message>
+			<Message>N43E000_fall_vv_COH12 updated</Message>
+			<Message>N43E001_fall_vv_COH12 updated</Message>
+			<Message>N43E002_fall_vv_COH12 updated</Message>
+			<Message>N43E003_fall_vv_COH12 updated</Message>
+			<Message>N43E004_fall_vv_COH12 updated</Message>
+			<Message>N43E005_fall_vv_COH12 updated</Message>
+			<Message>N43E006_fall_vv_COH12 updated</Message>
+			<Message>N43E007_fall_vv_COH12 updated</Message>
+			<Message>N43E008_fall_vv_COH12 updated</Message>
+			<Message>N43E009_fall_vv_COH12 updated</Message>
+			<Message>N43W001_fall_vv_COH12 updated</Message>
+			<Message>N43W002_fall_vv_COH12 updated</Message>
+			<Message>N43W003_fall_vv_COH12 updated</Message>
+			<Message>N43W004_fall_vv_COH12 updated</Message>
+			<Message>N43W005_fall_vv_COH12 updated</Message>
+			<Message>N44E000_fall_vv_COH12 updated</Message>
+			<Message>N44E001_fall_vv_COH12 updated</Message>
+			<Message>N44E002_fall_vv_COH12 updated</Message>
+			<Message>N44E003_fall_vv_COH12 updated</Message>
+			<Message>N44E004_fall_vv_COH12 updated</Message>
+			<Message>N44E005_fall_vv_COH12 updated</Message>
+			<Message>N44E006_fall_vv_COH12 updated</Message>
+			<Message>N44E007_fall_vv_COH12 updated</Message>
+			<Message>N44E008_fall_vv_COH12 updated</Message>
+			<Message>N44E009_fall_vv_COH12 updated</Message>
+			<Message>N44W001_fall_vv_COH12 updated</Message>
+			<Message>N44W002_fall_vv_COH12 updated</Message>
+			<Message>N44W003_fall_vv_COH12 updated</Message>
+			<Message>N44W004_fall_vv_COH12 updated</Message>
+			<Message>N44W005_fall_vv_COH12 updated</Message>
+			<Message>N45E000_fall_vv_COH12 updated</Message>
+			<Message>N45E001_fall_vv_COH12 updated</Message>
+			<Message>N45E002_fall_vv_COH12 updated</Message>
+			<Message>N45E003_fall_vv_COH12 updated</Message>
+			<Message>N45E004_fall_vv_COH12 updated</Message>
+			<Message>N45E005_fall_vv_COH12 updated</Message>
+			<Message>N45E006_fall_vv_COH12 updated</Message>
+			<Message>N45E007_fall_vv_COH12 updated</Message>
+			<Message>N45E008_fall_vv_COH12 updated</Message>
+			<Message>N45E009_fall_vv_COH12 updated</Message>
+			<Message>N45W001_fall_vv_COH12 updated</Message>
+			<Message>N45W002_fall_vv_COH12 updated</Message>
+			<Message>N45W003_fall_vv_COH12 updated</Message>
+			<Message>N45W004_fall_vv_COH12 updated</Message>
+			<Message>N45W005_fall_vv_COH12 updated</Message>
+			<Message>N46E000_fall_vv_COH12 updated</Message>
+			<Message>N46E001_fall_vv_COH12 updated</Message>
+			<Message>N46E002_fall_vv_COH12 updated</Message>
+			<Message>N46E003_fall_vv_COH12 updated</Message>
+			<Message>N46E004_fall_vv_COH12 updated</Message>
+			<Message>N46E005_fall_vv_COH12 updated</Message>
+			<Message>N46E006_fall_vv_COH12 updated</Message>
+			<Message>N46E007_fall_vv_COH12 updated</Message>
+			<Message>N46E008_fall_vv_COH12 updated</Message>
+			<Message>N46E009_fall_vv_COH12 updated</Message>
+			<Message>N46W001_fall_vv_COH12 updated</Message>
+			<Message>N46W002_fall_vv_COH12 updated</Message>
+			<Message>N46W003_fall_vv_COH12 updated</Message>
+			<Message>N46W004_fall_vv_COH12 updated</Message>
+			<Message>N46W005_fall_vv_COH12 updated</Message>
+			<Message>N47E000_fall_vv_COH12 updated</Message>
+			<Message>N47E001_fall_vv_COH12 updated</Message>
+			<Message>N47E002_fall_vv_COH12 updated</Message>
+			<Message>N47E003_fall_vv_COH12 updated</Message>
+			<Message>N47E004_fall_vv_COH12 updated</Message>
+			<Message>N47E005_fall_vv_COH12 updated</Message>
+			<Message>N47E006_fall_vv_COH12 updated</Message>
+			<Message>N47E007_fall_vv_COH12 updated</Message>
+			<Message>N47E008_fall_vv_COH12 updated</Message>
+			<Message>N47E009_fall_vv_COH12 updated</Message>
+			<Message>N47W001_fall_vv_COH12 updated</Message>
+			<Message>N47W002_fall_vv_COH12 updated</Message>
+			<Message>N47W003_fall_vv_COH12 updated</Message>
+			<Message>N47W004_fall_vv_COH12 updated</Message>
+			<Message>N47W005_fall_vv_COH12 updated</Message>
+			<Message>N48E000_fall_vv_COH12 updated</Message>
+			<Message>N48E001_fall_vv_COH12 updated</Message>
+			<Message>N48E002_fall_vv_COH12 updated</Message>
+			<Message>N48E003_fall_vv_COH12 updated</Message>
+			<Message>N48E004_fall_vv_COH12 updated</Message>
+			<Message>N48E005_fall_vv_COH12 updated</Message>
+			<Message>N48E006_fall_vv_COH12 updated</Message>
+			<Message>N48E007_fall_vv_COH12 updated</Message>
+			<Message>N48E008_fall_vv_COH12 updated</Message>
+			<Message>N48E009_fall_vv_COH12 updated</Message>
+			<Message>N48W001_fall_vv_COH12 updated</Message>
+			<Message>N48W002_fall_vv_COH12 updated</Message>
+			<Message>N48W003_fall_vv_COH12 updated</Message>
+			<Message>N48W004_fall_vv_COH12 updated</Message>
+			<Message>N48W005_fall_vv_COH12 updated</Message>
+			<Message>N49E000_fall_vv_COH12 updated</Message>
+			<Message>N49E001_fall_vv_COH12 updated</Message>
+			<Message>N49E002_fall_vv_COH12 updated</Message>
+			<Message>N49E003_fall_vv_COH12 updated</Message>
+			<Message>N49E004_fall_vv_COH12 updated</Message>
+			<Message>N49E005_fall_vv_COH12 updated</Message>
+			<Message>N49E006_fall_vv_COH12 updated</Message>
+			<Message>N49E007_fall_vv_COH12 updated</Message>
+			<Message>N49E008_fall_vv_COH12 updated</Message>
+			<Message>N49E009_fall_vv_COH12 updated</Message>
+			<Message>N49W001_fall_vv_COH12 updated</Message>
+			<Message>N49W002_fall_vv_COH12 updated</Message>
+			<Message>N49W003_fall_vv_COH12 updated</Message>
+			<Message>N49W004_fall_vv_COH12 updated</Message>
+			<Message>N49W005_fall_vv_COH12 updated</Message>
+			<Message>N50E000_fall_vv_COH12 updated</Message>
+			<Message>N50E001_fall_vv_COH12 updated</Message>
+			<Message>N50E002_fall_vv_COH12 updated</Message>
+			<Message>N50E003_fall_vv_COH12 updated</Message>
+			<Message>N50E004_fall_vv_COH12 updated</Message>
+			<Message>N50E005_fall_vv_COH12 updated</Message>
+			<Message>N50E006_fall_vv_COH12 updated</Message>
+			<Message>N50E007_fall_vv_COH12 updated</Message>
+			<Message>N50E008_fall_vv_COH12 updated</Message>
+			<Message>N50E009_fall_vv_COH12 updated</Message>
+			<Message>N50W001_fall_vv_COH12 updated</Message>
+			<Message>N50W002_fall_vv_COH12 updated</Message>
+			<Message>N50W003_fall_vv_COH12 updated</Message>
+			<Message>N50W004_fall_vv_COH12 updated</Message>
+			<Message>N50W005_fall_vv_COH12 updated</Message>
+			<Message>N51E000_fall_vv_COH12 updated</Message>
+			<Message>N51E001_fall_vv_COH12 updated</Message>
+			<Message>N51E002_fall_vv_COH12 updated</Message>
+			<Message>N51E003_fall_vv_COH12 updated</Message>
+			<Message>N51E004_fall_vv_COH12 updated</Message>
+			<Message>N51E005_fall_vv_COH12 updated</Message>
+			<Message>N51E006_fall_vv_COH12 updated</Message>
+			<Message>N51E007_fall_vv_COH12 updated</Message>
+			<Message>N51E008_fall_vv_COH12 updated</Message>
+			<Message>N51E009_fall_vv_COH12 updated</Message>
+			<Message>N51W001_fall_vv_COH12 updated</Message>
+			<Message>N51W002_fall_vv_COH12 updated</Message>
+			<Message>N51W003_fall_vv_COH12 updated</Message>
+			<Message>N51W004_fall_vv_COH12 updated</Message>
+			<Message>N51W005_fall_vv_COH12 updated</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</UpdateFieldsCoh>
+		<BF>
+			<Message>Command:BF-&gt;Build footprint.</Message>
+			<Message>	Recomputing footprint for the mosaic dataset: COH12_VV_SON_France</Message>
+			<Message>Calling (arcpy.BuildFootprints_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>2</Duration>
+		</BF>
+		<BB>
+			<Message>Command:BB-&gt;Build boundary.</Message>
+			<Message>Building the boundary NONE</Message>
+			<Status>OK</Status>
+			<Duration>3</Duration>
+		</BB>
+		<SP>
+			<Message>
+				Command:SP-&gt;Set mosaic dataset properties.
+				<Error>
+					<type>warning</type>
+					<text>SP flag is not found!</text>
+				</Error>
+			</Message>
+			<Message>Using default for Set property</Message>
+			<Message>Calling (arcpy.SetMosaicDatasetProperties_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>5</Duration>
+		</SP>
+		<CC>
+			<Message>Command:CC-&gt;Computes the minimum and maximum cell sizes for the rasters in a mosaic dataset.</Message>
+			<Message>Calculating cell ranges for:C:/Users/hjkristenson/PycharmProjects/hyp3-nasa-disasters/image_server/asf_services/MD/GSSICB/GSSICB_COH12_VV_SON_France_221019_2314.gdb\COH12_VV_SON_France</Message>
+			<Status>OK</Status>
+			<Duration>4</Duration>
+		</CC>
+	</MDCS>
+</Projects>

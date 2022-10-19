@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<Projects>
+	<MDCS>
+		<StartTime>20221019T153821</StartTime>
+		<EndTime>20221019T154114</EndTime>
+		<TotalDuration>172</TotalDuration>
+		<Message>
+			Checking for updates..
+			<Error>
+				<type>warning</type>
+				<text>Update Available. Please read C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\scripts\CheckForUpdate.json</text>
+			</Error>
+		</Message>
+		<Message>Using template:C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter\Config\\COH12_VV_SON_France_ovr.xml</Message>
+		<Message>Processing command(s):SE+CRA+AR+UPDATECOHOVERVIEWFIELDS</Message>
+		<Message>Done...</Message>
+		<SE>
+			<Message>Command:SE-&gt;Set environment variables.</Message>
+			<Message>Set environment variables on index: 0</Message>
+			<Message>Env[cellSize]=900</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</SE>
+		<CRA>
+			<Message>Command:CRA-&gt;Copy Raster.</Message>
+			<Message>	Copy Raster.:COH12_VV_SON_France</Message>
+			<Message>Calling (arcpy.CopyRaster_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>160</Duration>
+		</CRA>
+		<AR>
+			<Message>Command:AR-&gt;Add rasters/data to a mosaic dataset.</Message>
+			<Message>Adding rasters:</Message>
+			<Message>	Using mosaic dataset/ID:COH12_VV_SON_France/COH12_VV_SON_France_Overview</Message>
+			<Message>	Using ART for COH12_VV_SON_FRANCE: Raster Dataset</Message>
+			<Message>Adding items..</Message>
+			<Message>Calling (arcpy.AddRastersToMosaicDataset_management)</Message>
+			<Message>Status: OK</Message>
+			<Message>Calculating 'Dataset ID' for the mosaic dataset (COH12_VV_SON_France) with value (COH12_VV_SON_France_Overview)</Message>
+			<Status>OK</Status>
+			<Duration>12</Duration>
+		</AR>
+		<UpdateCohOverviewFields>
+			<Message>Command:UpdateCohOverviewFields-&gt;User defined command (UpdateCohOverviewFields)</Message>
+			<Message>Updating Overview Field Values...</Message>
+			<Message>Overview fields updated.</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</UpdateCohOverviewFields>
+	</MDCS>
+</Projects>
