@@ -296,3 +296,91 @@ class UserCode:
                     log.Message(str(exp), 2)
             del ds_cursor
         return True
+
+    def UpdateFieldsCoh(self, data):
+        log = data['log']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "ProductType", "Season", "Polarization", "Tile", "Dataset_ID",
+                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName", "DownloadURL"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Field Values..', 0)
+            for row in ds_cursor:
+                try:
+                    NameField = row[0]
+                    ProductTypeField = NameField.split("_")[3]
+                    SeasonName = NameField.split("_")[1]
+                    if SeasonName == 'summer':
+                        SeasonCode = 'JJA'
+                        SeasonField = 'June/July/August'
+                        StartDateField = '06/01/2020'
+                        EndDateField = '08/31/2020'
+                    elif SeasonName == 'fall':
+                        SeasonCode = 'SON'
+                        SeasonField = 'September/October/November'
+                        StartDateField = '09/01/2020'
+                        EndDateField = '11/30/2020'
+                    elif SeasonName == 'winter':
+                        SeasonCode = 'DJF'
+                        SeasonField = 'December/January/February'
+                        StartDateField = '12/01/2019'
+                        EndDateField = '02/29/2020'
+                    elif SeasonName == 'spring':
+                        SeasonCode = 'MAM'
+                        SeasonField = 'March/April/May'
+                        StartDateField = '03/01/2020'
+                        EndDateField = '05/31/2020'
+                    else:
+                        SeasonField = 'unknown'
+                    PolarizationField = str(NameField.split("_")[2]).upper()
+                    TileField = NameField.split("_")[0]
+                    DatasetIDField = ProductTypeField+'_'+PolarizationField+'_'+SeasonCode
+                    TagField = DatasetIDField
+                    MaxPSField = 1610
+                    GroupNameField = DatasetIDField
+                    DownloadURLField = r'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-' \
+                                       r'2.amazonaws.com/data/tiles/{}/{}.tif'.format(TileField, NameField)
+                    row[1] = ProductTypeField
+                    row[2] = SeasonField
+                    row[3] = PolarizationField
+                    row[4] = TileField
+                    row[5] = DatasetIDField
+                    row[6] = TagField
+                    row[7] = MaxPSField
+                    row[8] = StartDateField
+                    row[9] = EndDateField
+                    row[10] = GroupNameField
+                    row[11] = DownloadURLField
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(NameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
+    def UpdateCohOverviewFields(self, data):
+        import datetime
+        log = data['log']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName"])
+        if (ds_cursor is not None):
+            log.Message('Updating Overview Field Values...', 0)
+            # Populate appropriate fields in the overview row of the attribute table
+            for row in ds_cursor:
+                try:
+                    if row[0] == 'Dataset':
+                        row[1] = 1600
+                        row[2] = 2
+                        row[3] = '12/01/2019'
+                        row[4] = '11/30/2020'
+                        row[5] = "Mosaic Overview"
+                        ds_cursor.updateRow(row)
+                        log.Message("Overview fields updated.", 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
