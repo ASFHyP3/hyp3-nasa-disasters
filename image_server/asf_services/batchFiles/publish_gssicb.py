@@ -10,17 +10,17 @@ import arcpy
 today = datetime.date.today().strftime("%d %B %Y")
 
 # enter the name of the service to generate
-service = 'COH12_VV_DJF_France'
+service = 'COH12_VV_SON_France'
 # enter the description of the service
-service_desc = "Winter (December/January/February) median COH12 (12-day coherence) in VV polarization over France " \
+service_desc = "Fall (September/October/November) median COH12 (12-day coherence) in VV polarization over France " \
                "from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set " \
                "(https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter/)"
 # enter the credit description for the service
 credit_statement = "Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set was accessed on " \
                    "{} from https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter.".format(today)
 # select one of the two publishing type options:
-publish_type = 'create'
-# publish_type = 'update'
+# publish_type = 'create'
+publish_type = 'update'
 
 print('Starting process to {} the {} service...'.format(publish_type, service))
 
@@ -43,7 +43,7 @@ genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py
            r'\PixelCache']
 
 vars = [r'set gdbwks='+gdb,
-        r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'
+        r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'
         +projtag+'_'+service+'_'+today+'.crf']
 
 md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+\
