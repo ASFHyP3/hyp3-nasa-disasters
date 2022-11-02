@@ -338,7 +338,7 @@ class UserCode:
                     TileField = NameField.split("_")[0]
                     DatasetIDField = ProductTypeField+'_'+PolarizationField+'_'+SeasonCode
                     TagField = DatasetIDField
-                    MaxPSField = 1610
+                    MaxPSField = 310
                     GroupNameField = DatasetIDField
                     DownloadURLField = r'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-' \
                                        r'2.amazonaws.com/data/tiles/{}/{}.tif'.format(TileField, NameField)
@@ -373,7 +373,7 @@ class UserCode:
             for row in ds_cursor:
                 try:
                     if row[0] == 'Dataset':
-                        row[1] = 1600
+                        row[1] = 300
                         row[2] = 2
                         row[3] = '12/01/2019'
                         row[4] = '11/30/2020'
