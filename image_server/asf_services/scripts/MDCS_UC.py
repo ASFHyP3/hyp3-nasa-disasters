@@ -366,18 +366,40 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName",
+                                               "Name", "ProductType", "Season", "Polarization", "Tile", "DownloadURL"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
+                    NameOvField = row[5]
+                    ProdTypeOvField = NameOvField.split("_")[1]
+                    SeasonOvCode = NameOvField.split("_")[3]
+                    if SeasonOvCode == 'DJF':
+                        SeasonOvField = 'December/January/February'
+                    elif SeasonOvCode == 'MAM':
+                        SeasonOvField = 'March/April/May'
+                    elif SeasonOvCode == 'JJA':
+                        SeasonOvField = 'June/July/August'
+                    elif SeasonOvCode == 'SON':
+                        SeasonOvField = 'September/October/November'
+                    else:
+                        SeasonOvField = 'unknown'
+                    PolOvField = NameOvField.split("_")[2]
+                    TileOvField = 'Zoom in to see specific tile information'
+                    DLOvField = 'Zoom in to source raster level to download datasets'
                     if row[0] == 'Dataset':
                         row[1] = 300
                         row[2] = 2
                         row[3] = '12/01/2019'
                         row[4] = '11/30/2020'
                         row[5] = "Mosaic Overview"
+                        row[7] = ProdTypeOvField
+                        row[8] = SeasonOvField
+                        row[9] = PolOvField
+                        row[10] = TileOvField
+                        row[11] = DLOvField
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
