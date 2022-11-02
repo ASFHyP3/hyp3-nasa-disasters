@@ -303,7 +303,8 @@ class UserCode:
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "ProductType", "Season", "Polarization", "Tile", "Dataset_ID",
-                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName", "DownloadURL"])
+                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName", "DownloadURL",
+                                               "URLDisplay"])
         # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Field Values..', 0)
@@ -353,6 +354,7 @@ class UserCode:
                     row[9] = EndDateField
                     row[10] = GroupNameField
                     row[11] = DownloadURLField
+                    row[12] = NameField
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(NameField), 0)
                 except Exception as exp:
@@ -367,13 +369,14 @@ class UserCode:
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName",
-                                               "Name", "ProductType", "Season", "Polarization", "Tile", "DownloadURL"])
+                                               "Name", "ProductType", "Season", "Polarization", "Tile", "DownloadURL",
+                                               "URLDisplay"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
-                    NameOvField = row[5]
+                    NameOvField = row[6]
                     ProdTypeOvField = NameOvField.split("_")[1]
                     SeasonOvCode = NameOvField.split("_")[3]
                     if SeasonOvCode == 'DJF':
@@ -400,6 +403,7 @@ class UserCode:
                         row[9] = PolOvField
                         row[10] = TileOvField
                         row[11] = DLOvField
+                        row[12] = DLOvField
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
