@@ -201,7 +201,7 @@
 				<cell_size_tolerance>1.8</cell_size_tolerance>
 				<cell_size>10</cell_size>
 				<metadata_level>BASIC</metadata_level>
-				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL</transmission_fields>
+				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL;URLDisplay</transmission_fields>
 				<use_time>DISABLED</use_time>
 				<start_time_field>StartDate</start_time_field>
 				<end_time_field>EndDate</end_time_field>
