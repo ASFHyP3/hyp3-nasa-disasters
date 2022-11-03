@@ -165,6 +165,7 @@
 						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\N51W003\N51W003_spring_vv_COH12.tif</data_path>
 						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\N51W004\N51W004_spring_vv_COH12.tif</data_path>
 						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\N51W005\N51W005_spring_vv_COH12.tif</data_path>
+						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\Global_spring_vv_COH12.vrt.ovr</data_path>
 					</Sources>
 					<enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 					<cache_location>#;$cachelocation$</cache_location>
@@ -201,7 +202,7 @@
 				<cell_size_tolerance>1.8</cell_size_tolerance>
 				<cell_size>10</cell_size>
 				<metadata_level>BASIC</metadata_level>
-				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL</transmission_fields>
+				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL;URLDisplay</transmission_fields>
 				<use_time>DISABLED</use_time>
 				<start_time_field>StartDate</start_time_field>
 				<end_time_field>EndDate</end_time_field>
@@ -247,6 +248,11 @@
 					</Field>
 					<Field>
 						<name>DownloadURL</name>
+						<type>text</type>
+						<length />
+					</Field>
+					<Field>
+						<name>URLDisplay</name>
 						<type>text</type>
 						<length />
 					</Field>
