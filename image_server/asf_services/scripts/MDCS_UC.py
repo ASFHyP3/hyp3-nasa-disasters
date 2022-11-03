@@ -339,7 +339,7 @@ class UserCode:
                     TileField = NameField.split("_")[0]
                     DatasetIDField = ProductTypeField+'_'+PolarizationField+'_'+SeasonCode
                     TagField = DatasetIDField
-                    MaxPSField = 310
+                    MaxPSField = 910
                     GroupNameField = DatasetIDField
                     DownloadURLField = r'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-' \
                                        r'2.amazonaws.com/data/tiles/{}/{}.tif'.format(TileField, NameField)
@@ -393,7 +393,7 @@ class UserCode:
                     TileOvField = 'Zoom in to see specific tile information'
                     DLOvField = 'Zoom in to source raster level to download datasets'
                     if row[0] == 'Dataset':
-                        row[1] = 300
+                        row[1] = 900
                         row[2] = 2
                         row[3] = '12/01/2019'
                         row[4] = '11/30/2020'
