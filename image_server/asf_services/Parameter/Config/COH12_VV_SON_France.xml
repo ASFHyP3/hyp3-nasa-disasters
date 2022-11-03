@@ -201,7 +201,7 @@
 				<cell_size_tolerance>1.8</cell_size_tolerance>
 				<cell_size>10</cell_size>
 				<metadata_level>BASIC</metadata_level>
-				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL</transmission_fields>
+				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL;URLDisplay</transmission_fields>
 				<use_time>DISABLED</use_time>
 				<start_time_field>StartDate</start_time_field>
 				<end_time_field>EndDate</end_time_field>
@@ -209,7 +209,7 @@
 				<geographic_transform>#</geographic_transform>
 				<max_num_of_download_items>50</max_num_of_download_items>
 				<max_num_of_records_returned>2000</max_num_of_records_returned>
-				<processing_templates>ScaledCoherence.rft.xml;UnscaledCoherence.rft.xml;RasterDifference.rft.xml;None</processing_templates>
+				<processing_templates>ScaledCoherence.rft.xml;UnscaledCoherence.rft.xml;None</processing_templates>
 				<default_processing_template>UnscaledCoherence.rft.xml</default_processing_template>
 			</DefaultProperties>
 			<Table>
@@ -247,6 +247,11 @@
 					</Field>
 					<Field>
 						<name>DownloadURL</name>
+						<type>text</type>
+						<length />
+					</Field>
+					<Field>
+						<name>URLDisplay</name>
 						<type>text</type>
 						<length />
 					</Field>
