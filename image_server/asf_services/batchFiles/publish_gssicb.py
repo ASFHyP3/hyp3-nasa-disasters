@@ -10,17 +10,17 @@ import arcpy
 today = datetime.date.today().strftime("%d %B %Y")
 
 # enter the name of the service to generate
-service = 'COH12_VV_MAM_France'
+service = 'COH12_VV_JJA_CONUS'
 # enter the description of the service
-service_desc = "Spring (March/April/May) median COH12 (12-day coherence) in VV polarization over France " \
-               "from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set " \
+service_desc = "Summer (June/July/August) median COH12 (12-day coherence) in VV polarization over the Contiguous " \
+               "United States from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set " \
                "(https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter/)"
 # enter the credit description for the service
 credit_statement = "Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set was accessed on " \
                    "{} from https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter.".format(today)
 # select one of the two publishing type options:
-publish_type = 'create'
-# publish_type = 'update'
+# publish_type = 'create'
+publish_type = 'update'
 
 print('Starting process to {} the {} service...'.format(publish_type, service))
 
