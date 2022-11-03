@@ -303,7 +303,8 @@ class UserCode:
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
         ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "ProductType", "Season", "Polarization", "Tile", "Dataset_ID",
-                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName", "DownloadURL"])
+                                               "Tag", "MaxPS", "StartDate", "EndDate", "GroupName", "DownloadURL",
+                                               "URLDisplay"])
         # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Field Values..', 0)
@@ -338,7 +339,7 @@ class UserCode:
                     TileField = NameField.split("_")[0]
                     DatasetIDField = ProductTypeField+'_'+PolarizationField+'_'+SeasonCode
                     TagField = DatasetIDField
-                    MaxPSField = 1610
+                    MaxPSField = 910
                     GroupNameField = DatasetIDField
                     DownloadURLField = r'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-' \
                                        r'2.amazonaws.com/data/tiles/{}/{}.tif'.format(TileField, NameField)
@@ -353,6 +354,7 @@ class UserCode:
                     row[9] = EndDateField
                     row[10] = GroupNameField
                     row[11] = DownloadURLField
+                    row[12] = NameField
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(NameField), 0)
                 except Exception as exp:
@@ -366,18 +368,42 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Tag", "MinPS", "Category", "StartDate", "EndDate", "GroupName",
+                                               "Name", "ProductType", "Season", "Polarization", "Tile", "DownloadURL",
+                                               "URLDisplay"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
+                    NameOvField = row[6]
+                    ProdTypeOvField = NameOvField.split("_")[1]
+                    SeasonOvCode = NameOvField.split("_")[3]
+                    if SeasonOvCode == 'DJF':
+                        SeasonOvField = 'December/January/February'
+                    elif SeasonOvCode == 'MAM':
+                        SeasonOvField = 'March/April/May'
+                    elif SeasonOvCode == 'JJA':
+                        SeasonOvField = 'June/July/August'
+                    elif SeasonOvCode == 'SON':
+                        SeasonOvField = 'September/October/November'
+                    else:
+                        SeasonOvField = 'unknown'
+                    PolOvField = NameOvField.split("_")[2]
+                    TileOvField = 'Zoom in further to see specific tile information'
+                    DLOvField = 'Zoom in further to access download link'
                     if row[0] == 'Dataset':
-                        row[1] = 1600
+                        row[1] = 900
                         row[2] = 2
                         row[3] = '12/01/2019'
                         row[4] = '11/30/2020'
                         row[5] = "Mosaic Overview"
+                        row[7] = ProdTypeOvField
+                        row[8] = SeasonOvField
+                        row[9] = PolOvField
+                        row[10] = TileOvField
+                        row[11] = DLOvField
+                        row[12] = DLOvField
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
