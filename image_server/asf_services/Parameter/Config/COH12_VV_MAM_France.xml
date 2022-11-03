@@ -165,7 +165,6 @@
 						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\N51W003\N51W003_spring_vv_COH12.tif</data_path>
 						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\N51W004\N51W004_spring_vv_COH12.tif</data_path>
 						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\N51W005\N51W005_spring_vv_COH12.tif</data_path>
-						<data_path>C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\SeasonalCoherenceAndBackscatter.acs\data\tiles\Global_spring_vv_COH12.vrt.ovr</data_path>
 					</Sources>
 					<enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 					<cache_location>#;$cachelocation$</cache_location>
