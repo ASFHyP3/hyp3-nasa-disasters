@@ -10,9 +10,9 @@ import arcpy
 today = datetime.date.today().strftime("%d %B %Y")
 
 # enter the name of the service to generate
-service = 'COH12_VV_DJF_France'
+service = 'COH12_VV_MAM_France'
 # enter the description of the service
-service_desc = "Winter (December/January/February) median COH12 (12-day coherence) in VV polarization over France " \
+service_desc = "Spring (March/April/May) median COH12 (12-day coherence) in VV polarization over France " \
                "from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set " \
                "(https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter/)"
 # enter the credit description for the service
@@ -49,7 +49,7 @@ vars = [r'set gdbwks='+gdb,
 md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+\
          r' -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+UpdateFieldsCoh+BF+BB+SP+CC'
 ovr_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+ovr_config+r' -m:%gdbwks%\\'+service+\
-          r' -s:%outcrf% -c:SE+CRA+AR+UpdateCohOverviewFields -p:%outcrf%$outcrf'
+          r' -s:%outcrf% -c:SE+CRA+DO+BO+AR+UpdateCohOverviewFields -p:%outcrf%$outcrf'
 
 # generate batch file
 batfile = service+'.bat'

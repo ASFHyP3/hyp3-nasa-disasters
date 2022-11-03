@@ -257,8 +257,8 @@
 					<overview_image_folder />
 					<in_template_dataset>#</in_template_dataset>
 					<extent>#</extent>
-					<pixel_size>#</pixel_size>
-					<number_of_levels>#</number_of_levels>
+					<pixel_size>900</pixel_size>
+					<number_of_levels>-1</number_of_levels>
 					<tile_rows>5120</tile_rows>
 					<tile_cols>5120</tile_cols>
 					<overview_factor>2</overview_factor>
