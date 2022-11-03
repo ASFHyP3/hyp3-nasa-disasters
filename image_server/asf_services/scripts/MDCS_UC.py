@@ -390,8 +390,8 @@ class UserCode:
                     else:
                         SeasonOvField = 'unknown'
                     PolOvField = NameOvField.split("_")[2]
-                    TileOvField = 'Zoom in to see specific tile information'
-                    DLOvField = 'Zoom in to source raster level to download datasets'
+                    TileOvField = 'Zoom in further to see specific tile information'
+                    DLOvField = 'Zoom in further to access download link'
                     if row[0] == 'Dataset':
                         row[1] = 900
                         row[2] = 2
