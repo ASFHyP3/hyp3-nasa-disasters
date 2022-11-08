@@ -48,7 +48,7 @@ vars = [r'set gdbwks=' + gdb,
 md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+\
          r' -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+UpdateFieldsHAND+BF+BB+SP+CC'
 ovr_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+ovr_config+r' -m:%gdbwks%\\'+service+\
-          r' -s:%outcrf% -c:SE+CRA+AR -p:%outcrf%$outcrf'
+          r' -s:%outcrf% -c:SE+CRA+AR+UpdateHANDOverviewFields -p:%outcrf%$outcrf'
 
 batfile_hand = 'COP30_HAND.bat'
 
