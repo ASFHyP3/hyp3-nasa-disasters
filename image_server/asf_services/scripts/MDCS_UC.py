@@ -416,7 +416,7 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "Tile", "DownloadURL", "URLDisplay"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "Tile", "ProductName", "DownloadURL", "URLDisplay", "Tag"])
         # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Field Values..', 0)
@@ -426,10 +426,14 @@ class UserCode:
                     lat = NameField.split('_')[4]
                     lon = NameField.split('_')[6]
                     TileField = str(lat+lon)
+                    ProductNameField = 'COP30_HAND_{}'.format(TileField)
                     DownloadURLField = r'https://copernicus-hand-30m.s3.amazonaws.com/v1/2021/{}.tif'.format(NameField)
+                    TagField = 'COP30_HAND'
                     row[1] = TileField
-                    row[2] = DownloadURLField
-                    row[3] = NameField
+                    row[2] = ProductNameField
+                    row[3] = DownloadURLField
+                    row[4] = ProductNameField
+                    row[5] = TagField
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(NameField), 0)
                 except Exception as exp:
@@ -443,18 +447,22 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "MinPS", "Tile", "URLDisplay"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "MinPS", "Category", "ProductName", "Tile", "URLDisplay", "Tag"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
-                    if row[0] == 'Dataset':
+                    if row[6] == 'Dataset':
                         NameField = row[0]
+                        TagField = 'COP30_HAND_Overview'
                         row[0] = NameField[1:]
                         row[1] = 600
-                        row[2] = 'Zoom in further to see specific tile information'
-                        row[3] = 'Zoom in further to access download link'
+                        row[2] = 2
+                        row[3] = TagField
+                        row[4] = 'Zoom in further to see specific tile information'
+                        row[5] = 'Zoom in further to access download link'
+                        row[6] = TagField
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
