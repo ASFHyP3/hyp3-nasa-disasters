@@ -410,3 +410,54 @@ class UserCode:
                     log.Message(str(exp), 2)
             del ds_cursor
         return True
+
+    def UpdateFieldsHAND(self, data):
+        log = data['log']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "Tile", "DownloadURL", "URLDisplay"])
+        # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
+        if (ds_cursor is not None):
+            log.Message('Updating Field Values..', 0)
+            for row in ds_cursor:
+                try:
+                    NameField = row[0]
+                    lat = NameField.split('_')[4]
+                    lon = NameField.split('_')[6]
+                    TileField = str(lat+lon)
+                    DownloadURLField = r'https://copernicus-hand-30m.s3.amazonaws.com/v1/2021/{}.tif'.format(NameField)
+                    row[1] = TileField
+                    row[2] = DownloadURLField
+                    row[3] = NameField
+                    ds_cursor.updateRow(row)
+                    log.Message("{} updated".format(NameField), 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
+
+    def UpdateHANDOverviewFields(self, data):
+        import datetime
+        log = data['log']
+        workspace = data['workspace']
+        md = data['mosaicdataset']
+        ds = os.path.join(workspace, md)
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "MinPS", "Tile", "URLDisplay"])
+        if (ds_cursor is not None):
+            log.Message('Updating Overview Field Values...', 0)
+            # Populate appropriate fields in the overview row of the attribute table
+            for row in ds_cursor:
+                try:
+                    if row[0] == 'Dataset':
+                        NameField = row[0]
+                        row[0] = NameField[1:]
+                        row[1] = 600
+                        row[2] = 'Zoom in further to see specific tile information'
+                        row[3] = 'Zoom in further to access download link'
+                        ds_cursor.updateRow(row)
+                        log.Message("Overview fields updated.", 0)
+                except Exception as exp:
+                    log.Message(str(exp), 2)
+            del ds_cursor
+        return True
