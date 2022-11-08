@@ -15,6 +15,7 @@
         <AddRaster>
           <dataset_id>Copernicus_HAND_30m_Overview</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
+          <Sources></Sources>
           <filter>*</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
@@ -40,8 +41,8 @@
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
         <default_mosaic_method>ByAttribute</default_mosaic_method>
-        <order_field>StartDate</order_field>
-        <order_base>1/1/2050 12:00:00 AM</order_base>
+        <order_field>Name</order_field>
+        <order_base></order_base>
         <sorting_order>Ascending</sorting_order>
         <mosaic_operator>FIRST</mosaic_operator>
         <blend_width>10</blend_width>
@@ -54,8 +55,8 @@
         <transmission_fields>Name;MinPS;MaxPS;LowPS;HighPS;ZOrder;Dataset_ID;CenterX;CenterY;Tag;Tile;ProductName;
           DownloadURL;URLDisplay</transmission_fields>
         <use_time>DISABLED</use_time>
-        <start_time_field>StartDate</start_time_field>
-        <end_time_field>EndDate</end_time_field>
+        <start_time_field></start_time_field>
+        <end_time_field></end_time_field>
         <time_format>#</time_format>
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>

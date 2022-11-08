@@ -15,6 +15,7 @@
         <AddRaster>
           <dataset_id>Copernicus_HAND_30m</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
+          <Sources></Sources>
           <filter>*S19_00_W04*_00_HAND.tif</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
@@ -40,8 +41,8 @@
         <default_mensuration_capabilities>BASIC</default_mensuration_capabilities>
         <allowed_mosaic_methods>Center;NorthWest;Nadir;LockRaster;ByAttribute;Seamline;None</allowed_mosaic_methods>
         <default_mosaic_method>ByAttribute</default_mosaic_method>
-        <order_field>StartDate</order_field>
-        <order_base>1/1/2050 12:00:00 AM</order_base>
+        <order_field>Name</order_field>
+        <order_base></order_base>
         <sorting_order>Ascending</sorting_order>
         <mosaic_operator>FIRST</mosaic_operator>
         <blend_width>10</blend_width>
