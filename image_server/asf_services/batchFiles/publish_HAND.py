@@ -72,37 +72,37 @@ with open(batfile, 'w') as f:
 subprocess.call(batfile)
 print('{} mosaic dataset complete.'.format(service))
 
-# # create AID packages
-# aid_path = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID''\\'+service
-# arcpy.ImportToolbox(r"C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID"
-#                     r"\AID_GPtools\AID_Management.pyt")
-#
-# print('Generating {} AID package...'.format(service))
-# aid = aid_path+'\\'+service+'_'+service+'_'+today+'.zmd'
-#
-# with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
-#     try:
-#         arcpy.AID.AIDISDP(md, aid, None)
-#     except:
-#         print("AID errors generated and ignored.")
-#         pass
-# print('{} AID package complete.'.format(service))
-#
-# # portal login
-# pw = keyring.get_password("portal_creds", "hkristenson_ASF")
-# arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw)
-#
-# # publish service
-# if publish_type == 'create':
-#     # create image service
-#     print('Generating {} Image Service...'.format(service))
-#     arcpy.AID.MAIDIS("asf-daac", "Create Service", "GSSICB", service, '', aid, None, "Dedicated Instance", service_desc,
-#                      credit_statement, '', False, False, True, None, None, None, None)
-#     print('{} Image Service published.'.format(service))
-# elif publish_type == 'update':
-#     # update image services
-#     print('Updating {} Image Service...'.format(service))
-#     arcpy.AID.MAIDIS("asf-daac", "Update Service", "GSSICB", "None", service, None, aid, "Dedicated Instance",
-#                      service_desc, credit_statement, '', False, False, True, None, None, None, None)
-# else:
-#     print('No valid publish type designated')
+# create AID packages
+aid_path = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID''\\'+service
+arcpy.ImportToolbox(r"C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID"
+                    r"\AID_GPtools\AID_Management.pyt")
+
+print('Generating {} AID package...'.format(service))
+aid = aid_path+'\\'+service+'_'+service+'_'+today+'.zmd'
+
+with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
+    try:
+        arcpy.AID.AIDISDP(md, aid, None)
+    except:
+        print("AID errors generated and ignored.")
+        pass
+print('{} AID package complete.'.format(service))
+
+# portal login
+pw = keyring.get_password("portal_creds", "hkristenson_ASF")
+arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw)
+
+# publish service
+if publish_type == 'create':
+    # create image service
+    print('Generating {} Image Service...'.format(service))
+    arcpy.AID.MAIDIS("asf-daac", "Create Service", "GlobalHAND", service, '', aid, None, "Dedicated Instance", service_desc,
+                     credit_statement, '', False, False, True, None, None, None, None)
+    print('{} Image Service published.'.format(service))
+elif publish_type == 'update':
+    # update image services
+    print('Updating {} Image Service...'.format(service))
+    arcpy.AID.MAIDIS("asf-daac", "Update Service", "GlobalHAND", "None", service, None, aid, "Dedicated Instance",
+                     service_desc, credit_statement, '', False, False, True, None, None, None, None)
+else:
+    print('No valid publish type designated')
