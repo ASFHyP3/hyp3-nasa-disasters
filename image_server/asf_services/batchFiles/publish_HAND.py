@@ -42,7 +42,7 @@ vars = [r'set gdbwks=' + gdb,
         r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\COP30_HAND.acs''\\',
         r'set s3tag=' + s3tag,
         r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'
-        + '_' + service + '_' + today + '.crf'
+        + service + '_' + today + '.crf'
         ]
 
 md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+\

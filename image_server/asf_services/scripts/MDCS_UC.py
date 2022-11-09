@@ -447,22 +447,20 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "MinPS", "Category", "ProductName", "Tile", "URLDisplay", "Tag"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["MinPS", "Category", "ProductName", "Tile", "URLDisplay", "Tag"])
         if (ds_cursor is not None):
             log.Message('Updating Overview Field Values...', 0)
             # Populate appropriate fields in the overview row of the attribute table
             for row in ds_cursor:
                 try:
-                    if row[6] == 'Dataset':
-                        NameField = row[0]
+                    if row[5] == 'Dataset':
                         TagField = 'COP30_HAND_Overview'
-                        row[0] = NameField[1:]
-                        row[1] = 600
-                        row[2] = 2
-                        row[3] = TagField
-                        row[4] = 'Zoom in further to see specific tile information'
-                        row[5] = 'Zoom in further to access download link'
-                        row[6] = TagField
+                        row[0] = 600
+                        row[1] = 2
+                        row[2] = TagField
+                        row[3] = 'Zoom in further to see specific tile information'
+                        row[4] = 'Zoom in further to access download link'
+                        row[5] = TagField
                         ds_cursor.updateRow(row)
                         log.Message("Overview fields updated.", 0)
                 except Exception as exp:
