@@ -10,10 +10,10 @@ import arcpy
 today = datetime.date.today().strftime("%d %B %Y")
 
 # enter the name of the service to generate
-service = 'COH12_VV_MAM_CONUS'
+service = 'COH12_HH_DJF'
 # enter the description of the service
-service_desc = "Spring (March/April/May) median COH12 (12-day coherence) in VV polarization over the Contiguous " \
-               "United States from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set " \
+service_desc = "Global Winter (December/January/February) median COH12 (12-day coherence) in HH polarization " \
+               "from the Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set " \
                "(https://registry.opendata.aws/ebd-sentinel-1-global-coherence-backscatter/)"
 # enter the credit description for the service
 credit_statement = "Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter Data Set was accessed on " \
@@ -39,8 +39,7 @@ md = gdb+'\\'+service
 
 genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe"',
            r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services',
-           r'set cachepath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services'
-           r'\PixelCache']
+           r'set cachepath=G:\Projects\2209_ImageServices\ImageServices\PixelCache']
 
 vars = [r'set gdbwks='+gdb,
         r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'
