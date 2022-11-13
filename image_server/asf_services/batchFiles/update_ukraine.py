@@ -20,8 +20,7 @@ ImageServerScratch.gdb"
 
 genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe"',
            r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services',
-           r'set cachepath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services'
-           r'\PixelCache']
+           r'set cachepath=G:\Projects\2209_ImageServices\ImageServices\PixelCache']
 
 vars = [r'set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'
         +projtag+'\\'+projtag+'_'+today+'.gdb',
