@@ -1,18 +1,18 @@
 <Application>
-	<Name>ASFs1</Name>
+	<Name>ASF_GSSICB</Name>
 	<Command>CM+AR+AF+BB+SP+CC+CV</Command>
 	<Workspace>
 		<WorkspacePath>md</WorkspacePath>
-		<Geodatabase>Feb3</Geodatabase>
+		<Geodatabase>scratch</Geodatabase>
 		<MosaicDataset>
 			<MosaicDatasetType>Source</MosaicDatasetType>
-			<Name>s1_demo</Name>
+			<Name>gssicb</Name>
 			<SRS>PROJCS['WGS_1984_Web_Mercator_Auxiliary_Sphere',GEOGCS['GCS_WGS_1984',DATUM['D_WGS_1984',SPHEROID['WGS_1984',6378137.0,298.257223563]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]],PROJECTION['Mercator_Auxiliary_Sphere'],PARAMETER['False_Easting',0.0],PARAMETER['False_Northing',0.0],PARAMETER['Central_Meridian',0.0],PARAMETER['Standard_Parallel_1',0.0],PARAMETER['Auxiliary_Sphere_Type',0.0],UNIT['Meter',1.0]];-20037700 -30241100 10000;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision</SRS>
 			<num_bands>#</num_bands>
 			<pixel_type>#</pixel_type>
 			<AddRasters>
 				<AddRaster>
-					<dataset_id>AMP_VV_JJA_sample</dataset_id>
+					<dataset_id>AMP_VV_JJA_Sample_Overview</dataset_id>
 					<raster_type>Raster Dataset;$art$</raster_type>
 					<Sources></Sources>
 					<enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
@@ -50,7 +50,7 @@
 				<cell_size_tolerance>1.8</cell_size_tolerance>
 				<cell_size>10</cell_size>
 				<metadata_level>BASIC</metadata_level>
-				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName</transmission_fields>
+				<transmission_fields>Name;ProductType;Season;Polarization;Tile;Dataset_ID;Tag;MinPS;MaxPS;StartDate;EndDate;LowPS;HighPS;StartDate;EndDate;ZOrder;CenterX;CenterY;GroupName;DownloadURL;URLDisplay</transmission_fields>
 				<use_time>DISABLED</use_time>
 				<start_time_field>StartDate</start_time_field>
 				<end_time_field>EndDate</end_time_field>
@@ -58,8 +58,9 @@
 				<geographic_transform>#</geographic_transform>
 				<max_num_of_download_items>50</max_num_of_download_items>
 				<max_num_of_records_returned>2000</max_num_of_records_returned>
-				<processing_templates>ScaledCoherence.rft.xml;UnscaledCoherence.rft.xml;None</processing_templates>
-				<default_processing_template>UnscaledCoherence.rft.xml</default_processing_template>
+				<processing_templates>GSSICB_Amplitude_dB_2SD.rft.xml;GSSICB_Amplitude_dB_MinMax.rft.xml;
+					GSSICB_Amplitude_Power_2SD.rft.xml;GSSICB_Amplitude_Power_MinMax.rft.xml;None</processing_templates>
+				<default_processing_template>GSSICB_Amplitude_dB_2SD.rft.xml</default_processing_template>
 			</DefaultProperties>
 			<Processes>
 				<CalculateValues />

@@ -69,8 +69,9 @@
 				<geographic_transform>#</geographic_transform>
 				<max_num_of_download_items>50</max_num_of_download_items>
 				<max_num_of_records_returned>2000</max_num_of_records_returned>
-				<processing_templates>None</processing_templates>
-				<default_processing_template>None</default_processing_template>
+				<processing_templates>GSSICB_Amplitude_dB_2SD.rft.xml;GSSICB_Amplitude_dB_MinMax.rft.xml;
+					GSSICB_Amplitude_Power_2SD.rft.xml;GSSICB_Amplitude_Power_MinMax.rft.xml;None</processing_templates>
+				<default_processing_template>GSSICB_Amplitude_dB_2SD.rft.xml</default_processing_template>
 			</DefaultProperties>
 			<Table>
 				<AddFields>AddFields</AddFields>
@@ -129,7 +130,7 @@
 				</CalculateCellSizeranges>
 				<BuildFootprint>
 					<reset_footprint>NONE</reset_footprint>
-					<max_data_value>1</max_data_value>
+					<max_data_value>4294967295</max_data_value>
 					<min_data_value>0</min_data_value>
 					<approx_num_vertices>12</approx_num_vertices>
 					<update_boundary>UPDATE_BOUNDARY</update_boundary>
