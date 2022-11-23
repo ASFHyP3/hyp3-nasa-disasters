@@ -16,7 +16,7 @@
           <dataset_id>Copernicus_HAND_30m</dataset_id>
           <raster_type>Raster Dataset;$art$</raster_type>
           <Sources></Sources>
-          <filter>*S19_00_W04*_00_HAND.tif</filter>
+          <filter>*_HAND.tif</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
         </AddRaster>
