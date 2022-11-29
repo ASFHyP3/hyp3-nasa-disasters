@@ -35,15 +35,16 @@ publish_type = 'update'
 today = datetime.datetime.now(datetime.timezone.utc).strftime("%y%m%d_%H%M")
 s3tag = r'v1/2021'
 
-md_config = service+'.xml'
-ovr_config = service+'_ovr.xml'
+md_config = service + '.xml'
+ovr_config = service + '_ovr.xml'
 
 scratch_ws = r"C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\scratch\
 ImageServerScratch.gdb"
 
 # set general variables for the batch file
-gdb = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'+service+'\\'+service+'_'+today+'.gdb'
-md = gdb+'\\'+service
+gdb = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\' + service + '\\' \
+      + service + '_' + today + '.gdb'
+md = gdb + '\\' + service
 
 genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe"',
            r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services',
@@ -57,15 +58,14 @@ vars = [r'set gdbwks=' + gdb,
         + service + '_' + today + '.crf'
         ]
 
-md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+md_config+r' -m:%gdbwks%\\'+service+\
-         r' -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache -c:CM+AF+AR+UpdateFieldsHAND+BF+BB+SP+CC'
-ovr_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\'+ovr_config+r' -m:%gdbwks%\\'+service+\
-          r' -s:%outcrf% -c:SE+CRA+AR+UpdateHANDOverviewFields -p:%outcrf%$outcrf'
-
-batfile_hand = 'COP30_HAND.bat'
+md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\' + md_config + r' -m:%gdbwks%\\' \
+         + service + r' -s:%acspath%%s3tag%\ -p:%cachepath%\$cachelocation -p:USE_PIXEL_CACHE$pixelcache ' \
+         r'-c:CM+AF+AR+UpdateFieldsHAND+BF+BB+SP+CC'
+ovr_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\' + ovr_config + r' -m:%gdbwks%\\' \
+          + service + r' -s:%outcrf% -c:SE+CRA+AR+UpdateHANDOverviewFields -p:%outcrf%$outcrf'
 
 # generate batch file
-batfile = service+'.bat'
+batfile = service + '.bat'
 
 with open(batfile, 'w') as f:
     # write general reference variables
@@ -85,12 +85,12 @@ subprocess.call(batfile)
 print('{} mosaic dataset complete.'.format(service))
 
 # create AID packages
-aid_path = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID''\\'+service
+aid_path = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID''\\' + service
 arcpy.ImportToolbox(r"C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\AID"
                     r"\AID_GPtools\AID_Management.pyt")
 
 print('Generating {} AID package...'.format(service))
-aid = aid_path+'\\'+service+'_'+service+'_'+today+'.zmd'
+aid = aid_path + '\\' + service + '_' + today + '.zmd'
 
 with arcpy.EnvManager(scratchWorkspace=scratch_ws, workspace=scratch_ws):
     try:
@@ -108,8 +108,8 @@ arcpy.SignInToPortal(r'https://asf-daac.maps.arcgis.com/', 'hkristenson_ASF', pw
 if publish_type == 'create':
     # create image service
     print('Generating {} Image Service...'.format(service))
-    arcpy.AID.MAIDIS("asf-daac", "Create Service", "GlobalHAND", service, '', aid, None, "Dedicated Instance", service_desc,
-                     credit_statement, '', False, False, True, None, None, None, None)
+    arcpy.AID.MAIDIS("asf-daac", "Create Service", "GlobalHAND", service, '', aid, None, "Dedicated Instance",
+                     service_desc, credit_statement, '', False, False, True, None, None, None, None)
     print('{} Image Service published.'.format(service))
 elif publish_type == 'update':
     # update image services
