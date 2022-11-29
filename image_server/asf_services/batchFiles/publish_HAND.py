@@ -18,16 +18,18 @@ service_desc = "Height Above Nearest Drainage (HAND) is a terrain model that nor
                "or the local drainage potentials. Each pixel value represents the vertical distance to the nearest " \
                "drainage. The HAND data provides near-worldwide land coverage at 30 meters and was produced from " \
                "the 2021 release of the Copernicus GLO-30 Public DEM as distributed in the Registry of Open Data on " \
-               "AWS (https://registry.opendata.aws/copernicus-dem/) using the PySheds Python library " \
-               "(https://github.com/mdbartos/pysheds). The HAND data are provided as a tiled set of " \
+               "AWS (https://registry.opendata.aws/copernicus-dem/) using the the ASF Tools Python Package " \
+               "(https://hyp3-docs.asf.alaska.edu/tools/asf_tools_api/#asf_tools.hand.calculate) and the PySheds " \
+               "Python library (https://github.com/mdbartos/pysheds). The HAND data are provided as a tiled set of " \
                "Cloud Optimized GeoTIFFs (COGs) with 30-meter (1 arcsecond) pixel spacing. The COGs are organized " \
                "into the same 1 degree by 1 degree grid tiles as the GLO-30 DEM, and individual tiles are " \
                "pixel-aligned to the corresponding COG DEM tile."
 # enter the credit description for the service
-credit_statement = "COP30 HAND produced by ASF using Copernicus WorldDEM(TM)-30 (c) DLR e.V. 2010-2014 and " \
-                   "(c) Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union " \
-                   "and ESA; all rights reserved. The use of the HAND data falls under the terms and conditions of " \
-                   "the Creative Commons Attribution 4.0 International Public License."
+credit_statement = "Copyright 2022 Alaska Satellite Facility (ASF). Produced using the Copernicus WorldDEM(TM)-30 " \
+                   "(c) DLR e.V. 2010-2014 and (c) Airbus Defence and Space GmbH 2014-2018 provided under " \
+                   "COPERNICUS by the European Union and ESA; all rights reserved. The use of the HAND data falls " \
+                   "under the terms and conditions of the Creative Commons Attribution 4.0 " \
+                   "International Public License."
 # select one of the two publishing type options:
 # publish_type = 'create'
 publish_type = 'update'
