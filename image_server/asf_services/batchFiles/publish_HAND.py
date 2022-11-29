@@ -48,11 +48,10 @@ md = gdb + '\\' + service
 
 genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe"',
            r'set mdcspath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services',
-           r'set cachepath=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services'
-           r'\PixelCache']
+           r'set cachepath=G:\Projects\2209_ImageServices\ImageServices\PixelCache']
 
 vars = [r'set gdbwks=' + gdb,
-        r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\ImageServer\COP30_HAND.acs''\\',
+        r'set acspath=G:\Projects\2209_ImageServices\ImageServices\COP30_HAND.acs''\\',
         r'set s3tag=' + s3tag,
         r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'
         + service + '_' + today + '.crf'
