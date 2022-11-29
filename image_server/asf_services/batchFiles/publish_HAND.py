@@ -25,8 +25,8 @@ service_desc = "Height Above Nearest Drainage (HAND) is a terrain model that nor
                "pixel-aligned to the corresponding COG DEM tile."
 # enter the credit description for the service
 credit_statement = "The use of the HAND data falls under the terms and conditions of the Creative Commons " \
-                   "Attribution 4.0 International Public License. Produced by ASF using Copernicus WorldDEM™-30 " \
-                   "© DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS " \
+                   "Attribution 4.0 International Public License. Produced by ASF using Copernicus WorldDEM(TM)-30 " \
+                   "(c) DLR e.V. 2010-2014 and (c) Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS " \
                    "by the European Union and ESA; all rights reserved."
 # select one of the two publishing type options:
 # publish_type = 'create'
