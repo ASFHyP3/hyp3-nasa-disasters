@@ -55,7 +55,7 @@ genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py
 vars = [r'set gdbwks=' + gdb,
         r'set acspath=G:\Projects\2209_ImageServices\ImageServices\COP30_HAND.acs''\\',
         r'set s3tag=' + s3tag,
-        r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'
+        r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'
         + service + '_' + today + '.crf'
         ]
 
