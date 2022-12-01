@@ -416,7 +416,7 @@ class UserCode:
         workspace = data['workspace']
         md = data['mosaicdataset']
         ds = os.path.join(workspace, md)
-        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "Tile", "ProductName", "DownloadURL", "URLDisplay", "Tag"])
+        ds_cursor = arcpy.da.UpdateCursor(ds, ["Name", "Tile", "ProductName", "DownloadURL", "URLDisplay", "Tag", "MaxPS"])
         # https://pro.arcgis.com/en/pro-app/latest/arcpy/data-access/updatecursor-class.htm
         if (ds_cursor is not None):
             log.Message('Updating Field Values..', 0)
@@ -434,6 +434,7 @@ class UserCode:
                     row[3] = DownloadURLField
                     row[4] = ProductNameField
                     row[5] = TagField
+                    row[6] = 610
                     ds_cursor.updateRow(row)
                     log.Message("{} updated".format(NameField), 0)
                 except Exception as exp:
