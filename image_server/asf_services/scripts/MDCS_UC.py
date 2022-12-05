@@ -426,9 +426,9 @@ class UserCode:
                     lat = NameField.split('_')[4]
                     lon = NameField.split('_')[6]
                     TileField = str(lat+lon)
-                    ProductNameField = 'COP30_HAND_{}'.format(TileField)
-                    DownloadURLField = r'https://copernicus-hand-30m.s3.amazonaws.com/v1/2021/{}.tif'.format(NameField)
-                    TagField = 'COP30_HAND'
+                    ProductNameField = 'GLO30_HAND_{}'.format(TileField)
+                    DownloadURLField = r'https://glo-30-hand.s3.amazonaws.com/v1/2021/{}.tif'.format(NameField)
+                    TagField = 'GLO30_HAND'
                     row[1] = TileField
                     row[2] = ProductNameField
                     row[3] = DownloadURLField
