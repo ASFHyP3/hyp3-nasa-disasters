@@ -11,7 +11,7 @@ import arcpy
 os.chdir(r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\batchFiles')
 
 # enter the name of the service to generate
-service = 'COP30_HAND'
+service = 'GLO30_HAND'
 # enter the description of the service
 service_desc = "Height Above Nearest Drainage (HAND) is a terrain model that normalizes topography to the relative " \
                "heights along the drainage network and is used to describe the relative soil gravitational potentials " \
@@ -55,8 +55,7 @@ genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py
 vars = [r'set gdbwks=' + gdb,
         r'set acspath=G:\Projects\2209_ImageServices\ImageServices\COP30_HAND.acs''\\',
         r'set s3tag=' + s3tag,
-        r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\'
-        + service + '_' + today + '.crf'
+        r'set outcrf=G:\Projects\2209_ImageServices\ImageServices\NASA_Disasters_AWS.acs\esri''\\' + service + '_' + today + '.crf'
         ]
 
 md_cmd = r'%ppath% %mdcspath%\scripts\MDCS.py -i:%mdcspath%\Parameter\Config\\' + md_config + r' -m:%gdbwks%\\' \
