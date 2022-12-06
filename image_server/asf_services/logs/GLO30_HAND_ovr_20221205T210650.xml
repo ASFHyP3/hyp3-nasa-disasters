@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<Projects>
+	<MDCS>
+		<StartTime>20221205T210337</StartTime>
+		<EndTime>20221205T210650</EndTime>
+		<TotalDuration>193</TotalDuration>
+		<Message>
+			Checking for updates..
+			<Error>
+				<type>warning</type>
+				<text>Update Available. Please read C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\scripts\CheckForUpdate.json</text>
+			</Error>
+		</Message>
+		<Message>Using template:C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\Parameter\Config\\GLO30_HAND_ovr.xml</Message>
+		<Message>Processing command(s):SE+CRA+AR+UPDATEHANDOVERVIEWFIELDS</Message>
+		<Message>Done...</Message>
+		<SE>
+			<Message>Command:SE-&gt;Set environment variables.</Message>
+			<Message>Set environment variables on index: 0</Message>
+			<Message>Env[parallelProcessingFactor]=11</Message>
+			<Message>Env[cellSize]=900</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</SE>
+		<CRA>
+			<Message>Command:CRA-&gt;Copy Raster.</Message>
+			<Message>	Copy Raster.:GLO30_HAND</Message>
+			<Message>Calling (arcpy.CopyRaster_management)</Message>
+			<Message>Status: OK</Message>
+			<Status>OK</Status>
+			<Duration>158</Duration>
+		</CRA>
+		<AR>
+			<Message>Command:AR-&gt;Add rasters/data to a mosaic dataset.</Message>
+			<Message>Adding rasters:</Message>
+			<Message>	Using mosaic dataset/ID:GLO30_HAND/Global_30m_HAND_Overview</Message>
+			<Message>	Using ART for GLO30_HAND: Raster Dataset</Message>
+			<Message>Adding items..</Message>
+			<Message>Calling (arcpy.AddRastersToMosaicDataset_management)</Message>
+			<Message>Status: OK</Message>
+			<Message>Calculating 'Dataset ID' for the mosaic dataset (GLO30_HAND) with value (Global_30m_HAND_Overview)</Message>
+			<Status>OK</Status>
+			<Duration>34</Duration>
+		</AR>
+		<UpdateHANDOverviewFields>
+			<Message>Command:UpdateHANDOverviewFields-&gt;User defined command (UpdateHANDOverviewFields)</Message>
+			<Message>Updating Overview Field Values...</Message>
+			<Message>Overview fields updated.</Message>
+			<Status>OK</Status>
+			<Duration>0</Duration>
+		</UpdateHANDOverviewFields>
+	</MDCS>
+</Projects>
