@@ -116,7 +116,7 @@
         </BuildBoundary>
         <Environment>
           <parallelProcessingFactor>11</parallelProcessingFactor>
-          <cellSize>900</cellSize>
+          <cellSize>600</cellSize>
         </Environment>
         <BuildOverviews>
           <where_clause>#</where_clause>
