@@ -67,8 +67,8 @@
         <geographic_transform>#</geographic_transform>
         <max_num_of_download_items>50</max_num_of_download_items>
         <max_num_of_records_returned>2000</max_num_of_records_returned>
-		<processing_templates>WatermapExtentBlue.rft.xml;None</processing_templates>
-        <default_processing_template>WatermapExtentBlue.rft.xml</default_processing_template>
+		<processing_templates>WatermapExtentWhiteandBlue.rft.xml;WatermapExtentBlueOnly.rft.xml;None</processing_templates>
+        <default_processing_template>WatermapExtentBlueOnly.rft.xml</default_processing_template>
       </DefaultProperties>
       <Table>
           <AddFields>AddFields</AddFields>
