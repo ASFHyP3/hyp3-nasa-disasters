@@ -48,9 +48,7 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
 
     objects_to_copy = []
     project_contents = get_project_contents(target_bucket, target_prefix)
-    for job in jobs:
-        if not job.succeeded():
-            continue
+    for job in jobs.filter_jobs(succeeded=True, include_expired=False):
         source_bucket = job.files[0]['s3']['bucket']
         zip_key = job.files[0]['s3']['key']
         for ext in config["transfer_spec"]["extensions"]:
@@ -80,4 +78,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     hyp3_transfer_script(args.config_file, prompt=args.yes)
-
