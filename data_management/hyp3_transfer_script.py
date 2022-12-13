@@ -32,16 +32,18 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
         config['host'], username=environ.get('EDL_USERNAME'), password=environ.get('EDL_PASSWORD'), prompt=prompt
     )
 
-    project_name = config["project_name"]
-    target_bucket = config["transfer_spec"]["target_bucket"]
-    target_prefix = config["transfer_spec"].get("target_prefix", project_name)
+    project_name = config['project_name']
+    target_bucket = config['transfer_spec']['target_bucket']
+    target_prefix = config['transfer_spec'].get('target_prefix', project_name)
+    start_date = config['transfer_spec'].get('start_date', '2020-01-01T00:00:00Z')
     if prompt:
         project_name = input(f'HyP3 project name [{project_name}]: ') or project_name
-        target_bucket = input(f'Destination bucket: [{target_bucket}]') or target_bucket
-        target_prefix = input(f'Destination prefix: [{target_prefix}]') or target_prefix
+        target_bucket = input(f'Destination bucket [{target_bucket}]:') or target_bucket
+        target_prefix = input(f'Destination prefix [{target_prefix}]:') or target_prefix
+        start_date = input(f'Start date [{start_date}]:') or start_date
 
-    jobs = hyp3.find_jobs(name=project_name)
-    print('\n' + project_name)
+    jobs = hyp3.find_jobs(name=project_name, start=start_date)
+    print(f'\n{project_name} since {start_date}')
     print(jobs)
 
     print('\nLooking for new files to copy...')
@@ -51,7 +53,7 @@ def hyp3_transfer_script(config_file: str, prompt: bool = False):
     for job in jobs.filter_jobs(succeeded=True, include_expired=False):
         source_bucket = job.files[0]['s3']['bucket']
         zip_key = job.files[0]['s3']['key']
-        for ext in config["transfer_spec"]["extensions"]:
+        for ext in config['transfer_spec']['extensions']:
             source_key = zip_key.replace('.zip', ext)
             target_key = source_key.replace(job.job_id, target_prefix)
             if target_key not in project_contents:
