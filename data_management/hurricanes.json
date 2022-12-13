@@ -24,6 +24,7 @@
   "transfer_spec": {
     "target_bucket": "hyp3-nasa-disasters",
     "target_prefix": "RTC_services",
-    "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif",  "_dem.tif", "_WM.tif", "_WM_HAND.tif"]
+    "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif",  "_dem.tif", "_WM.tif", "_WM_HAND.tif"],
+    "start_date": "2022-12-13T00:00:00Z"
   }
 }
