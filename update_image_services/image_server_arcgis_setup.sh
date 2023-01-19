@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 /opt/arcgis/server/tools/authorizeSoftware -f ArcGISGISServerAdvanced_ArcGISServer_1097910.prvc -e hjkristenson@alaska.edu
 
