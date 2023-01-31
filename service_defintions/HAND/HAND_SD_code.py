@@ -2,9 +2,8 @@ import arcpy
 
 print('Generating draft service definition...')
 arcpy.CreateImageSDDraft(
-    r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD\GLO30_HAND\
-    GLO30_HAND_221205_2153.gdb\GLO30_HAND',
-    r'G:\Projects\2209_ImageServices\HAND\SD\GLO30_HAND_230131.sddraft', "GLO30_HAND", "ARCGIS_SERVER",
+    r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD\GLO30_HAND\GLO30_HAND_221205_2153.gdb\GLO30_HAND',
+    r'G:\Projects\2209_ImageServices\HAND\SD\GLO30_HAND_230131.sdd', "GLO30_HAND", "ARCGIS_SERVER",
     r'G:\Projects\2209_ImageServices\ImageServices\arcgis on gis.asf.alaska.edu.ags', "FALSE", "GlobalHAND",
     r"Height Above Nearest Drainage (HAND) is a terrain model that normalizes topography to the relative heights "
     r"along the drainage network and is used to describe the relative soil gravitational potentials or the local "
