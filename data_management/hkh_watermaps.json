@@ -12,7 +12,6 @@
   },
   "job_spec": {
     "job_type": "WATER_MAP",
-    "flood_depth_estimator": "iterative",
     "job_parameters": {
       "resolution": 30,
       "speckle_filter": true,
@@ -21,6 +20,7 @@
       "hand_threshold": 15.0,
       "hand_fraction": 0.8,
       "membership_threshold": 0.45,
+      "flood_depth_estimator": "iterative",
       "iterative_max": 15,
       "iterative_min": 0,
       "known_water_threshold": 30,
