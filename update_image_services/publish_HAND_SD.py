@@ -29,7 +29,7 @@ for mosaic in mosaics:
     # Generate service definition from the dataset
     with tempfile.NamedTemporaryFile(suffix='.sddraft') as sd_draft:
         print(f'Generating draft service definition for {mosaic["source_dataset"]}')
-        arcpy.CreateImageSDDraft(mosaic['referenced_dataset'], sd_draft.name, mosaic['service_name'])
+        arcpy.CreateImageSDDraft(mosaic['source_dataset'], sd_draft.name, mosaic['service_name'])
 
         print(f'Generating final service definition for {mosaic["source_dataset"]}')
         arcpy.server.StageService(sd_draft.name, mosaic['service_definition'])
