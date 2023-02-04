@@ -20,7 +20,6 @@
       "hand_threshold": 15.0,
       "hand_fraction": 0.8,
       "membership_threshold": 0.45,
-      "include_flood_depth": true,
       "flood_depth_estimator": "iterative",
       "iterative_max": 15,
       "iterative_min": 0,
