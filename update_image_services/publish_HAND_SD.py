@@ -11,25 +11,17 @@
 # The service definition (.sd) files can be published using /arcgis/server/tools/admin/createservice, e.g.:
 # createservice -u <user> -p <password> -s "http://localhost/arcgis" -f ASF_S1_RGB.sd -F ASF_S1 -n ASF_S1_RGB
 
-import tempfile
+# import tempfile
 
 import arcpy
 
-geodatabase = '/home/arcgis/GLO30_HAND_221205_2153.gdb'
-mosaics = [
-    {
-        'source_dataset': f'{geodatabase}/GLO30_HAND',
-        'service_name': 'GLO30_HAND',
-        'service_definition': '/home/arcgis/GLO30_HAND/GLO30_HAND.sd',
-    },
-]
+md = '/home/arcgis/GLO30_HAND/GLO30_HAND_221205_2153.gdb/GLO30_HAND'
 
 # Format source, derived and referenced mosaic datasets for each service
-for mosaic in mosaics:
-    # Generate service definition from the dataset
-    with tempfile.NamedTemporaryFile(suffix='.sddraft') as sd_draft:
-        print(f'Generating draft service definition for {mosaic["source_dataset"]}')
-        arcpy.CreateImageSDDraft(mosaic['source_dataset'], sd_draft.name, mosaic['service_name'])
 
-        print(f'Generating final service definition for {mosaic["source_dataset"]}')
-        arcpy.server.StageService(sd_draft.name, mosaic['service_definition'])
+# Generate service definition from the dataset
+print(f'Generating draft service definition for {md}')
+arcpy.CreateImageSDDraft(md, '/home/arcgis/GLO30_HAND/GLO30_HAND.sdd', 'GLO30_HAND')
+print(f'Generating final service definition for {md}')
+arcpy.server.StageService('/home/arcgis/GLO30_HAND/GLO30_HAND.sddraft', '/home/arcgis/GLO30_HAND/GLO30_HAND.sd')
+
