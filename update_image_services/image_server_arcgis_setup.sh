@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ex
 
+/opt/arcgis/server/tools/authorizeSoftware -f ArcGISImageServer_ArcGISServer_1097915.prvc -e hjkristenson@alaska.edu
 /opt/arcgis/server/tools/authorizeSoftware -f ArcGISGISServerAdvanced_ArcGISServer_1097910.prvc -e hjkristenson@alaska.edu
 
 wget https://gisupdates.esri.com/QFE/S-1091-P-762/ArcGIS-1091-S-K1-Patch-linux.tar
