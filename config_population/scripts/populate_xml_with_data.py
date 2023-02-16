@@ -170,10 +170,17 @@ def add_source_child(root):
 if __name__ == '__main__':
 
 	# input variables needed / things to change
-	csv_file = r'C:\Users\hjkristenson\PycharmProjects\Python39test\ConfigPopulation\InputURLs\vv_COH12_urls_summer_France.txt'
+
+	# OLD VERSION
+	# csv_file = r'C:\Users\hjkristenson\PycharmProjects\Python39test\ConfigPopulation\InputURLs\vv_COH12_urls_summer_France.txt'
+	# export_bool = True
+	# xml_original_file = r'C:\Users\hjkristenson\PycharmProjects\Python39test\ConfigPopulation\ConfigFiles\COH12_VV_JJA_template_ovr.xml'
+	# new_xml_file_name = "../ConfigFiles/COH12_VV_JJA_France_ovr.xml"
+
+	csv_file = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\config_population\source_raster_lists\COH12_test_sample_urls.txt'
 	export_bool = True
-	xml_original_file = r'C:\Users\hjkristenson\PycharmProjects\Python39test\ConfigPopulation\ConfigFiles\COH12_VV_JJA_template_ovr.xml'
-	new_xml_file_name = "../ConfigFiles/COH12_VV_JJA_France_ovr.xml"
+	xml_original_file = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\config_population\config_templates\COH12_VV_JJA_template.xml'
+	new_xml_file_name = r'C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\config_population\config_templates\test_output.xml'
 
 	# read xml file
 	tree = et.parse(xml_original_file)
