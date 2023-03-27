@@ -33,16 +33,6 @@ jobs:
             config_file: data_management/hkh_watermaps.json
           - environment: Wildfires
             config_file: data_management/nm_wildfires.json
-          - environment: USDA
-            config_file: data_management/usda_china2021.json
-          - environment: USDA
-            config_file: data_management/usda_china2022.json
-          - environment: USDA
-            config_file: data_management/usda_madagascar.json
-          - environment: USDA
-            config_file: data_management/usda_pakistan.json
-          - environment: Honduras
-            config_file: data_management/sarcbc_honduras.json
 
     environment:
       name: ${{ matrix.environment }}
