@@ -2,9 +2,8 @@
     "UpdateLocation": "https://github.com/Esri/mdcs-py",
     "OnNewVersion": "Warn",
     "CheckFile": "https://imageryworkflowsversion.geocloud.com/imv/MDCS.json",
-    "VersionMessage": "Support for ArcGIS Pro 2.7.",
-    "LastChecked": "2021-10-05",
+    "VersionMessage": "Added runtime source version check support.",
     "CheckForUpdate": "Daily",
-    "CurrentVersion": "20201230",
-    "NewVersion": "20210328"
+    "CurrentVersion": "20210328",
+    "LastChecked": "2023-03-16"
 }
