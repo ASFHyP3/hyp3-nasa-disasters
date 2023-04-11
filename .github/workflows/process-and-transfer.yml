@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: mamba-org/provision-with-micromamba@v14
+      - uses: mamba-org/provision-with-micromamba@v15
         with:
           environment-file: data_management/environment.yml
           extra-specs: |
