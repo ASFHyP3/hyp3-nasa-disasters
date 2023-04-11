@@ -13,7 +13,6 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.V2_AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.V2_AWS_SECRET_ACCESS_KEY }}
   CLOUDFORMATION_ROLE_ARN: ${{ secrets.CLOUDFORMATION_ROLE_ARN }}
-  ESRI_ROOT_USER_ARN: ${{ secrets.ESRI_ROOT_USER_ARN }}
 
 jobs:
 
@@ -37,5 +36,4 @@ jobs:
             --stack-name ${STACK_NAME} \
             --template-file ${TEMPLATE_FILE} \
             --role-arn ${CLOUDFORMATION_ROLE_ARN} \
-            --capabilities CAPABILITY_IAM \
-            --parameter-overrides EsriRootUserArn="${ESRI_ROOT_USER_ARN}"
+            --capabilities CAPABILITY_IAM
