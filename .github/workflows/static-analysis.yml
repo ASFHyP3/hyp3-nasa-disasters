@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: scottbrenner/cfn-lint-action@master
+      - uses: scottbrenner/cfn-lint-action@mv2.3.0
         with:
           args: "--template cloudformation.yml"
