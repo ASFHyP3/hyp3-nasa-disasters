@@ -99,7 +99,7 @@ for bat in batfiles:
             for vb in vars_rtc:
                 print(vb, file=f)
         elif bat == 'HKH_pw.bat':
-            print(crf_rgb, file=f)
+            print(crf_pw, file=f)
             print('\nREM ---------- Using ACS File -------------------------', file=f)
             for vb in vars_pw:
                 print(vb, file=f)
