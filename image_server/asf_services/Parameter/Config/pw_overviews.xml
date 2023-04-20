@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Name>ASFs1</Name>
-  <CustomCommand>
-    <UpdateFieldsRGB>
-      <s3tag>$stag$</s3tag>
-    </UpdateFieldsRGB>
-  </CustomCommand>
   <Command>CM+AR+AF+BB+SP+CC+CV</Command>
   <Workspace>
     <WorkspacePath>md</WorkspacePath>
@@ -23,7 +18,7 @@
           <Sources>
             <data_path>C:\work_c\data</data_path>
           </Sources>
-          <filter>*_FM_iterative_PW.tif</filter>
+          <filter>*</filter>
 		  <enable_pixel_cache>#;$pixelcache$</enable_pixel_cache>
 		  <cache_location>#;$cachelocation$</cache_location>
         </AddRaster>
@@ -91,6 +86,7 @@
           </Fields>
       </Table>
       <Processes>
+      <CalculateValues></CalculateValues>
         <CalculateCellSizeranges>
           <where_clause/>
           <do_compute_min>NO_MIN_CELL_SIZES</do_compute_min>
@@ -121,7 +117,8 @@
           <simplification_method>NONE</simplification_method>
         </BuildBoundary>
         <Environment>
-          <cellSize>300</cellSize>
+          <parallelProcessingFactor>11</parallelProcessingFactor>
+          <cellSize>900</cellSize>
         </Environment>
         <BuildOverviews>
           <where_clause>#</where_clause>
