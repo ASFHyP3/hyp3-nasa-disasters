@@ -29,7 +29,7 @@ vars = [r'set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\i
         r'set acspath=C:\Users\hjkristenson\Documents\ImageServer\ImageServices\NASA_Disasters_AWS.acs''\\',
         r'set s3tag='+s3tag]
 
-crf_pw = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
+crf_pw = r'set outcrf=C:\Users\hjkristenson\Documents\ImageServer\ImageServices\NASA_Disasters_AWS.acs\esri''\\'\
          +crftag_pw+'_'+today+'.crf'
 crf_wm = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
          +crftag_wm+'_'+today+'.crf'
