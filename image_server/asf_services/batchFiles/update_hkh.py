@@ -26,7 +26,7 @@ genvars = [r'set ppath="C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py
 
 vars = [r'set gdbwks=C:\Users\hjkristenson\PycharmProjects\hyp3-nasa-disasters\image_server\asf_services\MD''\\'
         +projtag+'\\'+projtag+'_'+today+'.gdb',
-        r'set acspath=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs''\\',
+        r'set acspath=C:\Users\hjkristenson\Documents\ImageServer\ImageServices\NASA_Disasters_AWS.acs''\\',
         r'set s3tag='+s3tag]
 
 crf_pw = r'set outcrf=C:\Users\ASF\Documents\COVID19\Disasters\FloodAreas\NASA_Disasters_AWS.acs\esri''\\'\
