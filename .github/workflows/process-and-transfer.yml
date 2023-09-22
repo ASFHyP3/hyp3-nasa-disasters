@@ -38,10 +38,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: mamba-org/provision-with-micromamba@v16
+      - uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: data_management/environment.yml
-          extra-specs: |
+          create-args: >-
             python=3.9
 
       - name: Process new granules
