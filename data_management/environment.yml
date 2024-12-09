@@ -4,6 +4,6 @@ channels:
   - nodefaults
 dependencies:
   - python>=3.9
-  - asf_search==7.1.4
-  - boto3
-  - hyp3_sdk
+  - pip
+  - pip:
+    - -r requirements-data-management.txt

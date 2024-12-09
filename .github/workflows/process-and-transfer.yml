@@ -45,7 +45,6 @@ jobs:
             python=3.9
 
       - name: Process new granules
-        continue-on-error: true
         shell: bash -l {0}
         run: |
           python data_management/process_new_granules.py -y -w ${{ matrix.config_file }}
