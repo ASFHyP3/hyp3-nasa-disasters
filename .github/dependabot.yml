@@ -6,15 +6,13 @@
 version: 2
 updates:
   - package-ecosystem: pip
-    directories:
-      - "/"
-      - "/data_management"
+    directories: /
     schedule:
       interval: weekly
     labels:
       - bumpless
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: /
     schedule:
       interval: weekly
     labels:
