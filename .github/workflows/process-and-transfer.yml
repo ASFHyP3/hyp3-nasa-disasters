@@ -47,7 +47,7 @@ jobs:
       - name: Process new granules
         shell: bash -l {0}
         run: |
-          python data_management/process_new_granules.py -y -w ${{ matrix.config_file }}
+          python data_management/process_new_granules.py -y ${{ matrix.config_file }}
 
       - name: Transfer new products
         shell: bash -l {0}
