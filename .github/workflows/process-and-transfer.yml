@@ -41,8 +41,6 @@ jobs:
       - uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: data_management/environment.yml
-          create-args: >-
-            python=3.9
 
       - name: Process new granules
         shell: bash -l {0}
