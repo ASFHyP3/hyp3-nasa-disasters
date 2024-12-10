@@ -2,8 +2,8 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run every six hours, on the hour
-    - cron: '0 */6 * * *'
+    # Run every three hours, on the hour
+    - cron: '0 */3 * * *'
   workflow_dispatch:
 
 env:
