@@ -2,8 +2,8 @@ name: Process and Transfer
 
 on:
   schedule:
-    # Run every six hours, on the hour
-    - cron: '0 */6 * * *'
+    # Run every three hours, on the hour
+    - cron: '0 */3 * * *'
   workflow_dispatch:
 
 env:
@@ -41,14 +41,11 @@ jobs:
       - uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: data_management/environment.yml
-          create-args: >-
-            python=3.9
 
       - name: Process new granules
-        continue-on-error: true
         shell: bash -l {0}
         run: |
-          python data_management/process_new_granules.py -y -w ${{ matrix.config_file }}
+          python data_management/process_new_granules.py -y ${{ matrix.config_file }}
 
       - name: Transfer new products
         shell: bash -l {0}
