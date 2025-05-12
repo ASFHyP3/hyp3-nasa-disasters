@@ -1,0 +1,31 @@
+{
+  "project_name": "nm_wildfires",
+  "host": "https://hyp3-watermap.asf.alaska.edu",
+  "search_parameters": {
+    "platform": ["S1"],
+    "processingLevel": ["SLC"],
+    "beamMode": ["IW"],
+    "polarization": ["VV+VH"],
+    "start": "2022-01-01",
+    "end": "2023-04-10",
+    "intersectsWith": "POLYGON((-105.5565 35.6919,-104.896 35.6919,-104.905 36.3139,-105.4547 36.408,-105.5565 35.6919))"
+  },
+  "job_spec": {
+    "job_type": "WATER_MAP",
+    "job_parameters": {
+      "resolution": 30,
+      "speckle_filter": true,
+      "max_vv_threshold": -15.5,
+      "max_vh_threshold": -23.0,
+      "hand_threshold": 15.0,
+      "hand_fraction": 0.8,
+      "membership_threshold": 0.45
+    }
+  },
+  "transfer_spec": {
+    "target_bucket": "hyp3-nasa-disasters",
+    "target_prefix": "RTC_services",
+    "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif",  "_dem.tif", "_WM.tif", "_WM_HAND.tif"],
+    "start_date": "2022-12-13T00:00:00Z"
+  }
+}
