@@ -27,7 +27,7 @@
     }
   },
   "transfer_spec": {
-    "target_bucket": "asf-event-data",
+    "target_bucket": "hyp3-nasa-disasters",
     "target_prefix": "HKHwatermaps",
     "extensions": ["_VV.tif", "_VV.tif.xml", "_VH.tif", "_rgb.tif", "_dem.tif", "_WM.tif", "_WM_HAND.tif", "_FM_iterative_WaterDepth.tif", "_FM_iterative_FloodMask.tif", "_FM_iterative_FloodDepth.tif", "_FM_iterative_PW.tif"]
   }
