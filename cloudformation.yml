@@ -44,7 +44,6 @@ Resources:
       BucketName: !Ref AWS::StackName
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
-        LogFilePrefix: s3-access-logs/content-bucket/
         TargetObjectKeyFormat:
           PartitionedPrefix:
             PartitionDateSource: EventTime
