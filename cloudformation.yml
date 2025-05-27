@@ -45,6 +45,9 @@ Resources:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
         LogFilePrefix: s3-access-logs/content-bucket/
+        TargetObjectKeyFormat:
+          PartitionedPrefix:
+            PartitionDateSource: EventTime
       LifecycleConfiguration:
         Rules:
           - Status: Enabled
