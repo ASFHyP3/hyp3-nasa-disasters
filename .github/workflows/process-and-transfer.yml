@@ -36,9 +36,9 @@ jobs:
       EDL_PASSWORD: ${{ secrets.EARTHDATA_LOGIN_PASSWORD }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
-      - uses: mamba-org/setup-micromamba@v2
+      - uses: mamba-org/setup-micromamba@v3
         with:
           environment-file: data_management/environment.yml
 
